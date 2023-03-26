@@ -35,6 +35,7 @@
   <ItemGroup>
     <ClCompile Include="FCFS.cpp" />
     <ClCompile Include="IORequests.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Process.cpp" />
     <ClCompile Include="Processor.cpp" />
     <ClCompile Include="RR.cpp" />
