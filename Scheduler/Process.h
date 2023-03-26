@@ -12,18 +12,18 @@ private:
 	int TimesOfIO;
 	//will be set during Runtime
 
-	int TerminationTime;
+	/*int TerminationTime;
 	int TurnAroundDuration;
 	int ResponseTime;
-	int WaitingTime;
+	int WaitingTime;*/
 	
 	//////////////////////////////////////////////////
 
-	IORequests** IoRequests;// could be queue?
-	string State;
-	string Type;
+	IORequests* IoRequests;// could be queue?
+	/*string State;
+	string Type;*/
 public:
-	Process(int pid, int at, int ct, int toi, IORequests ior[]);
+	Process(int at, int pid, int ct, int toi, IORequests ior[]);
 	//Setters
 
 
@@ -34,6 +34,6 @@ public:
 	int getArrivalTime();
 	int getCPUTime();
 	int getTimesOfIO();
-	IORequests** getIORequests();
+	IORequests* getIORequests();
 };
 
