@@ -42,16 +42,16 @@
     <ClInclude Include="IORequests.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DataStructures\Node.h">
-      <Filter>DataStructures</Filter>
-    </ClInclude>
-    <ClInclude Include="DataStructures\pNode.h">
-      <Filter>DataStructures</Filter>
-    </ClInclude>
-    <ClInclude Include="DataStructures\pQueue.h">
-      <Filter>DataStructures</Filter>
-    </ClInclude>
     <ClInclude Include="Queue.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="pQueue.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="pNode.h">
       <Filter>DataStructures</Filter>
     </ClInclude>
   </ItemGroup>
