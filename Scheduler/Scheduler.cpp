@@ -9,6 +9,7 @@ void Scheduler::Read(int& NF, int& NS, int& NR, int& RR, int& RTF, int& MaxW, in
 	int N;
 	int IO_R;
 	int IO_D;
+	char temp = ' ';
 
 	ifstream fin("Input.txt", ios::in); //Creates an fstream object and opens the input file\
 
@@ -26,18 +27,20 @@ void Scheduler::Read(int& NF, int& NS, int& NR, int& RR, int& RTF, int& MaxW, in
 
 			IORequests*ior = new IORequests[N]; //there might be a memory leak in the future here (need to delete it somehow after using it)
 
-			for (int i = 0; i < N; i++)
+			for (int j = 0; j < N; j++)
 			{
-				//fin.ignore(1, '('); // ignores the opening bracket before reading the Request time
-				fin >> IO_R;
+				
+				
+				fin >>temp>> IO_R>>temp>>IO_D>>temp;
+				ior[j] = IORequests(IO_R, IO_D);
+				if (j != N - 1) 
+				{
+					fin >> temp;
+				}
+					
+				
 
-				//fin.ignore(1, ',');
-				fin >> IO_D;
-
-				//fin.ignore(1, ')');// ignores the Closing brackets after reading the Duration
-				//fin.ignore(1, ',');
-
-				ior[i] = IORequests(IO_R, IO_D);
+				
 			}
 			Process* temp = new Process(AT, pID, CT, N, ior);
 			NEW.enQueue(temp);
