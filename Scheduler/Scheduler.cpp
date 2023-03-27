@@ -9,7 +9,8 @@ void Scheduler::Read(int& NF, int& NS, int& NR, int& RR, int& RTF, int& MaxW, in
 	int N;
 	int IO_R;
 	int IO_D;
-	char temp = ' ';
+	char temp = ' '; // character used to temporarily store the brackets and commas+
+	
 
 	ifstream fin("Input.txt", ios::in); //Creates an fstream object and opens the input file\
 
@@ -27,25 +28,26 @@ void Scheduler::Read(int& NF, int& NS, int& NR, int& RR, int& RTF, int& MaxW, in
 
 			IORequests*ior = new IORequests[N]; //there might be a memory leak in the future here (need to delete it somehow after using it)
 
-			for (int j = 0; j < N; j++)
+			for (int j = 0; j < N; j++) // loops over the number of brackets containing the Values of IO_R and IO_D and extracts them
 			{
 				
 				
 				fin >>temp>> IO_R>>temp>>IO_D>>temp;
-				ior[j] = IORequests(IO_R, IO_D);
-				if (j != N - 1) 
+				ior[j] = IORequests(IO_R, IO_D); // Stores the IO_R and IO_D inside the ior array
+				if (j != N - 1) // Checks if there's a comma between the brackets
 				{
-					fin >> temp;
+					fin >> temp; //stores the brackets when needed
 				}
 					
 				
 
 				
 			}
-			Process* temp = new Process(AT, pID, CT, N, ior);
-			NEW.enQueue(temp);
+			Process* temp = new Process(AT, pID, CT, N, ior); //creates a new process after reading each line
+			NEW.enQueue(temp); //Stores each new process inside the scheduler's NEW Queue
 			
 		}
 	}
+	fin.close(); //closes the file after usage
 
 }
