@@ -4,7 +4,7 @@
 
 #include"Queue.h"
 #include"pQueue.h"
-
+#include"Processor.h"
 #include"Process.h"
 
 using namespace std;
@@ -12,9 +12,20 @@ class Scheduler
 {
 private:
 	Queue<Process*> NEW;
+	Queue<Processor*> ProcessorsList;
+	int Time;
+	int NF;
+	int NS;
+	int RR;
+	int RTF;
+	int MaxW;
+	int M;
+	int NR;
 public:
 
-
-	void Read(int& NF, int& NS, int& NR, int& RR, int& RTF, int& MaxW, int& M);
+	Scheduler();
+	void Read();
+	void Execute();
+	void Initialize();
 };
 
