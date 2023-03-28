@@ -1,6 +1,11 @@
 #include "Scheduler.h"
 
-void Scheduler::Read(int& NF, int& NS, int& NR, int& RR, int& RTF, int& MaxW, int& M)
+Scheduler::Scheduler()
+{
+	Time = 0;
+}
+
+void Scheduler::Read()
 {
 	// Variables to be used when creating new processes
 	int AT;
@@ -38,7 +43,7 @@ void Scheduler::Read(int& NF, int& NS, int& NR, int& RR, int& RTF, int& MaxW, in
 				{
 					fin >> temp; //stores the brackets when needed
 				}
-					
+				
 				
 
 				
@@ -51,3 +56,32 @@ void Scheduler::Read(int& NF, int& NS, int& NR, int& RR, int& RTF, int& MaxW, in
 	fin.close(); //closes the file after usage
 
 }
+
+void Scheduler::Execute()
+{
+	while (true)
+	{
+		
+
+
+
+
+	}
+}
+
+void Scheduler::Initialize()
+{
+	for (int i = 0; i < NR; i++)
+	{
+
+	}
+	for (int i = 0; i < NS; i++)
+	{
+
+	}
+	for (int i = 0; i < NF; i++)
+	{
+
+	}
+}
+

@@ -1,10 +1,12 @@
 #pragma once
 #include <iostream>
+#include "Process.h"
 using namespace std;
 
 class Processor
 {
-private:
+protected:
+	Process* RunningProcess;
 	string State;
 	int ExpectedFinishTime;
 public:

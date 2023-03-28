@@ -13,6 +13,8 @@ int main()
 	Schedule.Read(a, b, c, d, e, f, g);
 	cout << a;
 
+
+
 	system("pause");
 	return 0;
 }
