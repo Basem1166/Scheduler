@@ -36,6 +36,7 @@ public:
 		// Queue is not empty; remove front
 		if (nodeToDeletePtr == rear)	 // Special case: last node in the queue
 			rear = nullptr;
+		delete nodeToDeletePtr;
 		return true;
 	}
 	bool isEmpty() {

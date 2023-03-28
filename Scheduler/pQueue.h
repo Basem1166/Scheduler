@@ -51,6 +51,7 @@ public:
 		// Queue is not empty; remove front
 		if (nodeToDeletePtr == rear)	 // Special case: last node in the queue
 			rear = nullptr;
+		delete nodeToDeletePtr;
 		return true;
 	}
 	bool peek(T& item) {
@@ -65,9 +66,7 @@ public:
 		T temp;
 
 		//Free (Dequeue) all nodes in the queue
-		while (deQueue(temp)) {
-
-		}
+		while (deQueue(temp));
 	}
 	pQueue(const pQueue<T>& LQ) //COPY CONSTRUCTOR
 	{
