@@ -87,7 +87,7 @@ public:
 			//insert remaining nodes
 			while (NodePtr)
 			{
-				Node<T>* ptr = new pNode<T>(NodePtr->getItem(), NodePtr->getPrio());
+				pNode<T>* ptr = new pNode<T>(NodePtr->getItem(), NodePtr->getPrio());
 				rear->setNext(ptr);
 				rear = ptr;
 				NodePtr = NodePtr->getNext();

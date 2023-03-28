@@ -28,6 +28,7 @@ public:
 	Scheduler();
 	void Read();
 	void Execute();
-	void Initialize();
+	void InitializeProcessors();
+	~Scheduler();
 };
 

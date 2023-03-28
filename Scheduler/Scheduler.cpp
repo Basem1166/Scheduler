@@ -4,8 +4,16 @@
 #include "FCFS.h"
 Scheduler::Scheduler()
 {
+	Read();
 	Time = 0;
 	ProcessorCount = 0;
+	ProcessorsList = new Processor * [NF + NR + NS];
+	for (int i = 0; i < NF + NR + NS; i++) {
+		ProcessorsList[i] = nullptr;
+	}
+
+
+
 }
 
 void Scheduler::Read()
@@ -72,14 +80,14 @@ void Scheduler::Execute()
 	}
 }
 
-void Scheduler::Initialize()
+void Scheduler::InitializeProcessors()
 {
-	/*Processor* P;
+	Processor* P;
 	for (int i = 0; i < NR; i++)
 	{
 	    P = new RR;
-		ProcessorsList[ProcessorCount++] = P;
-
+		ProcessorsList[ProcessorCount] = P;
+		ProcessorCount++;
 	}
 	for (int i = 0; i < NS; i++)
 	{
@@ -91,6 +99,14 @@ void Scheduler::Initialize()
 	{
 		P = new FCFS;
 		ProcessorsList[ProcessorCount++] = P;
-	}*/
+	}
+}
+
+Scheduler::~Scheduler()
+{
+	for (int i = 0; i < ProcessorCount; i++) {
+		delete ProcessorsList[i];
+	}
+	delete[] ProcessorsList;
 }
 
