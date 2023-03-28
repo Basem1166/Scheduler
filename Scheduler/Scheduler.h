@@ -18,6 +18,9 @@ class Scheduler
 {
 private:
 	Queue<Process*> NEW;
+	Queue<Process*> TRM;
+	Queue<Process*> BLK;
+	Queue<Process*> ORPH;
 	Processor** ProcessorsList;
 	int ProcessorCount;
 	int Time;
@@ -38,6 +41,9 @@ public:
 	void Read();
 	void Execute();
 	void InitializeProcessors();
+	void AddtoTRM(Process*);
+	void AddtoBLK(Process*);
+	void AddtoORPH(Process*);
 	~Scheduler();
 };
 

@@ -107,6 +107,22 @@ void Scheduler::InitializeProcessors()
 	}
 }
 
+void Scheduler::AddtoTRM(Process* P)
+{
+	TRM.enQueue(P);
+ 
+}
+
+void Scheduler::AddtoBLK(Process* P)
+{
+	BLK.enQueue(P);
+}
+
+void Scheduler::AddtoORPH(Process* P)
+{
+	ORPH.enQueue(P);
+}
+
 Scheduler::~Scheduler()
 {
 	for (int i = 0; i < ProcessorCount; i++) {
