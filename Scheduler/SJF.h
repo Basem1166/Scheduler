@@ -6,7 +6,7 @@ class SJF :
     public Processor
 {
 private:
-    
+    Queue<Process*> RDY;
    
 public:
     void ScheduleAlgo();
