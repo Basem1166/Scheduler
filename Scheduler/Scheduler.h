@@ -7,6 +7,12 @@
 #include"Processor.h"
 #include"Process.h"
 
+#include "RR.h"
+#include "SJF.h"
+#include "FCFS.h"
+
+#include "SIGKILL.h"
+
 using namespace std;
 class Scheduler
 {
@@ -22,6 +28,9 @@ private:
 	int MaxW;
 	int M;
 	int NR;
+	int STL;
+	int ForkProb;
+	vector<SIGKILL> sigkill;
 
 public:
 

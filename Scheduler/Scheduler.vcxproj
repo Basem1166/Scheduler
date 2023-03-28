@@ -29,6 +29,7 @@
     <ClInclude Include="Queue.h" />
     <ClInclude Include="RR.h" />
     <ClInclude Include="Scheduler.h" />
+    <ClInclude Include="SIGKILL.h" />
     <ClInclude Include="SJF.h" />
     <ClInclude Include="UI.h" />
   </ItemGroup>

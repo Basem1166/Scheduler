@@ -1,7 +1,5 @@
 #include "Scheduler.h"
-#include "RR.h"
-#include "SJF.h"
-#include "FCFS.h"
+
 Scheduler::Scheduler()
 {
 	Read();
@@ -37,7 +35,7 @@ void Scheduler::Read()
 	}
 	else
 	{
-		fin >> NF >> NS >> NR >> TimeSliceOfRR >> RTF >> MaxW >> M; // Inputs the necessary data from the input file to the variables
+		fin >> NF >> NS >> NR >> TimeSliceOfRR >> RTF >> MaxW >>STL>>ForkProb>> M; // Inputs the necessary data from the input file to the variables
 		for (int i = 0; i < M; i++)
 		{
 			fin >> AT >> pID >> CT >> N;
@@ -47,22 +45,29 @@ void Scheduler::Read()
 			for (int j = 0; j < N; j++) // loops over the number of brackets containing the Values of IO_R and IO_D and extracts them
 			{
 				
-				
 				fin >>temp>> IO_R>>temp>>IO_D>>temp;
 				ior[j] = IORequests(IO_R, IO_D); // Stores the IO_R and IO_D inside the ior array
 				if (j != N - 1) // Checks if there's a comma between the brackets
 				{
 					fin >> temp; //stores the brackets when needed
 				}
-				
-				
 
-				
 			}
 			Process* temp = new Process(AT, pID, CT, N, ior); //creates a new process after reading each line
 			NEW.enQueue(temp); //Stores each new process inside the scheduler's NEW Queue
 			
 		}
+
+		for (int i = 0; i < 12; i++)// Ignores the Word SIGKILL TIMES 
+		{
+			fin >> temp;
+		}
+		
+		int a, b;
+		while (fin >> a >> b) { // read each integer pair until the end of the file
+			sigkill.push_back(SIGKILL(a, b)); // create a SIGKILL object and add it to the vector
+		}
+
 	}
 	fin.close(); //closes the file after usage
 

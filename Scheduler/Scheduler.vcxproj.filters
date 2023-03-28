@@ -54,6 +54,9 @@
     <ClInclude Include="pNode.h">
       <Filter>DataStructures</Filter>
     </ClInclude>
+    <ClInclude Include="SIGKILL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Scheduler.cpp">
