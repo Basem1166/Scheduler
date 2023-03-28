@@ -9,9 +9,8 @@ int main()
 {
 	Scheduler Schedule;
 
-	int a, b, c, d, e, f, g, h, i, j, k;
-	Schedule.Read(a, b, c, d, e, f, g);
-	cout << a;
+	Schedule.Read();
+	Schedule.Initialize();
 
 
 

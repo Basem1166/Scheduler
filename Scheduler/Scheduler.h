@@ -3,7 +3,7 @@
 #include<iostream>
 
 #include"Queue.h"
-#include"pQueue.h"
+
 #include"Processor.h"
 #include"Process.h"
 
@@ -12,15 +12,17 @@ class Scheduler
 {
 private:
 	Queue<Process*> NEW;
-	Queue<Processor*> ProcessorsList;
+	Processor** ProcessorsList;
+	int ProcessorCount;
 	int Time;
 	int NF;
 	int NS;
-	int RR;
+	int TimeSliceOfRR;
 	int RTF;
 	int MaxW;
 	int M;
 	int NR;
+
 public:
 
 	Scheduler();

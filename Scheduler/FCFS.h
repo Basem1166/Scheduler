@@ -3,5 +3,7 @@
 class FCFS :
     public Processor
 {
+private:
+    virtual void ScheduleAlgo();
 };
 

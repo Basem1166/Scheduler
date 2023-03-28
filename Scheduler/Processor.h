@@ -12,5 +12,6 @@ protected:
 public:
 	virtual void ScheduleAlgo() = 0;
 	void setState(string state);
+	Processor();
 };
 

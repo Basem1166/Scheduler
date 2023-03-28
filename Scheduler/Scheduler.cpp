@@ -1,8 +1,11 @@
 #include "Scheduler.h"
-
+#include "RR.h"
+#include "SJF.h"
+#include "FCFS.h"
 Scheduler::Scheduler()
 {
 	Time = 0;
+	ProcessorCount = 0;
 }
 
 void Scheduler::Read()
@@ -26,7 +29,7 @@ void Scheduler::Read()
 	}
 	else
 	{
-		fin >> NF >> NS >> NR >> RR >> RTF >> MaxW >> M; // Inputs the necessary data from the input file to the variables
+		fin >> NF >> NS >> NR >> TimeSliceOfRR >> RTF >> MaxW >> M; // Inputs the necessary data from the input file to the variables
 		for (int i = 0; i < M; i++)
 		{
 			fin >> AT >> pID >> CT >> N;
@@ -71,17 +74,23 @@ void Scheduler::Execute()
 
 void Scheduler::Initialize()
 {
+	/*Processor* P;
 	for (int i = 0; i < NR; i++)
 	{
+	    P = new RR;
+		ProcessorsList[ProcessorCount++] = P;
 
 	}
 	for (int i = 0; i < NS; i++)
 	{
+		P = new SJF;
+		ProcessorsList[ProcessorCount++] = P;
 
 	}
 	for (int i = 0; i < NF; i++)
 	{
-
-	}
+		P = new FCFS;
+		ProcessorsList[ProcessorCount++] = P;
+	}*/
 }
 
