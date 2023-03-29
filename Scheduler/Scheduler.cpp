@@ -9,7 +9,7 @@ Scheduler::Scheduler()
 	for (int i = 0; i < NF + NR + NS; i++) {
 		ProcessorsList[i] = nullptr;
 	}
-
+	InitializeProcessors();
 
 
 }
@@ -75,13 +75,34 @@ void Scheduler::Read()
 
 void Scheduler::Execute()
 {
-	while (true)
+	Process* Prc;
+	int ProcessorAddCounter = 0;
+
+	while (Time<1000)//Temporary condition to test, this is the while for every timestep , the end condition would be in this while.
 	{
-		
+		Time++;//Increments the time 
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+		//Adding the arrived Processes to the processors.
+		while (true) {
+
+			NEW.peek(Prc);
+			if (Prc->getArrivalTime() == Time)//checks to see if the process is now in its arrival time;
+			{
+				ProcessorsList[ProcessorAddCounter++]->AddToRDY(Prc);//Add To the current process
+				NEW.deQueue(Prc);//remove from new list
+				if (NEW.isEmpty())
+					break;
+			}
+			else
+			{
+				break;
+			}
+///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
-
+		}
 	}
 }
 

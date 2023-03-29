@@ -1,7 +1,7 @@
 #pragma once
 #include "Processor.h"
 #include "Process.h"
-#include "pQueue.h"
+#include "Queue.h"
 class SJF :
     public Processor
 {
@@ -10,6 +10,7 @@ private:
    
 public:
     void ScheduleAlgo();
+    virtual void AddToRDY(Process* Prc);
     
    
 };

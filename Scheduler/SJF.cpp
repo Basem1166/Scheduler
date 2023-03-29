@@ -3,3 +3,7 @@
 void SJF::ScheduleAlgo()
 {
 }
+
+void SJF::AddToRDY(Process* Prc)
+{
+}

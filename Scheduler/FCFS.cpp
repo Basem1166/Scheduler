@@ -3,3 +3,7 @@
 void FCFS::ScheduleAlgo()
 {
 }
+
+void FCFS::AddToRDY(Process* Prc)
+{
+}

@@ -11,7 +11,8 @@ protected:
 	int ExpectedFinishTime;
 public:
 	virtual void ScheduleAlgo() = 0;
-	void setState(string state);
+	virtual void setState(string state);
+	virtual void AddToRDY(Process* Prc) = 0;
 	Processor();
 };
 
