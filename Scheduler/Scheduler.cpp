@@ -89,8 +89,11 @@ void Scheduler::Execute()
 			NEW.peek(Prc);
 			if (Prc->getArrivalTime() == Time)//checks to see if the process is now in its arrival time;
 			{
-				ProcessorsList[ProcessorAddCounter++]->AddToRDY(Prc);//Add To the current process
+				ProcessorsList[ProcessorAddCounter]->AddToRDY(Prc);//Add To the current process
 				NEW.deQueue(Prc);//remove from new list
+				ProcessorAddCounter++;
+				if (ProcessorAddCounter == ProcessorCount)
+					ProcessorAddCounter = 0;
 				if (NEW.isEmpty())
 					break;
 			}
