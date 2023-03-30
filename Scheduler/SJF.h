@@ -1,12 +1,13 @@
 #pragma once
 #include "Processor.h"
 #include "Process.h"
-#include "Queue.h"
+#include "pQueue.h"
+#include "Scheduler.h"
 class SJF :
     public Processor
 {
 private:
-    Queue<Process*> RDY;
+    pQueue <Process*> RDY;
    
 public:
     void ScheduleAlgo();
