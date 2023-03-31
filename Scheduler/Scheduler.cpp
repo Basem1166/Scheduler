@@ -108,6 +108,9 @@ void Scheduler::Execute()
 		}
 	}
 }
+int Scheduler::gettime() {
+	return Time;
+}
 
 void Scheduler::InitializeProcessors()
 {

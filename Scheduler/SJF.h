@@ -4,7 +4,7 @@
 #include "pQueue.h"
 #include "Scheduler.h"
 class SJF :
-    public Processor
+    public Processor,Scheduler
 {
 private:
     pQueue <Process*> RDY;
