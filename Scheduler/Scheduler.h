@@ -38,7 +38,7 @@ private:
 public:
 
 	Scheduler();
-	int gettime();
+	void gettime(int &t);
 	void Read();
 	void Execute();
 	void InitializeProcessors();
