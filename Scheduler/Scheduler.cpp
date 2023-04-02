@@ -108,7 +108,7 @@ void Scheduler::Execute()
 		}
 	}
 }
-void Scheduler::gettime(int &t) {
+void Scheduler::getTime(int &t) {
 	t=Time;
 }
 

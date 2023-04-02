@@ -6,7 +6,7 @@ void SJF::ScheduleAlgo()
 	RDY.deQueue(Prc);
 	IORequests *i = Prc->getIORequests();
 	int Time;
-	gettime(Time);
+	getTime(Time);
 	int t=0;
 	while (Time < 1000)//Temporary condition to test, this is the while for every timestep , the end condition would be in this while.
 	{
