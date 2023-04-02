@@ -4,14 +4,16 @@
 #include "pQueue.h"
 #include "Scheduler.h"
 class SJF :
-    public Processor,Scheduler
+    public Processor
 {
 private:
     pQueue <Process*> RDY;
     int in = 0;
+    Scheduler* pScheduler;
 public:
     void ScheduleAlgo();
     virtual void AddToRDY(Process* Prc);
+    SJF(Scheduler* scheduler);
    
 };
 

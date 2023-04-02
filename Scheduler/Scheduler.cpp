@@ -108,8 +108,8 @@ void Scheduler::Execute()
 		}
 	}
 }
-void Scheduler::getTime(int &t) {
-	t=Time;
+int Scheduler::getTime() {
+	return Time;
 }
 
 void Scheduler::InitializeProcessors()
@@ -123,7 +123,7 @@ void Scheduler::InitializeProcessors()
 	}
 	for (int i = 0; i < NS; i++)
 	{
-		P = new SJF;
+		P = new SJF(this);
 		ProcessorsList[ProcessorCount++] = P;
 
 	}
