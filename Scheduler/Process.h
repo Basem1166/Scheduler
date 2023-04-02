@@ -16,6 +16,7 @@ private:
 	int TurnAroundDuration;
 	int ResponseTime;
 	int WaitingTime;
+	int TimeCounter = CPUTime;
 	
 	//////////////////////////////////////////////////
 
@@ -30,6 +31,8 @@ public:
 	void setTerminationT(int);
 	void setTRT(int);
 	void setWT(int);
+	void setRT(int);
+	void decrmntTimeCounter();
 
 	//Getters
 	int getProcessID();
@@ -37,6 +40,7 @@ public:
 	int getCPUTime();
 	int getTimesOfIO();
 	int getTerminationTime();
+	int getTimeCounter();
 	IORequests* getIORequests();
 };
 

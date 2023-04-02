@@ -14,6 +14,11 @@ int Process::getTerminationTime()
 	return TerminationTime;
 }
 
+int Process::getTimeCounter()
+{
+	return TimeCounter;
+}
+
 int Process::getProcessID()
 {
 	return ProcessID;
@@ -62,4 +67,14 @@ void Process::setTRT(int Time)
 void Process::setWT(int Time)
 {
 	WaitingTime = TurnAroundDuration - CPUTime;
+}
+
+void Process::setRT(int Time)
+{
+	ResponseTime = ArrivalTime - Time;
+}
+
+int Process::setTimeCounter(int)
+{
+	return TimeCounter;
 }
