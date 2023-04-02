@@ -9,6 +9,11 @@ Process::Process(int at, int pid, int ct, int toi, IORequests ior[])
 	IoRequests = ior;
 }
 
+int Process::getTerminationTime()
+{
+	return TerminationTime;
+}
+
 int Process::getProcessID()
 {
 	return ProcessID;
@@ -32,4 +37,29 @@ int Process::getTimesOfIO()
 IORequests* Process::getIORequests()
 {
 	return IoRequests;
+}
+
+void Process::setArrivalTime(int Time)
+{
+	ArrivalTime = Time;
+}
+
+void Process::setCPUTime(int Time)
+{
+	CPUTime = Time;
+}
+
+void Process::setTerminationT(int Time)
+{
+	TerminationTime = Time;
+}
+
+void Process::setTRT(int Time)
+{
+	TerminationTime = TerminationTime - ArrivalTime;
+}
+
+void Process::setWT(int Time)
+{
+	WaitingTime = TurnAroundDuration - CPUTime;
 }

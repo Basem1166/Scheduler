@@ -9,6 +9,7 @@ protected:
 	Process* RunningProcess;
 	string State;
 	int ExpectedFinishTime;
+	int IdleTime;
 public:
 	virtual void ScheduleAlgo() = 0;
 	virtual void setState(string state);
