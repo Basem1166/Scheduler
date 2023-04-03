@@ -5,7 +5,7 @@
 class RR :
     public Processor
 {
-    int RunningTimeSlice = pScheduler->TimeSliceOfRR();
+    int RunningTimeSlice; //to decrement it until zero so i can dequeue and requeue it into RDY
     Queue<Process*> RDY;
     Scheduler* pScheduler;
 public:

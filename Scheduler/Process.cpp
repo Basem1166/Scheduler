@@ -74,7 +74,7 @@ void Process::setRT(int Time)
 	ResponseTime = ArrivalTime - Time;
 }
 
-int Process::setTimeCounter(int)
+void Process::decrmntTimeCounter()
 {
-	return TimeCounter;
+	TimeCounter--;
 }

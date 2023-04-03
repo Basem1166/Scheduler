@@ -16,7 +16,7 @@ private:
 	int TurnAroundDuration;
 	int ResponseTime;
 	int WaitingTime;
-	int TimeCounter = CPUTime;
+	int TimeCounter = CPUTime; //to get the remaining time for each process
 	
 	//////////////////////////////////////////////////
 

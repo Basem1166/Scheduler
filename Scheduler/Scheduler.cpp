@@ -118,7 +118,7 @@ void Scheduler::InitializeProcessors()
 	Processor* P;
 	for (int i = 0; i < NR; i++)
 	{
-	    P = new RR;
+	    P = new RR(this);
 		ProcessorsList[ProcessorCount] = P;
 		ProcessorCount++;
 	}
