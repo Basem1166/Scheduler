@@ -8,7 +8,7 @@ Process* RR::ScheduleAlgo()
 		RunningTimeSlice--; //work on running process until time slice ends;
 		RunningProcess->decrmntTimeCounter();
 	}
-	if (State=="BUSY" && RunningProcess->getCPUTime() - RunningProcess->getTimeCounter() != RunningProcess->getTimesOfIO())
+	if (State=="BUSY" && RunningProcess->getCPUTime() - RunningProcess->getTimeCounter() == RunningProcess->getTimesOfIO())
 	{
 		RunningProcess->setState("BLK"); //to set the state to know which list to move the process to in the scheduler
 		return RunningProcess;
