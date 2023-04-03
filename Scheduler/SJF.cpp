@@ -1,6 +1,6 @@
 #include "SJF.h"
 
-void SJF::ScheduleAlgo()
+Process* SJF::ScheduleAlgo()
 {
 	Process* Prc;
 	RDY.deQueue(Prc);
