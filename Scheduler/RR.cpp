@@ -1,7 +1,7 @@
 #pragma once
 #include "RR.h"
 
-Process* RR::ScheduleAlgo()
+void RR::ScheduleAlgo()
 {
 	if (State == "BUSY" && RunningProcess->getCPUTime()-RunningProcess->getTimeCounter()!=RunningProcess->getTimesOfIO())  // assuming TimesOfIO is RequestTime
 	{
@@ -11,7 +11,8 @@ Process* RR::ScheduleAlgo()
 	if (State=="BUSY" && RunningProcess->getCPUTime() - RunningProcess->getTimeCounter() == RunningProcess->getTimesOfIO())
 	{
 		RunningProcess->setState("BLK"); //to set the state to know which list to move the process to in the scheduler
-		return RunningProcess;
+		pScheduler->AddtoBLK(RunningProcess);
+		State = "IDLE";
 	}
 	if (State=="BUSY" && RunningProcess->getTimeCounter() == 0)  //Terminates process if its finishes processing
 	{
@@ -19,8 +20,7 @@ Process* RR::ScheduleAlgo()
 		RunningProcess->setTRT(pScheduler->getTime() - RunningProcess->getArrivalTime());
 		State = "IDLE";
 		RunningProcess->setState("TRM"); //to set the state to know which list to move the process to in the scheduler
-		return RunningProcess;
-		
+		pScheduler->AddtoTRM(RunningProcess);
 	}
 
 	if (RunningTimeSlice == 0 && State=="BUSY") //requeue process after timeslice ends
@@ -42,8 +42,6 @@ Process* RR::ScheduleAlgo()
 	if (State == "IDLE") {
 		IdleTime++;
 	}
-	return nullptr;
-
 
 
 

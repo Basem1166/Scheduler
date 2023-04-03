@@ -7,7 +7,7 @@ class FCFS :
 private:
     Queue<Process*> RDY;
 public:
-    virtual Process* ScheduleAlgo();
+    virtual void ScheduleAlgo();
     virtual void AddToRDY(Process* Prc);
 };
 
