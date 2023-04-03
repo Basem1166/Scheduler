@@ -11,7 +11,7 @@ private:
     int in = 0;
     Scheduler* pScheduler;
 public:
-    Process* ScheduleAlgo();
+    void ScheduleAlgo();
     virtual void AddToRDY(Process* Prc);
     SJF(Scheduler* scheduler);
    
