@@ -9,7 +9,7 @@ class RR :
     Queue<Process*> RDY;
     Scheduler* pScheduler;
 public:
-    virtual void ScheduleAlgo();
+    virtual Process* ScheduleAlgo();
     virtual void AddToRDY(Process* Prc);
     RR(Scheduler*);
 

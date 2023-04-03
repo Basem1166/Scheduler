@@ -1,6 +1,6 @@
 #include "FCFS.h"
 
-void FCFS::ScheduleAlgo()
+Process* FCFS::ScheduleAlgo()
 {
 }
 

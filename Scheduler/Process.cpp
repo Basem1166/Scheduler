@@ -7,6 +7,8 @@ Process::Process(int at, int pid, int ct, int toi, IORequests ior[])
 	CPUTime = ct;
 	TimesOfIO = toi;
 	IoRequests = ior;
+	TimeCounter = ct;
+	
 }
 
 int Process::getTerminationTime()
@@ -47,6 +49,11 @@ IORequests* Process::getIORequests()
 void Process::setArrivalTime(int Time)
 {
 	ArrivalTime = Time;
+}
+
+void Process::setState(string S)
+{
+	State = S;
 }
 
 void Process::setCPUTime(int Time)

@@ -39,6 +39,7 @@ public:
 
 	Scheduler();
 	int getTime();
+	int getTimeSlice();
 	void Read();
 	void Execute();
 	void InitializeProcessors();

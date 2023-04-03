@@ -16,16 +16,17 @@ private:
 	int TurnAroundDuration;
 	int ResponseTime;
 	int WaitingTime;
-	int TimeCounter = CPUTime; //to get the remaining time for each process
+	int TimeCounter; //to get the remaining time for each process
 	
 	//////////////////////////////////////////////////
 
 	IORequests* IoRequests;// could be queue?
-	/*string State;
-	string Type;*/
+	string State;
+	string Type;
 public:
 	Process(int at, int pid, int ct, int toi, IORequests ior[]);
 	//Setters
+	void setState(string);
 	void setArrivalTime(int);
 	void setCPUTime(int);
 	void setTerminationT(int);
@@ -40,7 +41,7 @@ public:
 	int getCPUTime();
 	int getTimesOfIO();
 	int getTerminationTime();
-	int getTimeCounter();
+	int getTimeCounter(); //The timesteps remaining of running process
 	IORequests* getIORequests();
 };
 

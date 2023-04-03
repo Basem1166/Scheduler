@@ -113,6 +113,11 @@ int Scheduler::getTime() {
 	return Time;
 }
 
+int Scheduler::getTimeSlice()
+{
+	return TimeSliceOfRR;
+}
+
 void Scheduler::InitializeProcessors()
 {
 	Processor* P;

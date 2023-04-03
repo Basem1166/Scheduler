@@ -11,7 +11,7 @@ protected:
 	int ExpectedFinishTime;
 	int IdleTime; // total idle time of processor
 public:
-	virtual void ScheduleAlgo() = 0;
+	virtual Process* ScheduleAlgo() = 0;
 	virtual void setState(string state);
 	virtual void AddToRDY(Process* Prc) = 0;
 	Processor();
