@@ -14,6 +14,7 @@ public:
 	virtual void ScheduleAlgo() = 0;
 	virtual void setState(string state);
 	virtual void AddToRDY(Process* Prc) = 0;
+	virtual int generateRandomNumber();
 	Processor();
 };
 
