@@ -131,7 +131,7 @@ void Scheduler::InitializeProcessors()
 	{
 		P = new SJF(this);
 		ProcessorsList[ProcessorCount++] = P;
-
+		
 	}
 	for (int i = 0; i < NF; i++)
 	{

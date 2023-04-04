@@ -9,7 +9,6 @@ int main()
 {
 	Scheduler Schedule;
 
-	Schedule.InitializeProcessors();
 	Schedule.Execute();
 
 

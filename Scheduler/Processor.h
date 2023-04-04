@@ -2,7 +2,7 @@
 #include <iostream>
 #include "Process.h"
 using namespace std;
-
+class Scheduler;//forward declaration
 class Processor
 {
 protected:
