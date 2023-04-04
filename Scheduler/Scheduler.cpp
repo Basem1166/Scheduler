@@ -143,17 +143,20 @@ void Scheduler::InitializeProcessors()
 void Scheduler::AddtoTRM(Process* P)
 {
 	TRM.enQueue(P);
+	P->setState("TRM");
  
 }
 
 void Scheduler::AddtoBLK(Process* P)
 {
 	BLK.enQueue(P);
+	P->setState("BLK");
 }
 
 void Scheduler::AddtoORPH(Process* P)
 {
 	ORPH.enQueue(P);
+	P->setState("ORPH");
 }
 
 Scheduler::~Scheduler()

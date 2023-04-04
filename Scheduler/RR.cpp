@@ -10,7 +10,6 @@ void RR::ScheduleAlgo()
 	}
 	if (State=="BUSY" && RunningProcess->getCPUTime() - RunningProcess->getTimeCounter() == RunningProcess->getTimesOfIO())
 	{
-		RunningProcess->setState("BLK"); //to set the state to know which list to move the process to in the scheduler
 		pScheduler->AddtoBLK(RunningProcess);
 		State = "IDLE";
 	}
@@ -19,14 +18,13 @@ void RR::ScheduleAlgo()
 		RunningProcess->setTerminationT(pScheduler->getTime());
 		RunningProcess->setTRT(pScheduler->getTime() - RunningProcess->getArrivalTime());
 		State = "IDLE";
-		RunningProcess->setState("TRM"); //to set the state to know which list to move the process to in the scheduler
 		pScheduler->AddtoTRM(RunningProcess);
 	}
 
 	if (RunningTimeSlice == 0 && State=="BUSY") //requeue process after timeslice ends
 	{
-		RDY.enQueue(RunningProcess);
-		RunningProcess->setState("RDY"); //to set the state to know which list to move the process to in the scheduler
+		AddToRDY(RunningProcess);
+		 
 		State = "IDLE";
 		
 	}
@@ -52,6 +50,7 @@ void RR::ScheduleAlgo()
 void RR::AddToRDY(Process* Prc)
 {
 	RDY.enQueue(Prc);
+	Prc->setState("RDY"); //to set the state to know which list to move the process to in the scheduler
 }
 RR::RR(Scheduler* scheduler)
 {
