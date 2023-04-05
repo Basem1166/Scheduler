@@ -13,6 +13,7 @@ private:
 public:
     void ScheduleAlgo();
     virtual void AddToRDY(Process* Prc);
+    virtual void Simulate();
     SJF(Scheduler* scheduler);
    
 };

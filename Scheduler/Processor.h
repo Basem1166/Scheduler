@@ -12,6 +12,7 @@ protected:
 	int IdleTime; // total idle time of processor
 public:
 	virtual void ScheduleAlgo() = 0;
+	virtual void Simulate() = 0;
 	virtual void setState(string state);
 	virtual void AddToRDY(Process* Prc) = 0;
 	virtual int generateRandomNumber();

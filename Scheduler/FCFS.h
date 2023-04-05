@@ -8,6 +8,7 @@ private:
     Queue<Process*> RDY;
 public:
     virtual void ScheduleAlgo();
+    virtual void Simulate();
     virtual void AddToRDY(Process* Prc);
 };
 

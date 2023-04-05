@@ -30,6 +30,10 @@ void SJF::AddToRDY(Process* Prc)
 	RDY.enQueue(Prc, Prc->getCPUTime());
 }
 
+void SJF::Simulate()
+{
+}
+
 SJF::SJF(Scheduler* scheduler)
 {
 	pScheduler = scheduler;
