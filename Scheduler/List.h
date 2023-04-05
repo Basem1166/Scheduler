@@ -10,7 +10,7 @@ class LinkedList
 {
 private:
 	Node<T>* Head;	//Pointer to the head of the list
-	//You can add tail pointer too (depending on your problem)
+	Node<T>* Tail;
 public:
 
 
@@ -110,72 +110,21 @@ public:
 		return false;
 	}
 
-	//[4] DeleteFirst
-	//Deletes the first node in the list
-	void DeleteFirst() {
-		if (Head == nullptr)
-			return;
-		Node<T>* Trvrs = Head;
-		Head = Head->getNext();
-		delete Trvrs;
-	}
-
-
-	//[5] DeleteLast
-	//Deletes the last node in the list
-	void DeleteLast() {
-		if (Head == nullptr) {
-			return;
-		}
-		if (Head->getNext() == nullptr) {
-			delete Head;
-			Head = nullptr;
-		}
-		else {
-			Node<T>* Trvrs = Head;
-			while (Trvrs->getNext()->getNext()) {
-				Trvrs = Trvrs->getNext();
-			}
-			delete Trvrs->getNext();
-			Trvrs->setNext(nullptr);
-		}
-	}
-
-	//[6] DeleteNode
-	//deletes the first node with the given value (if found) and returns true
-	//if not found, returns false
-	//Note: List is not sorted
-	bool Delete(const T& value) {
-		if (Head == nullptr) {
+	bool Remove(T& item) {
+		if (isEmpty())
 			return false;
-		}
-		if (Head->getItem() == value) {
-			DeleteFirst();
-			return true;
-		}
 		Node<T>* Trvrs = Head;
 		while (Trvrs->getNext()) {
-			if (Trvrs->getNext()->getItem() == value) {
+			if (Trvrs->getNext()->getItem() == item) {
 				Node<T>* Temp = Trvrs->getNext();
+				item = Temp->getItem();
 				Trvrs->setNext(Trvrs->getNext()->getNext());
 				delete Temp;
 				return true;
 			}
 			Trvrs = Trvrs->getNext();
-		}
-		return false;
 	}
 
-	//[7] DeleteNodes
-	//deletes ALL node with the given value (if found) and returns true
-	//if not found, returns false
-	//Note: List is not sorted
-	bool DeleteAll(const T& value) {
-		bool found = Find(value);
-		while (Find(value))
-			DeleteNode(value);
-		return found;
-	}
 	bool isEmpty() {
 		if (!front)
 			return true;
