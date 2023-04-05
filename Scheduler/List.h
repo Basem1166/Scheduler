@@ -123,19 +123,20 @@ public:
 				return true;
 			}
 			Trvrs = Trvrs->getNext();
+		}
 	}
 
-	bool isEmpty() {
-		if (!front)
-			return true;
-		return false;
-	}
-	int getLength() {
-		Node<T>* Trvrs = Head;
-		int Ln = 0;
-		while (Trvrs != nullptr) {
-			Ln++;
+		bool isEmpty() {
+			if (!front)
+				return true;
+			return false;
 		}
-		return Ln;
-	}
-};
+		int getLength() {
+			Node<T>* Trvrs = Head;
+			int Ln = 0;
+			while (Trvrs != nullptr) {
+				Ln++;
+			}
+			return Ln;
+		}
+	};
