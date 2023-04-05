@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="FCFS.h" />
     <ClInclude Include="IORequests.h" />
+    <ClInclude Include="List.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="pNode.h" />
     <ClInclude Include="pQueue.h" />
