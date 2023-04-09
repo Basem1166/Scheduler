@@ -2,14 +2,14 @@
 
 Scheduler::Scheduler()
 {
-	//Read();
+	/*Read();
 	Time = 0;
 	ProcessorCount = 0;
 	ProcessorsList = new Processor * [NF + NR + NS];
 	for (int i = 0; i < NF + NR + NS; i++) {
 		ProcessorsList[i] = nullptr;
 	}
-	//InitializeProcessors();
+	InitializeProcessors();*/
 
 
 }
@@ -75,6 +75,8 @@ void Scheduler::Read()
 
 void Scheduler::Execute()
 {
+	Read();
+	InitializeProcessors();
 	Process* Prc;
 	int ProcessorAddCounter = 0;
 
@@ -121,9 +123,13 @@ int Scheduler::getTimeSlice()
 void Scheduler::Simulate()
 {
 	Read();
+	Time = 0;
+	ProcessorCount = 0;
+	ProcessorsList = new Processor * [NF + NR + NS];
+	for (int i = 0; i < NF + NR + NS; i++) {
+		ProcessorsList[i] = nullptr;
+	}
 	InitializeProcessors();
-	
-
 
 
 	Process* Prc;

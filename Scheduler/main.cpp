@@ -8,7 +8,7 @@ using namespace std;
 int main()
 {
 	Scheduler Schedule;
-
+	
 	Schedule.Simulate();
 
 
