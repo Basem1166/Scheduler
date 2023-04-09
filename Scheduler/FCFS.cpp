@@ -40,6 +40,8 @@ void FCFS::AddToRDY(Process* Prc)
 
 void FCFS::TerminateRandomProcess()
 {
+	if (RDY.isEmpty())
+		return;
 	Process* Prc;
 	srand(time(NULL)); // Seed the time
 	int RandomNumber = rand() % (RDY.getLength() + 1); // Generate the number, assign to variable.

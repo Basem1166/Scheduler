@@ -2,7 +2,7 @@
 #endif	
 #define _LINKEDLIST
 #include<iostream>
-#include "Node.h"
+
 using namespace std;
 
 template <typename T>
@@ -14,7 +14,7 @@ private:
 	
 
 
-	Node<T>* getNodeAt(int position) const
+	Node<T>* getNodeAt(int position) 
 	{
 		if (position >= 1 && position <= getLength())
 		{
@@ -39,7 +39,7 @@ public:
 	//List is being desturcted ==> delete all items in the list
 	~LinkedList()
 	{
-		DeleteAll();
+		//DeleteAll();
 	}
 	////////////////////////////////////////////////////////////////////////
 	/*
@@ -173,7 +173,7 @@ public:
 					ptr = prevPtr->getNext();
 					prevPtr->setNext(ptr->getNext());
 				}
-				returneditem = &ptr;
+				returneditem = ptr->getItem();
 				ptr->setNext(nullptr);
 				delete ptr;
 				ptr = nullptr;

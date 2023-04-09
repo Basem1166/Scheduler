@@ -120,8 +120,9 @@ int Scheduler::getTimeSlice()
 
 void Scheduler::Simulate()
 {
-	InitializeProcessors();
 	Read();
+	InitializeProcessors();
+	
 
 
 
@@ -158,7 +159,7 @@ void Scheduler::Simulate()
 			// Step iii of the simulate function
 			for (int i = 0; i < ProcessorCount; i++)
 			{
-				ProcessorsList[ProcessorCount]->Simulate();
+				ProcessorsList[i]->Simulate();
 			}
 			//////////////////////////////////////////////////////////////////////////////////////////////////////
 
