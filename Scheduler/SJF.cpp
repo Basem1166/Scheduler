@@ -32,6 +32,27 @@ void SJF::AddToRDY(Process* Prc)
 
 void SJF::Simulate()
 {
+	if (State == "IDLE" && !RDY.isEmpty()) {
+
+		RDY.deQueue(RunningProcess);
+		State = "BUSY";
+	}
+
+	if (!RunningProcess)
+		return;
+	int x = generateRandomNumber();
+	if (x >= 1 && x <= 15) {
+		pScheduler->AddtoBLK(RunningProcess);
+		State = "IDLE";
+	}
+	else if (x >= 20 && x <= 30) {
+		AddToRDY(RunningProcess);
+		State = "IDLE";
+	}
+	else if (x >= 50 && x <= 60) {
+		pScheduler->AddtoTRM(RunningProcess);
+		State = "IDLE";
+	}
 }
 
 SJF::SJF(Scheduler* scheduler)

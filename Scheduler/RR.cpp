@@ -46,6 +46,8 @@ void RR::Simulate() {
 		RDY.deQueue(RunningProcess);
 		State = "BUSY";
 	}
+	
+	if (RunningProcess) {
 		int x = generateRandomNumber();
 		if (x >= 1 && x <= 15) {
 			pScheduler->AddtoBLK(RunningProcess);
@@ -61,6 +63,7 @@ void RR::Simulate() {
 		}
 
 	}
+}
 
 void RR::AddToRDY(Process* Prc)
 {

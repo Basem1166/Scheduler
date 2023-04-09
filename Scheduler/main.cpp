@@ -8,8 +8,8 @@ using namespace std;
 int main()
 {
 	Scheduler Schedule;
-
-	Schedule.Execute();
+	
+	Schedule.Simulate();
 
 
 	system("pause");

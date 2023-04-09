@@ -2,7 +2,7 @@
 #endif	
 #define _LINKEDLIST
 #include<iostream>
-#include "Node.h"
+
 using namespace std;
 
 template <typename T>
@@ -11,6 +11,23 @@ class LinkedList
 private:
 	Node<T>* Head;	//Pointer to the head of the list
 	Node<T>* Tail;
+	
+
+
+	Node<T>* getNodeAt(int position) 
+	{
+		if (position >= 1 && position <= getLength())
+		{
+			return nullptr;
+		}
+
+		Node<T>* ptr = Head;
+		for (int i = 0; i < position; i++)
+		{
+			ptr = ptr->getNext();
+		}
+		return ptr;
+	}
 public:
 
 
@@ -22,7 +39,7 @@ public:
 	//List is being desturcted ==> delete all items in the list
 	~LinkedList()
 	{
-		DeleteAll();
+		//DeleteAll();
 	}
 	////////////////////////////////////////////////////////////////////////
 	/*
@@ -127,7 +144,7 @@ public:
 	}
 
 		bool isEmpty() {
-			if (!front)
+			if (!Head)
 				return true;
 			return false;
 		}
@@ -139,4 +156,31 @@ public:
 			}
 			return Ln;
 		}
+	
+		bool Remove(int position,T &returneditem) {
+			bool ableToremove = position >= 1 && position <= getLength();
+			if (ableToremove)
+			{
+				Node<T>* ptr = nullptr;
+				if (position==1)
+				{
+					ptr = Head;
+					Head = Head->getNext();
+				}
+				else
+				{
+					Node<T>* prevPtr = getNodeAt(position - 1);
+					ptr = prevPtr->getNext();
+					prevPtr->setNext(ptr->getNext());
+				}
+				returneditem = ptr->getItem();
+				ptr->setNext(nullptr);
+				delete ptr;
+				ptr = nullptr;
+				
+			}
+			return ableToremove;
+		}
+		
+	
 	};

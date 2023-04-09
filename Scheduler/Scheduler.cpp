@@ -2,14 +2,14 @@
 
 Scheduler::Scheduler()
 {
-	Read();
+	/*Read();
 	Time = 0;
 	ProcessorCount = 0;
 	ProcessorsList = new Processor * [NF + NR + NS];
 	for (int i = 0; i < NF + NR + NS; i++) {
 		ProcessorsList[i] = nullptr;
 	}
-	InitializeProcessors();
+	InitializeProcessors();*/
 
 
 }
@@ -75,6 +75,8 @@ void Scheduler::Read()
 
 void Scheduler::Execute()
 {
+	Read();
+	InitializeProcessors();
 	Process* Prc;
 	int ProcessorAddCounter = 0;
 
@@ -118,6 +120,92 @@ int Scheduler::getTimeSlice()
 	return TimeSliceOfRR;
 }
 
+void Scheduler::Simulate()
+{
+	Read();
+	Time = 0;
+	ProcessorCount = 0;
+	ProcessorsList = new Processor * [NF + NR + NS];
+	for (int i = 0; i < NF + NR + NS; i++) {
+		ProcessorsList[i] = nullptr;
+	}
+	InitializeProcessors();
+
+
+	Process* Prc;
+	int ProcessorAddCounter = 0;
+	int TempRandomNumber;
+
+	while (Time<1000)//Temporary condition to test, this is the while for every timestep , the end condition would be in this while.
+	{
+		Time++;//Increments the time 
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+				//Adding the arrived Processes to the processors.
+		while (true) {
+
+			NEW.peek(Prc);
+			if (Prc->getArrivalTime() == Time)//checks to see if the process is now in its arrival time;
+			{
+				ProcessorsList[ProcessorAddCounter]->AddToRDY(Prc);//Add To the current process
+				NEW.deQueue(Prc);//remove from new list
+				ProcessorAddCounter++;
+				if (ProcessorAddCounter == ProcessorCount)
+					ProcessorAddCounter = 0;
+				if (NEW.isEmpty())
+					break;
+			}
+			else
+			{
+				break;
+			}
+			///////////////////////////////////////////////////////////////////////////////////////////////////////\
+			
+ 
+			// Step iii of the simulate function
+			for (int i = 0; i < ProcessorCount; i++)
+			{
+				ProcessorsList[i]->Simulate();
+			}
+			//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+			srand(time(NULL)); // seed the random number generator with the current time
+			TempRandomNumber= rand() % 100 + 1; // generate a random number between 1 and 100
+			if (TempRandomNumber < 10 && !BLK.isEmpty()) {
+				BLK.deQueue(Prc);
+ 				ProcessorsList[ProcessorAddCounter++]->AddToRDY(Prc);
+			}
+
+			///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+			for (int i = NR+NS; i < ProcessorCount; i++)
+			{
+				ProcessorsList[i]->TerminateRandomProcess();
+			}
+
+
+
+		}
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
 void Scheduler::InitializeProcessors()
 {
 	Processor* P;
@@ -135,7 +223,7 @@ void Scheduler::InitializeProcessors()
 	}
 	for (int i = 0; i < NF; i++)
 	{
-		P = new FCFS;
+		P = new FCFS(this);
 		ProcessorsList[ProcessorCount++] = P;
 	}
 }
