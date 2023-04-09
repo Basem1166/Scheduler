@@ -173,7 +173,7 @@ void Scheduler::Simulate()
 			TempRandomNumber= rand() % 100 + 1; // generate a random number between 1 and 100
 			if (TempRandomNumber < 10 && !BLK.isEmpty()) {
 				BLK.deQueue(Prc);
-				ProcessorsList[ProcessorAddCounter++]->AddToRDY(Prc);
+ 				ProcessorsList[ProcessorAddCounter++]->AddToRDY(Prc);
 			}
 
 			///////////////////////////////////////////////////////////////////////////////////////////////////////

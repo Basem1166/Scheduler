@@ -46,6 +46,7 @@ void RR::Simulate() {
 		RDY.deQueue(RunningProcess);
 		State = "BUSY";
 	}
+	
 	if (RunningProcess) {
 		int x = generateRandomNumber();
 		if (x >= 1 && x <= 15) {

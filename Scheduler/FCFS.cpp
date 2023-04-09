@@ -17,6 +17,9 @@ void FCFS::Simulate()
 		RDY.Remove(1,RunningProcess);
 		State = "BUSY";
 	}
+	
+	if (!RunningProcess)
+		return;
 	int x = generateRandomNumber();
 	if (x >= 1 && x <= 15) {
 		pScheduler->AddtoBLK(RunningProcess);
