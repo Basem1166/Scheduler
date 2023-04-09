@@ -16,6 +16,7 @@ public:
 	virtual void setState(string state);
 	virtual void AddToRDY(Process* Prc) = 0;
 	virtual int generateRandomNumber();
+	virtual void TerminateRandomProcess();
 	Processor();
 };
 
