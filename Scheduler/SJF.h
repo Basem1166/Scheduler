@@ -14,6 +14,7 @@ public:
     void ScheduleAlgo();
     virtual void AddToRDY(Process* Prc);
     virtual void Simulate();
+    virtual void TerminateRandomProcess();
     SJF(Scheduler* scheduler);
    
 };

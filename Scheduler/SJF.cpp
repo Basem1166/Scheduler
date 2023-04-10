@@ -55,6 +55,10 @@ void SJF::Simulate()
 	}
 }
 
+void SJF::TerminateRandomProcess()
+{
+}
+
 SJF::SJF(Scheduler* scheduler)
 {
 	pScheduler = scheduler;
