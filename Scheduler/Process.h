@@ -1,6 +1,7 @@
 #pragma once
 #include "IORequests.h"
 #include <iostream>
+#include "Queue.h"
 using namespace std;
 
 class Process
@@ -20,7 +21,7 @@ private:
 	
 	//////////////////////////////////////////////////
 
-	IORequests* IoRequests;// could be queue?
+	Queue<IORequests*> IoRequests;// could be queue?
 	string State;
 	string Type;
 public:
@@ -42,6 +43,9 @@ public:
 	int getTimesOfIO();
 	int getTerminationTime();
 	int getTimeCounter(); //The timesteps remaining of running process
-	IORequests* getIORequests();
+	//IORequests* getIORequests();
+
+
+
 };
 
