@@ -6,8 +6,17 @@ class FCFS :
     public Processor
 {
 private:
+    static int NumberOfProcesses;
+    static int NumberOfMaxW;
+    static int ForkedProcesses;
+    static int KilledProcesses;
     LinkedList<Process*> RDY;
     Scheduler* pScheduler;
+    bool isChild;
+    bool isParent;
+    Process* Child;
+    int ForkProbability;
+    int MaxW;   
 public:
     FCFS(Scheduler* pSch);
     virtual void ScheduleAlgo();
