@@ -6,8 +6,14 @@ Process::Process(int at, int pid, int ct, int toi, IORequests ior[])
 	ProcessID = pid;
 	CPUTime = ct;
 	TimesOfIO = toi;
-	IoRequests = ior;
 	TimeCounter = ct;
+	IORequests* io;//temp variable to enqueue
+	for (int i = 0; i < toi; i++)
+	{
+		io = &ior[i];
+		IoRequests.enQueue(io);
+	}
+
 	
 }
 
@@ -41,10 +47,11 @@ int Process::getTimesOfIO()
 	return TimesOfIO;
 }
 
-IORequests* Process::getIORequests()
-{
-	return IoRequests;
-}
+//IORequests* Process::getIORequests()
+//{
+	//return IoRequests;
+//}
+
 
 void Process::setArrivalTime(int Time)
 {
