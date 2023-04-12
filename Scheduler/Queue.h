@@ -100,18 +100,15 @@ public:
 	{
 		T temp;
 		Queue Q(*this);
+		if (!Q.isEmpty()) {
+			Q.deQueue(temp);
+			cout << *temp;
+		}
 		while (!Q.isEmpty())
 		{
-
-			if (Q.count == 1)
 			{
 				Q.deQueue(temp);
-				cout << *temp;
-			}
-			else
-			{
-				Q.deQueue(temp);
-				cout << *temp << ", ";
+				cout << ", " << *temp;
 			}
 
 		}

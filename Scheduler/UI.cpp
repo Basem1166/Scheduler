@@ -32,12 +32,16 @@ void UI::Interface(int TimeStep, Processor** ProcessorList, int ProcessorCount, 
 	}
 
 	cout << RUNCount << " RUN: ";
-
+	bool first = true;
 	for (int i = 0; i < ProcessorCount; i++)
 	{
 		if (ProcessorList[i]->isRunning())
 		{
-			cout << *(ProcessorList[i]->getRunning()) << "(P" << i + 1 << "), ";
+			if (first) {
+				cout << *(ProcessorList[i]->getRunning()) << "(P" << i + 1 << ")";
+				first = false;
+			}
+			cout <<", "<< *(ProcessorList[i]->getRunning()) << "(P" << i + 1 << ")";
 		}
 	}
 	cout << endl;
@@ -47,5 +51,6 @@ void UI::Interface(int TimeStep, Processor** ProcessorList, int ProcessorCount, 
 	cout << TRM->getCount() << " TRM: ";
 	TRM->Print();
 	cout << endl;
+
 }
 
