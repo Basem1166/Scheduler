@@ -181,6 +181,8 @@ void Scheduler::Simulate()
 				BLK.deQueue(Prc);
  				ProcessorsList[ProcessorAddCounter]->AddToRDY(Prc);
 				ProcessorAddCounter++;
+				if (ProcessorAddCounter + 1 == ProcessorCount)
+					ProcessorAddCounter = 0;
 			}
 
 			///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -196,7 +198,8 @@ void Scheduler::Simulate()
 		UI UWU;
 		UWU.Interface(Time, ProcessorsList, ProcessorCount);
 		cout << ProcessorAddCounter;
-		system("pause");
+		//system("pause");
+		cout << Time;
 
 	}
 
