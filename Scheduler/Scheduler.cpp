@@ -197,9 +197,8 @@ void Scheduler::Simulate()
 		
 		UI UWU;
 		UWU.Interface(Time, ProcessorsList, ProcessorCount, &BLK, &TRM);
-		cout << ProcessorAddCounter;
 		system("pause");
-		cout << Time;
+		
 
 	}
 
