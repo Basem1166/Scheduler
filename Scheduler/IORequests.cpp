@@ -16,3 +16,7 @@ int IORequests::getDuration()
 {
 	return Duration;
 }
+
+
+
+

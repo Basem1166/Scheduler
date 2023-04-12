@@ -1,15 +1,16 @@
 #pragma once
-class IORequests
+struct IORequests
 {
-private:
+
 	int RequestTime;
 	int Duration;
+	int FinishedTime;// time it enters BLK + Duration 
 
-public:
 	IORequests(int RT = 0, int DT = 0);
 
 	int getRequestTime();
 	int getDuration();
+	
 
 };
 
