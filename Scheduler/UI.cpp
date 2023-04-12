@@ -15,6 +15,6 @@ void UI::Interface(int TimeStep, Processor** ProcessorList, int ProcessorCount)
 		
 		
 	}
-	cin >> y;
+
 }
 

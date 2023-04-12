@@ -25,14 +25,17 @@ void FCFS::Simulate()
 	if (x >= 1 && x <= 15) {
 		pScheduler->AddtoBLK(RunningProcess);
 		State = "IDLE";
+		RunningProcess = nullptr;
 	}
 	else if (x >= 20 && x <= 30) {
 		AddToRDY(RunningProcess);
 		State = "IDLE";
+		RunningProcess = nullptr;
 	}
 	else if (x >= 50 && x <= 60) {
 		pScheduler->AddtoTRM(RunningProcess);
 		State = "IDLE";
+		RunningProcess = nullptr;
 	}
 }
 

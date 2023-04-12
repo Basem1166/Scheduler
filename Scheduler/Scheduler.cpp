@@ -141,7 +141,7 @@ void Scheduler::Simulate()
 	int ProcessorAddCounter = 0;
 	int TempRandomNumber;
 
-	while (Time<1000)//Temporary condition to test, this is the while for every timestep , the end condition would be in this while.
+	while (TRM.getCount()!=M)//Temporary condition to test, this is the while for every timestep , the end condition would be in this while.
 	{
 		Time++;//Increments the time 
 
@@ -155,7 +155,7 @@ void Scheduler::Simulate()
 				ProcessorsList[ProcessorAddCounter]->AddToRDY(Prc);//Add To the current process
 				NEW.deQueue(Prc);//remove from new list
 				ProcessorAddCounter++;
-				if (ProcessorAddCounter == ProcessorCount)
+				if (ProcessorAddCounter+1 == ProcessorCount)
 					ProcessorAddCounter = 0;
 				if (NEW.isEmpty())
 					break;
@@ -164,6 +164,7 @@ void Scheduler::Simulate()
 			{
 				break;
 			}
+		}
 			///////////////////////////////////////////////////////////////////////////////////////////////////////\
 			
  
@@ -178,7 +179,8 @@ void Scheduler::Simulate()
 			TempRandomNumber= rand() % 100 + 1; // generate a random number between 1 and 100
 			if (TempRandomNumber < 10 && !BLK.isEmpty()) {
 				BLK.deQueue(Prc);
- 				ProcessorsList[ProcessorAddCounter++]->AddToRDY(Prc);
+ 				ProcessorsList[ProcessorAddCounter]->AddToRDY(Prc);
+				ProcessorAddCounter++;
 			}
 
 			///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -190,11 +192,11 @@ void Scheduler::Simulate()
 
 
 
-		}
+		
 		UI UWU;
 		UWU.Interface(Time, ProcessorsList, ProcessorCount);
-		
-		
+		cout << ProcessorAddCounter;
+		system("pause");
 
 	}
 
