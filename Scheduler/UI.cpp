@@ -40,6 +40,7 @@ void UI::Interface(int TimeStep, Processor** ProcessorList, int ProcessorCount, 
 			if (first) {
 				cout << *(ProcessorList[i]->getRunning()) << "(P" << i + 1 << ")";
 				first = false;
+				continue;
 			}
 			cout <<", "<< *(ProcessorList[i]->getRunning()) << "(P" << i + 1 << ")";
 		}
