@@ -23,4 +23,8 @@ Processor::Processor()
 	RunningProcess = nullptr; //?? add or is state sufficient "TO BE EDITED"
 }
 
-
+ostream& operator<<(ostream& os, const Processor& processor)
+{
+	os << "[ " << processor.Type << " ]";
+	return os;
+}

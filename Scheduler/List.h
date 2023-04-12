@@ -11,8 +11,8 @@ class LinkedList
 private:
 	Node<T>* Head;	//Pointer to the head of the list
 	Node<T>* Tail;
+	int count;
 	
-
 
 	Node<T>* getNodeAt(int position) 
 	{
@@ -34,6 +34,7 @@ public:
 	LinkedList()
 	{
 		Head = nullptr;
+		count = 0;
 	}
 
 	//List is being desturcted ==> delete all items in the list
@@ -58,6 +59,18 @@ public:
 			p = p->getNext();
 		}
 		cout << "NULL\n";
+	}
+
+	void Print()	const
+	{
+		Node<T>* p = Head;
+
+		while (p)
+		{
+			
+			cout << p->getItem()<<", ";
+			p = p->getNext();
+		}
 	}
 	////////////////////////////////////////////////////////////////////////
 	/*
@@ -181,6 +194,7 @@ public:
 			}
 			return ableToremove;
 		}
+		
 		
 	
 	};

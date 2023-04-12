@@ -5,11 +5,13 @@
 class RR :
     public Processor
 {
+    static int TimeSlice;
     static int MigrationNumber; // changes only from new->rdy
     static int NumberOfProcesses;
+    static int RTF; //makes more sense to make this a static data member too
+
+
     int RunningTimeSlice; //to decrement it until zero so i can dequeue and requeue it into RDY
-    int RTF;
-    int TimeSlice;
     Queue<Process*> RDY;
     Scheduler* pScheduler;
 public:
@@ -17,7 +19,13 @@ public:
     virtual void Simulate();
     virtual void AddToRDY(Process* Prc);
     virtual void TerminateRandomProcess();
+
+    static void setRTF(int RTF_);
+    static void setTimeSlice(int TimeSlice_);
+
+    void PrintRDY();
+    int getRDYCount();
+
     RR(Scheduler*);
 
 };
-

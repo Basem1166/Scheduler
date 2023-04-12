@@ -45,6 +45,8 @@ public:
 	int getTimeCounter(); //The timesteps remaining of running process
 	//IORequests* getIORequests();
 
+	friend ostream& operator<<(ostream& os, const Process& process);
+
 
 
 };

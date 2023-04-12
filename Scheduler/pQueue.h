@@ -5,10 +5,12 @@ class pQueue {
 private:
 	pNode<T>* front;
 	pNode<T>* rear;
+	int count;
 public:
 	pQueue() {
 		front = nullptr;
 		rear = nullptr;
+		count = 0;
 	}
 	bool isEmpty() {
 		return(front == nullptr);
@@ -19,11 +21,13 @@ public:
 		if (isEmpty()) {
 			front = temp;
 			rear = temp;
+			count++;
 			return true;
 		}
 		if (front->getPrio() >= temp->getPrio()) {
 			temp->setNext(front);
 			front = temp;
+			count++;
 			return true;
 		}
 		pNode<T>* current = front;
@@ -31,6 +35,7 @@ public:
 			if (current->getNext()->getPrio() >= temp->getPrio()) {
 				temp->setNext(current->getNext());
 				current->setNext(temp);
+				count++;
 				return true;
 			}
 			current = current->getNext();
@@ -38,6 +43,7 @@ public:
 		current->setNext(temp);
 		rear = temp;
 		rear->setNext(nullptr);
+		count++;
 		return true;
 
 	}
@@ -52,6 +58,7 @@ public:
 		if (nodeToDeletePtr == rear)	 // Special case: last node in the queue
 			rear = nullptr;
 		delete nodeToDeletePtr;
+		count--;
 		return true;
 	}
 	bool peek(T& item) {
@@ -72,6 +79,7 @@ public:
 	{
 		{
 			pNode<T>* NodePtr = LQ.front;
+			count = LQ.count;
 			if (!NodePtr) //LQ is empty
 			{
 				front = rear = nullptr;
@@ -92,5 +100,31 @@ public:
 				NodePtr = NodePtr->getNext();
 			}
 		}
+	}
+
+	void Print()
+	{
+		T temp;
+		pQueue Q(*this);
+		while (!Q.isEmpty())
+		{
+
+			if (Q.count == 1)
+			{
+				Q.deQueue(temp);
+				cout << *temp;
+			}	
+			else
+			{
+				Q.deQueue(temp);
+				cout << *temp << ", ";
+			}
+
+		}
+	}
+
+	int getCount()
+	{
+		return count;
 	}
 };

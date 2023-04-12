@@ -4,6 +4,7 @@
 FCFS::FCFS(Scheduler* pSch)
 {
 	pScheduler = pSch;
+	Type = "FCFS";
 }
 
 void FCFS::ScheduleAlgo()
@@ -54,3 +55,30 @@ void FCFS::TerminateRandomProcess()
 
 
 }
+
+void FCFS::setMaxW(int maxW)
+{
+	MaxW = maxW;
+}
+
+void FCFS::setForkProb(int Prob)
+{
+	ForkProbability = Prob;
+}
+
+void FCFS::PrintRDY()
+{
+	RDY.Print();
+}
+
+int FCFS::getRDYCount()
+{
+	return RDY.getLength();
+}
+
+int FCFS::NumberOfProcesses;
+int FCFS::NumberOfMaxW;
+int FCFS::ForkedProcesses;
+int FCFS::KilledProcesses;
+int FCFS::MaxW;
+int FCFS::ForkProbability;//makes more sense to make them a static data member too

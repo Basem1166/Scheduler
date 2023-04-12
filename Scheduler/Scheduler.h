@@ -13,6 +13,8 @@
 
 #include "SIGKILL.h"
 
+#include"UI.h"
+
 using namespace std;
 
 class Scheduler
@@ -27,13 +29,9 @@ private:
 	int Time;
 	int NF;
 	int NS;
-	int TimeSliceOfRR;
-	int RTF;
-	int MaxW;
 	int M;
 	int NR;
 	int STL;
-	int ForkProb;
 	vector<SIGKILL> sigkill;
 
 public:
@@ -48,6 +46,8 @@ public:
 	void AddtoTRM(Process*);
 	void AddtoBLK(Process*);
 	void AddtoORPH(Process*);
+
 	~Scheduler();
+
 };
 

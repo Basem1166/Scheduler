@@ -62,5 +62,16 @@ void SJF::TerminateRandomProcess()
 SJF::SJF(Scheduler* scheduler)
 {
 	pScheduler = scheduler;
+	Type = "SJF";
+}
+
+void SJF::PrintRDY()
+{
+	RDY.Print();
+}
+
+int SJF::getRDYCount()
+{
+	return RDY.getCount();
 }
 

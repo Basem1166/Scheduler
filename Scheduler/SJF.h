@@ -15,6 +15,9 @@ public:
     virtual void AddToRDY(Process* Prc);
     virtual void Simulate();
     virtual void TerminateRandomProcess();
+    void PrintRDY();
+    int getRDYCount();
+
     SJF(Scheduler* scheduler);
    
 };

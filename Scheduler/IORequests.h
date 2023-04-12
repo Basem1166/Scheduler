@@ -11,6 +11,5 @@ struct IORequests
 	int getRequestTime();
 	int getDuration();
 	
-
 };
 

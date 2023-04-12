@@ -92,3 +92,9 @@ void Process::decrmntTimeCounter()
 {
 	TimeCounter--;
 }
+
+ostream& operator<<(ostream& os, const Process& process)
+{
+	os << process.ProcessID;
+	return os;
+}

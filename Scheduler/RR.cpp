@@ -73,7 +73,34 @@ void RR::AddToRDY(Process* Prc)
 void RR::TerminateRandomProcess()
 {
 }
+
+void RR::setRTF(int RTF_)
+{
+	RTF = RTF_;
+}
+
+void RR::setTimeSlice(int TimeSlice_)
+{
+	TimeSlice = TimeSlice_;
+}
+
 RR::RR(Scheduler* scheduler)
 {
 	pScheduler = scheduler;
+	Type = "RR";
 }
+
+void RR::PrintRDY()
+{
+	RDY.Print();
+}
+
+int RR::getRDYCount()
+{
+	return RDY.getCount();
+}
+
+int RR::MigrationNumber; // changes only from new->rdy
+int RR::NumberOfProcesses;
+int RR::RTF; //makes more sense to make this a static data member too
+int RR::TimeSlice;

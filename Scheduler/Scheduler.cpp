@@ -24,6 +24,8 @@ void Scheduler::Read()
 	int IO_R;
 	int IO_D;
 	char temp = ' '; // character used to temporarily store the brackets and commas+
+
+	int RTF, MaxW, ForkProbability, TimeSliceOfRR;
 	
 
 	ifstream fin("Input.txt", ios::in); //Creates an fstream object and opens the input file\
@@ -35,7 +37,13 @@ void Scheduler::Read()
 	}
 	else
 	{
-		fin >> NF >> NS >> NR >> TimeSliceOfRR >> RTF >> MaxW >>STL>>ForkProb>> M; // Inputs the necessary data from the input file to the variables
+		fin >> NF >> NS >> NR >> TimeSliceOfRR >> RTF >> MaxW >> STL >> ForkProbability >> M; // Inputs the necessary data from the input file to the variables
+
+		RR::setRTF(RTF);
+		RR::setTimeSlice(TimeSliceOfRR);
+		FCFS::setMaxW(MaxW);
+		FCFS::setForkProb(ForkProbability); //Sets Static members necessary
+
 		for (int i = 0; i < M; i++)
 		{
 			fin >> AT >> pID >> CT >> N;
@@ -115,10 +123,7 @@ int Scheduler::getTime() {
 	return Time;
 }
 
-int Scheduler::getTimeSlice()
-{
-	return TimeSliceOfRR;
-}
+
 
 void Scheduler::Simulate()
 {
@@ -186,6 +191,10 @@ void Scheduler::Simulate()
 
 
 		}
+		UI UWU;
+		UWU.Interface(Time, ProcessorsList, ProcessorCount);
+		
+		
 
 	}
 

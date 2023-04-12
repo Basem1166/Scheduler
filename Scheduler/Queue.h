@@ -1,15 +1,18 @@
 #pragma once
 #include"Node.h"
 #include"vector"
+using namespace std;
 template<typename T>
 class Queue {
 private:
 	Node<T>* front;
 	Node<T>* rear;
+	int count; //Counter of all elements inside
 public:
 	Queue() {
 		front = nullptr;
 		rear = nullptr;
+		count = 0;
 	}
 	bool enQueue(T item) {
 		Node<T>* temp = new Node<T>(item);
@@ -24,6 +27,7 @@ public:
 
 		rear = temp;
 		rear->setNext(nullptr);
+		count++;
 		return true;
 	}
 	bool deQueue(T& item) {
@@ -37,6 +41,7 @@ public:
 		if (nodeToDeletePtr == rear)	 // Special case: last node in the queue
 			rear = nullptr;
 		delete nodeToDeletePtr;
+		count--;
 		return true;
 	}
 	bool isEmpty() {
@@ -83,6 +88,32 @@ public:
 				rear = ptr;
 				NodePtr = NodePtr->getNext();
 			}
+		}
+	}
+
+	int getCount()
+	{
+		return count;
+	}
+
+	void Print()
+	{
+		T temp;
+		Queue Q(*this);
+		while (!Q.isEmpty())
+		{
+
+			if (Q.count == 1)
+			{
+				Q.deQueue(temp);
+				cout << *temp;
+			}
+			else
+			{
+				Q.deQueue(temp);
+				cout << *temp << ", ";
+			}
+
 		}
 	}
 };
