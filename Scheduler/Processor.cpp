@@ -15,6 +15,20 @@ int Processor::generateRandomNumber()
 }
 
 
+bool Processor::isRunning()
+{
+	if(RunningProcess != nullptr)
+	{
+		return true;
+	}
+	return false;
+}
+
+Process* Processor::getRunning()
+{
+	return RunningProcess;
+}
+
 Processor::Processor()
 {
 	State = "IDLE";

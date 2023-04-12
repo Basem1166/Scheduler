@@ -24,6 +24,8 @@ public:
 	virtual int generateRandomNumber();
 	virtual void TerminateRandomProcess()=0;
 	friend ostream& operator<<(ostream& os, const Processor& processor);
+	bool isRunning();
+	Process* getRunning();
 	Processor();
 };
 
