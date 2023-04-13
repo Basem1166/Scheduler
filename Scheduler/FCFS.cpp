@@ -50,10 +50,7 @@ void FCFS::TerminateRandomProcess()
 	if (RDY.isEmpty())
 		return;
 	Process* Prc;
-	int RandomNumber = rand() % RDY.getLength()+1 ; // Generate the number, assign to variable.
-	if (RandomNumber == 2) {
-		cin >> RandomNumber;
-	}       
+	int RandomNumber = rand() % RDY.getLength()+1 ; // Generate the number, assign to variable.           
  	RDY.Remove(RandomNumber, Prc);
 	pScheduler->AddtoTRM(Prc);
 	   
