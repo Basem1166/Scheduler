@@ -16,13 +16,13 @@ private:
 
 	Node<T>* getNodeAt(int position) 
 	{
-		if (position >= 1 && position <= getLength())
+		if (!(position >= 1 && position <=  getLength()))
 		{
-			return nullptr;
+			return nullptr;                 
 		}
 
 		Node<T>* ptr = Head;
-		for (int i = 0; i < position; i++)
+		for (int i = 1 ; i < position; i++)
 		{
 			ptr = ptr->getNext();
 		}
@@ -165,6 +165,7 @@ public:
 			Node<T>* Trvrs = Head;
 			int Ln = 0;
 			while (Trvrs != nullptr) {
+				Trvrs=Trvrs->getNext();
 				Ln++;
 			}
 			return Ln;
@@ -184,7 +185,7 @@ public:
 				{
 					Node<T>* prevPtr = getNodeAt(position - 1);
 					ptr = prevPtr->getNext();
-					prevPtr->setNext(ptr->getNext());
+					prevPtr->setNext(ptr->getNext());  
 				}
 				returneditem = ptr->getItem();
 				ptr->setNext(nullptr);
