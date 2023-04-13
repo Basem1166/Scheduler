@@ -10,6 +10,7 @@ Scheduler::Scheduler()
 		ProcessorsList[i] = nullptr;
 	}
 	InitializeProcessors();*/
+	srand(time(NULL)); // seed the random number generator with the current time
 
 
 }
@@ -175,7 +176,7 @@ void Scheduler::Simulate()
 			}
 			//////////////////////////////////////////////////////////////////////////////////////////////////////
 
-			srand(time(NULL)); // seed the random number generator with the current time
+			
 			TempRandomNumber= rand() % 100 + 1; // generate a random number between 1 and 100
 			if (TempRandomNumber < 10 && !BLK.isEmpty()) {
 				BLK.deQueue(Prc);
@@ -198,6 +199,7 @@ void Scheduler::Simulate()
 		UI UWU;
 		UWU.Interface(Time, ProcessorsList, ProcessorCount, &BLK, &TRM);
 		system("pause");
+		system("cls");
 		
 
 	}

@@ -1,6 +1,5 @@
 #include "Processor.h"
-#include <cstdlib>
-#include <ctime>
+#include <random>
 
 void Processor::setState(string state)
 {
@@ -9,7 +8,7 @@ void Processor::setState(string state)
 
 int Processor::generateRandomNumber()
 {
-	srand(time(NULL)); // seed the random number generator with the current time
+	
 
 	return rand() % 100 + 1; // generate a random number between 1 and 100
 }
@@ -31,6 +30,7 @@ Process* Processor::getRunning()
 
 Processor::Processor()
 {
+	srand(time(NULL)); // seed the random number generator with the current time
 	State = "IDLE";
 	IdleTime = 0; //initializing idletime to zero
 	ExpectedFinishTime = 0;
