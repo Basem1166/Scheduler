@@ -60,6 +60,9 @@
     <ClInclude Include="List.h">
       <Filter>DataStructures</Filter>
     </ClInclude>
+    <ClInclude Include="Stack.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Scheduler.cpp">
