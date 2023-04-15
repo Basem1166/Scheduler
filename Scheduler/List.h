@@ -64,11 +64,9 @@ public:
 	void Print()	const
 	{
 		Node<T>* p = Head;
-
 		while (p)
 		{
-			
-			cout << p->getItem()<<", ";
+			cout << *(p->getItem())<<", ";
 			p = p->getNext();
 		}
 	}
