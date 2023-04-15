@@ -23,9 +23,9 @@ bool Processor::isRunning()
 	return false;
 }
 
-Process* Processor::getRunning()
+void Processor::PrintRunning()
 {
-	return RunningProcess;
+	cout<<*RunningProcess;
 }
 
 Processor::Processor()

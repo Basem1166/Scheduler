@@ -25,7 +25,7 @@ public:
 	virtual void TerminateRandomProcess(int)=0;
 	friend ostream& operator<<(ostream& os, const Processor& processor);
 	bool isRunning();
-	Process* getRunning();
+	void PrintRunning();
 	Processor();
 };
 
