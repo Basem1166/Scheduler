@@ -22,7 +22,7 @@ public:
 	virtual void PrintRDY() = 0;
 	virtual int getRDYCount() = 0;
 	virtual int generateRandomNumber();
-	virtual void TerminateRandomProcess()=0;
+	virtual void TerminateRandomProcess(int)=0;
 	friend ostream& operator<<(ostream& os, const Processor& processor);
 	bool isRunning();
 	Process* getRunning();

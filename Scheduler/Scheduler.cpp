@@ -156,7 +156,7 @@ void Scheduler::Simulate()
 				ProcessorsList[ProcessorAddCounter]->AddToRDY(Prc);//Add To the current process
 				NEW.deQueue(Prc);//remove from new list
 				ProcessorAddCounter++;
-				if (ProcessorAddCounter+1 == ProcessorCount)
+				if (ProcessorAddCounter == ProcessorCount)
 					ProcessorAddCounter = 0;
 				if (NEW.isEmpty())
 					break;
@@ -182,15 +182,16 @@ void Scheduler::Simulate()
 				BLK.deQueue(Prc);
  				ProcessorsList[ProcessorAddCounter]->AddToRDY(Prc);
 				ProcessorAddCounter++;
-				if (ProcessorAddCounter + 1 == ProcessorCount)
+				if (ProcessorAddCounter == ProcessorCount)
 					ProcessorAddCounter = 0;
 			}
 
 			///////////////////////////////////////////////////////////////////////////////////////////////////////
+			TempRandomNumber = rand() % M + 1;
 
-			for (int i = NR+NS; i < ProcessorCount; i++)
+			for (int i = NR + NS; i < ProcessorCount; i++)
 			{
-				ProcessorsList[i]->TerminateRandomProcess();
+				ProcessorsList[i]->TerminateRandomProcess(TempRandomNumber);
 			}
 
 

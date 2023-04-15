@@ -73,7 +73,7 @@ void RR::AddToRDY(Process* Prc)
 	RDY.enQueue(Prc);
 	Prc->setState("RDY"); //to set the state to know which list to move the process to in the scheduler
 }
-void RR::TerminateRandomProcess()
+void RR::TerminateRandomProcess(int randomnumber)
 {
 }
 

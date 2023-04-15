@@ -144,16 +144,26 @@ public:
 		if (isEmpty())
 			return false;
 		Node<T>* Trvrs = Head;
-		while (Trvrs->getNext()) {
-			if (Trvrs->getNext()->getItem() == item) {
-				Node<T>* Temp = Trvrs->getNext();
-				item = Temp->getItem();
-				Trvrs->setNext(Trvrs->getNext()->getNext());
-				delete Temp;
-				return true;
-			}
-			Trvrs = Trvrs->getNext();
+		if (Trvrs->getItem()==item)
+		{
+			Head = Trvrs->getNext();
+			delete Trvrs;
+			return true;
 		}
+		else
+		{
+			while (Trvrs->getNext()) {
+				if (Trvrs->getNext()->getItem() == item) {
+					Node<T>* Temp = Trvrs->getNext();
+					item = Temp->getItem();
+					Trvrs->setNext(Trvrs->getNext()->getNext());
+					delete Temp;
+					return true;
+				}
+				Trvrs = Trvrs->getNext();
+			}
+		}
+		
 	}
 
 		bool isEmpty() {
@@ -194,6 +204,18 @@ public:
 				
 			}
 			return ableToremove;
+		}
+
+		T getEntry(int position)  {
+		
+			bool abletoget = (position >= 1) && (position <= getLength());
+			if (abletoget)
+			{
+				Node<T>* ptr = getNodeAt(position);
+				return ptr->getItem();
+			}
+			return NULL;
+		
 		}
 		
 		

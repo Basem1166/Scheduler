@@ -45,14 +45,22 @@ void FCFS::AddToRDY(Process* Prc)
 
 }
 
-void FCFS::TerminateRandomProcess()
+void FCFS::TerminateRandomProcess(int randomnumber)
 {
 	if (RDY.isEmpty())
 		return;
 	Process* Prc;
-	int RandomNumber = rand() % RDY.getLength()+1 ; // Generate the number, assign to variable.                 
- 	RDY.Remove(RandomNumber, Prc);
-	pScheduler->AddtoTRM(Prc);
+	for (int i = 1; i < RDY.getLength()+1; i++)
+	{
+		if (RDY.getEntry(i)->getProcessID()==randomnumber)
+		{
+			Prc = RDY.getEntry(i);
+			pScheduler->AddtoTRM(Prc);
+  			RDY.Remove(Prc);
+			
+		}
+	}
+ 	
 	   
 
 

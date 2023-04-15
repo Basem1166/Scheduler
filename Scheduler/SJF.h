@@ -14,7 +14,7 @@ public:
     void ScheduleAlgo();
     virtual void AddToRDY(Process* Prc);
     virtual void Simulate();
-    virtual void TerminateRandomProcess();
+    virtual void TerminateRandomProcess(int);
     void PrintRDY();
     int getRDYCount();
 

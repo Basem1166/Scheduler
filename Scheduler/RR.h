@@ -18,7 +18,7 @@ public:
     virtual void ScheduleAlgo();
     virtual void Simulate();
     virtual void AddToRDY(Process* Prc);
-    virtual void TerminateRandomProcess();
+    virtual void TerminateRandomProcess(int);
 
     static void setRTF(int RTF_);
     static void setTimeSlice(int TimeSlice_);
