@@ -64,8 +64,14 @@ public:
 	void Print()	const
 	{
 		Node<T>* p = Head;
+		bool first = true;
 		while (p)
 		{
+			if (p->getNext() == nullptr)
+			{
+				cout << *(p->getItem());
+					break;      
+			}
 			cout << *(p->getItem())<<", ";
 			p = p->getNext();
 		}
