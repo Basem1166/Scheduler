@@ -59,7 +59,7 @@ public:
 	}
 	~Queue()
 	{
-		Node<T>* temp;
+		
 		T item;
 		//Free (Dequeue) all nodes in the queue
 		while (deQueue(item)) {

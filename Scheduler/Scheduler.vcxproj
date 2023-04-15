@@ -32,6 +32,7 @@
     <ClInclude Include="Scheduler.h" />
     <ClInclude Include="SIGKILL.h" />
     <ClInclude Include="SJF.h" />
+    <ClInclude Include="Stack.h" />
     <ClInclude Include="UI.h" />
   </ItemGroup>
   <ItemGroup>
