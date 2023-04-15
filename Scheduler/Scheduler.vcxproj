@@ -33,6 +33,7 @@
     <ClInclude Include="SIGKILL.h" />
     <ClInclude Include="SJF.h" />
     <ClInclude Include="Stack.h" />
+    <ClInclude Include="tree.h" />
     <ClInclude Include="UI.h" />
   </ItemGroup>
   <ItemGroup>
