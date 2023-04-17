@@ -24,6 +24,7 @@ private:
 	Queue<Process*> TRM;
 	Queue<Process*> BLK;
 	Queue<Process*> ORPH;
+	Queue<SIGKILL> sigkill;
 	Processor** ProcessorsList;
 	int ProcessorCount;
 	int Time;
@@ -32,7 +33,7 @@ private:
 	int M;
 	int NR;
 	int STL;
-	vector<SIGKILL> sigkill;
+	
 
 public:
 

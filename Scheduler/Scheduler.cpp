@@ -74,7 +74,7 @@ void Scheduler::Read()
 		
 		int a, b;
 		while (fin >> a >> b) { // read each integer pair until the end of the file
-			sigkill.push_back(SIGKILL(a, b)); // create a SIGKILL object and add it to the vector
+			sigkill.enQueue(SIGKILL(a, b)); // create a SIGKILL object and add it to the vector
 		}
 
 	}
