@@ -6,7 +6,7 @@ void UI::Interface(int TimeStep, Processor** ProcessorList, int ProcessorCount, 
 	int y;
 	cout << "Current Timestep: " << TimeStep << endl;
 	cout << "-------------  RDY processes  -------------" << endl; //Ready Processes
-	for (int i = 0; i < ProcessorCount; i++)
+	for (int i = 0; i < ProcessorCount; i++) // loops over the processor list and calls the print function in each Processor
 	{
 		RDYCount = ProcessorList[i]->getRDYCount(); // the count of processes inside the RDY queue of each processor
 		cout << "Processor " << i + 1 << " " << *ProcessorList[i] << " : "<<RDYCount<<" RDY: ";
