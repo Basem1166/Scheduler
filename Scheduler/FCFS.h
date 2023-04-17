@@ -16,9 +16,7 @@ private:
 
     LinkedList<Process*> RDY;
     Scheduler* pScheduler;
-    bool isChild;
-    bool isParent;
-    Process* Child;  
+      
 public:
     FCFS(Scheduler* pSch);
     virtual void ScheduleAlgo();

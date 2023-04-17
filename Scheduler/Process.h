@@ -18,6 +18,10 @@ private:
 	int ResponseTime;
 	int WaitingTime;
 	int TimeCounter; //to get the remaining time for each process
+	bool isChild;
+	bool isParent;
+	Process* Child;
+
 	
 	//////////////////////////////////////////////////
 
