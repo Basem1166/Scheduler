@@ -13,27 +13,28 @@ void FCFS::ScheduleAlgo()
 
 void FCFS::Simulate()
 {
-	if (State == "IDLE" && !RDY.isEmpty()) {
+	if (State == "IDLE" && !RDY.isEmpty()) //see if processor is idle and rdy is not empty 
+	{
 		
-		RDY.Remove(1,RunningProcess);
-		State = "BUSY";
+		RDY.Remove(1,RunningProcess); //remove first element of rdy 
+		State = "BUSY"; // set processor to busy
 	}
 	
-	if (!RunningProcess)
+	if (!RunningProcess) // see if processor is idle 
 		return;
-	int x = generateRandomNumber();
+	int x = generateRandomNumber(); // generate a random number 
 	if (x >= 1 && x <= 15) {
-		pScheduler->AddtoBLK(RunningProcess);
-		State = "IDLE";
+		pScheduler->AddtoBLK(RunningProcess); //add to blk 
+		State = "IDLE"; 
 		RunningProcess = nullptr;
 	}
 	else if (x >= 20 && x <= 30) {
-		AddToRDY(RunningProcess);
+		AddToRDY(RunningProcess); // add to rdy 
 		State = "IDLE";
 		RunningProcess = nullptr;
 	}
 	else if (x >= 50 && x <= 60) {
-		pScheduler->AddtoTRM(RunningProcess);
+		pScheduler->AddtoTRM(RunningProcess); // add to trm 
 		State = "IDLE";
 		RunningProcess = nullptr;
 	}
@@ -41,7 +42,7 @@ void FCFS::Simulate()
 
 void FCFS::AddToRDY(Process* Prc)
 {
-	RDY.InsertEnd(Prc);
+	RDY.InsertEnd(Prc); 
 
 }
 
@@ -50,9 +51,9 @@ void FCFS::TerminateRandomProcess(int randomnumber)
 	if (RDY.isEmpty())
 		return;
 	Process* Prc;
-	for (int i = 1; i < RDY.getLength()+1; i++)
+	for (int i = 1; i < RDY.getLength()+1; i++) // loop over rdy list 
 	{
-		if (RDY.getEntry(i)->getProcessID()==randomnumber)
+		if (RDY.getEntry(i)->getProcessID()==randomnumber) //check if random number = process ID 
 		{
 			Prc = RDY.getEntry(i);
 			pScheduler->AddtoTRM(Prc);
