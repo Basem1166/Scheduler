@@ -9,7 +9,7 @@ int main()
 {
 	Scheduler Schedule;
 	
-	Schedule.Simulate();
+	Schedule.Execute();
 
 
 	system("pause");

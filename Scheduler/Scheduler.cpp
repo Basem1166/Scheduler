@@ -2,14 +2,14 @@
 
 Scheduler::Scheduler()
 {
-	/*Read();
+	Read();
 	Time = 0;
 	ProcessorCount = 0;
 	ProcessorsList = new Processor * [NF + NR + NS];
 	for (int i = 0; i < NF + NR + NS; i++) {
 		ProcessorsList[i] = nullptr;
 	}
-	InitializeProcessors();*/
+	InitializeProcessors();
 	srand(time(NULL)); // seed the random number generator with the current time
 
 
@@ -84,41 +84,7 @@ void Scheduler::Read()
 
 void Scheduler::Execute() // not used in phase 1
 {
-	Read();
-	InitializeProcessors();
-	Process* Prc;
-	int ProcessorAddCounter = 0;
-
-	while (Time<1000)//Temporary condition to test, this is the while for every timestep , the end condition would be in this while.
-	{
-		Time++;//Increments the time 
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-		//Adding the arrived Processes to the processors.
-		while (true) {
-
-			NEW.peek(Prc);
-			if (Prc->getArrivalTime() == Time)//checks to see if the process is now in its arrival time;
-			{
-				ProcessorsList[ProcessorAddCounter]->AddToRDY(Prc);//Add To the current process
-				NEW.deQueue(Prc);//remove from new list
-				ProcessorAddCounter++;
-				if (ProcessorAddCounter == ProcessorCount)
-					ProcessorAddCounter = 0;
-				if (NEW.isEmpty())
-					break;
-			}
-			else
-			{
-				break;
-			}
-///////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-		}
-
-	}
+	
 }
 int Scheduler::getTime() {
 	return Time;
