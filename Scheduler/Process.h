@@ -41,6 +41,7 @@ public:
 	void decrmntTimeCounter();
 	IORequests* getIORequest();
 	void RemoveIORequest();
+	bool checkIORequestDurationTime();
 
 	//Getters
 	int getProcessID();

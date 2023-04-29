@@ -239,13 +239,12 @@ void Scheduler::CheckBLK()
 		return;
 	}
 
-	IORequests* iorptr = prc->getIORequest();
-	iorptr->Duration--;
-	if (iorptr->Duration==0)
+	
+	if (prc->checkIORequestDurationTime())
 	{
-		prc->RemoveIORequest();
+		//AddToShortestRDYqueue//**************************************
 	}
-	//AddToShortestRDYqueue//**************************************
+	
 	
 
 
