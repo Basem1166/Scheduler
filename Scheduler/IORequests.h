@@ -8,8 +8,7 @@ struct IORequests
 
 	IORequests(int RT = 0, int DT = 0);
 
-	int getRequestTime();
-	int getDuration();
+	
 	
 };
 

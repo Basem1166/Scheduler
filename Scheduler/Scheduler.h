@@ -47,6 +47,7 @@ public:
 	void AddtoTRM(Process*);
 	void AddtoBLK(Process*);
 	void AddtoORPH(Process*);
+	void CheckBLK();
 
 	~Scheduler();
 

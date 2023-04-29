@@ -93,6 +93,20 @@ void Process::decrmntTimeCounter()
 	TimeCounter--;
 }
 
+IORequests* Process::getIORequest()
+{
+	IORequests* iorptr;
+	IoRequests.peek(iorptr);
+	return iorptr;
+}
+
+void Process::RemoveIORequest()
+{
+	IORequests* iorptr;
+	IoRequests.deQueue(iorptr);
+	TimesOfIO--;
+}
+
 ostream& operator<<(ostream& os, const Process& process)
 {
 	os << process.ProcessID;

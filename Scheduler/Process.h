@@ -39,6 +39,8 @@ public:
 	void setWT(int);
 	void setRT(int);
 	void decrmntTimeCounter();
+	IORequests* getIORequest();
+	void RemoveIORequest();
 
 	//Getters
 	int getProcessID();
