@@ -7,15 +7,7 @@ IORequests::IORequests(int RT, int DT)
 	Duration = DT;
 }
 
-int IORequests::getRequestTime()
-{
-	return RequestTime;
-}
 
-int IORequests::getDuration()
-{
-	return Duration;
-}
 
     
 

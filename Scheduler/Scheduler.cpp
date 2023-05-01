@@ -229,6 +229,29 @@ void Scheduler::AddtoORPH(Process* P)
 	P->setState("ORPH");
 }
 
+void Scheduler::CheckBLK()
+{
+	Process* prc;
+	BLK.peek(prc);
+
+	if (BLK.isEmpty())
+	{
+		return;
+	}
+
+	
+	if (prc->checkIORequestDurationTime())
+	{
+		//AddToShortestRDYqueue//**************************************
+	}
+	
+	
+
+
+
+
+}
+
 Scheduler::~Scheduler()
 {
 	for (int i = 0; i < ProcessorCount; i++) {
