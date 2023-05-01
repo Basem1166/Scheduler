@@ -47,10 +47,10 @@ int Process::getTimesOfIO()
 	return TimesOfIO;
 }
 
-//IORequests* Process::getIORequests()
-//{
-	//return IoRequests;
-//}
+Queue<IORequests*> Process::getIORequests()
+{
+	return IoRequests;
+}
 
 
 void Process::setArrivalTime(int Time)
