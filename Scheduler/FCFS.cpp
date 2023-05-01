@@ -9,36 +9,40 @@ FCFS::FCFS(Scheduler* pSch)
 
 void FCFS::ScheduleAlgo()
 {
+	IORequests* CurrentIO = nullptr; // TO BE ABLE TO PEAK/DEQUEUE FROM THE IO QUEUE
+	if (RunningProcess != nullptr && RunningProcess->getCPUTime() - RunningProcess->getTimeCounter() != CurrentIO->RequestTime)  // assuming TimesOfIO is RequestTime
+	{
+		RunningProcess->decrmntTimeCounter();
+	}
+	if (RunningProcess != nullptr && RunningProcess->getCPUTime() - RunningProcess->getTimeCounter() == CurrentIO->RequestTime)
+	{
+		pScheduler->AddtoBLK(RunningProcess);
+		RunningProcess = nullptr;
+	}
+	if (RunningProcess && RunningProcess->getTimeCounter() == 0)  //Terminates process if its finishes processing
+	{
+		RunningProcess->setTerminationT(pScheduler->getTime());
+		RunningProcess->setTRT();
+		pScheduler->AddtoTRM(RunningProcess);
+		RunningProcess = nullptr;
+
+	}
+	if (!RunningProcess && !RDY.isEmpty())
+	{
+		RDY.Remove(1,RunningProcess);
+		RunningProcess->setState("RUN");
+		RunningProcess->setRT(pScheduler->getTime()); //need to set arrival time in execute
+		RunningProcess->getIORequests().peek(CurrentIO);
+	}
+	if (!RunningProcess) {
+		IdleTime++;
+	}
+	else {
+		BusyTime++;
+	}
 }
 
-void FCFS::Simulate()
-{
-	if (State == "IDLE" && !RDY.isEmpty()) //see if processor is idle and rdy is not empty 
-	{
-		
-		RDY.Remove(1,RunningProcess); //remove first element of rdy 
-		State = "BUSY"; // set processor to busy
-	}
-	
-	if (!RunningProcess) // see if processor is idle 
-		return;
-	int x = generateRandomNumber(); // generate a random number 
-	if (x >= 1 && x <= 15) {
-		pScheduler->AddtoBLK(RunningProcess); //add to blk 
-		State = "IDLE"; 
-		RunningProcess = nullptr;
-	}
-	else if (x >= 20 && x <= 30) {
-		AddToRDY(RunningProcess); // add to rdy 
-		State = "IDLE";
-		RunningProcess = nullptr;
-	}
-	else if (x >= 50 && x <= 60) {
-		pScheduler->AddtoTRM(RunningProcess); // add to trm 
-		State = "IDLE";
-		RunningProcess = nullptr;
-	}
-}
+void FCFS::Simulate() {}
 
 void FCFS::AddToRDY(Process* Prc)
 {

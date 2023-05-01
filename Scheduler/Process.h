@@ -34,7 +34,7 @@ public:
 	void setArrivalTime(int);
 	void setCPUTime(int);
 	void setTerminationT(int);
-	void setTRT(int);
+	void setTRT();
 	void setWT(int);
 	void setRT(int);
 	void decrmntTimeCounter();

@@ -4,12 +4,12 @@
 void RR::ScheduleAlgo()
 {
 	IORequests* CurrentIO=nullptr; // TO BE ABLE TO PEAK/DEQUEUE FROM THE IO QUEUE
-	if (!RunningProcess && RunningProcess->getCPUTime() - RunningProcess->getTimeCounter() != CurrentIO->RequestTime)  // assuming TimesOfIO is RequestTime
+	if (RunningProcess!=nullptr && RunningProcess->getCPUTime() - RunningProcess->getTimeCounter() != CurrentIO->RequestTime)  // assuming TimesOfIO is RequestTime
 	{
 		RunningTimeSlice--; //work on running process until time slice ends;
 		RunningProcess->decrmntTimeCounter();
 	}
-	if (RunningProcess && RunningProcess->getCPUTime() - RunningProcess->getTimeCounter() == CurrentIO->RequestTime)
+	if (RunningProcess!=nullptr && RunningProcess->getCPUTime() - RunningProcess->getTimeCounter() == CurrentIO->RequestTime)
 	{
 		pScheduler->AddtoBLK(RunningProcess);
 		RunningProcess = nullptr;
@@ -17,9 +17,10 @@ void RR::ScheduleAlgo()
 	if (RunningProcess && RunningProcess->getTimeCounter() == 0)  //Terminates process if its finishes processing
 	{
 		RunningProcess->setTerminationT(pScheduler->getTime());
-		RunningProcess->setTRT(pScheduler->getTime() - RunningProcess->getArrivalTime());
-		RunningProcess = nullptr;
+		RunningProcess->setTRT();
 		pScheduler->AddtoTRM(RunningProcess);
+		RunningProcess = nullptr;
+		
 	}
 
 	if (RunningTimeSlice == 0 && RunningProcess) //requeue process after timeslice ends
@@ -40,6 +41,9 @@ void RR::ScheduleAlgo()
 	}
 	if (!RunningProcess) {
 		IdleTime++;
+	}
+	else {
+		BusyTime++;
 	}
 }
 void RR::Simulate(){}

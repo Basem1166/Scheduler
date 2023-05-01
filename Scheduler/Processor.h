@@ -11,8 +11,8 @@ protected:
 	string State;
 	string Type;
 	int ExpectedFinishTime;
-	int IdleTime; // total idle time of processor
-	int BusyTime;
+	int IdleTime=0; // total idle time of processor
+	int BusyTime=0;
 	
 public:
 	virtual void ScheduleAlgo() = 0;

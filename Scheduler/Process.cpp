@@ -73,7 +73,7 @@ void Process::setTerminationT(int Time)
 	TerminationTime = Time;
 }
 
-void Process::setTRT(int Time)
+void Process::setTRT()
 {
 	TerminationTime = TerminationTime - ArrivalTime;
 }
