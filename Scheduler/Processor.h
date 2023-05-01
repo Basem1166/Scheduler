@@ -7,7 +7,7 @@ class Processor
 {
 protected:
 	static int WorkStealingProcesses;
-	Process* RunningProcess;
+	Process* RunningProcess = nullptr;
 	string State;
 	string Type;
 	int ExpectedFinishTime;

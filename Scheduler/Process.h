@@ -24,7 +24,6 @@ private:
 
 	
 	//////////////////////////////////////////////////
-
 	Queue<IORequests*> IoRequests;// could be queue?
 	string State;
 	string Type;
@@ -47,7 +46,7 @@ public:
 	int getTimesOfIO();
 	int getTerminationTime();
 	int getTimeCounter(); //The timesteps remaining of running process
-	//IORequests* getIORequests();
+	Queue<IORequests*> getIORequests();
 
 	friend ostream& operator<<(ostream& os, const Process& process);
 

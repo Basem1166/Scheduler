@@ -1,52 +1,53 @@
 #pragma once
 #include "RR.h"
 
-void RR::ScheduleAlgo() {}
-//{
-//	if (State == "BUSY" && RunningProcess->getCPUTime()-RunningProcess->getTimeCounter()!=RunningProcess->getTimesOfIO())  // assuming TimesOfIO is RequestTime
-//	{
-//		RunningTimeSlice--; //work on running process until time slice ends;
-//		RunningProcess->decrmntTimeCounter();
-//	}
-//	if (State=="BUSY" && RunningProcess->getCPUTime() - RunningProcess->getTimeCounter() == RunningProcess->getTimesOfIO())
-//	{
-//		pScheduler->AddtoBLK(RunningProcess);
-//		State = "IDLE";
-//	}
-//	if (State=="BUSY" && RunningProcess->getTimeCounter() == 0)  //Terminates process if its finishes processing
-//	{
-//		RunningProcess->setTerminationT(pScheduler->getTime());
-//		RunningProcess->setTRT(pScheduler->getTime() - RunningProcess->getArrivalTime());
-//		State = "IDLE";
-//		pScheduler->AddtoTRM(RunningProcess);
-//	}
-//
-//	if (RunningTimeSlice == 0 && State=="BUSY") //requeue process after timeslice ends
-//	{
-//		AddToRDY(RunningProcess);
-//		 
-//		State = "IDLE";
-//		
-//	}
-//
-//	if (State == "IDLE" && !RDY.isEmpty()) 
-//	{
-//		RunningTimeSlice = pScheduler->getTimeSlice();
-//		RDY.deQueue(RunningProcess);
-//		RunningProcess->setState("RUN");
-//		RunningProcess->setRT(pScheduler->getTime() - RunningProcess->getArrivalTime()); //need to set arrival time in execute
-//		State = "BUSY";
-//	}
-//	if (State == "IDLE") {
-//		IdleTime++;
-//	}
-//}
-void RR::Simulate() {
+void RR::ScheduleAlgo()
+{
+	IORequests* CurrentIO=nullptr; // TO BE ABLE TO PEAK/DEQUEUE FROM THE IO QUEUE
+	if (!RunningProcess && RunningProcess->getCPUTime() - RunningProcess->getTimeCounter() != CurrentIO->RequestTime)  // assuming TimesOfIO is RequestTime
+	{
+		RunningTimeSlice--; //work on running process until time slice ends;
+		RunningProcess->decrmntTimeCounter();
+	}
+	if (RunningProcess && RunningProcess->getCPUTime() - RunningProcess->getTimeCounter() == RunningProcess->getTimesOfIO())
+	{
+		pScheduler->AddtoBLK(RunningProcess);
+		RunningProcess = nullptr;
+	}
+	if (RunningProcess && RunningProcess->getTimeCounter() == 0)  //Terminates process if its finishes processing
+	{
+		RunningProcess->setTerminationT(pScheduler->getTime());
+		RunningProcess->setTRT(pScheduler->getTime() - RunningProcess->getArrivalTime());
+		RunningProcess = nullptr;
+		pScheduler->AddtoTRM(RunningProcess);
+	}
+
+	if (RunningTimeSlice == 0 && RunningProcess) //requeue process after timeslice ends
+	{
+		AddToRDY(RunningProcess);
+		 
+		RunningProcess = nullptr;
+		
+	}
+
+	if (!RunningProcess && !RDY.isEmpty())
+	{
+		RunningTimeSlice = pScheduler->getTimeSlice();
+		RDY.deQueue(RunningProcess);
+		RunningProcess->setState("RUN");
+		RunningProcess->setRT(pScheduler->getTime()); //need to set arrival time in execute
+		RunningProcess->getIORequests().peek(CurrentIO);
+	}
+	if (!RunningProcess) {
+		IdleTime++;
+	}
+}
+/*void RR::Simulate() {
 	if (State == "IDLE" && !RDY.isEmpty()) {
 		RDY.deQueue(RunningProcess);
 		State = "BUSY";
 	}
-	
+
 	if (RunningProcess) {
 		int x = generateRandomNumber();
 		if (x >= 1 && x <= 15) {
@@ -65,8 +66,7 @@ void RR::Simulate() {
 			RunningProcess = nullptr;
 		}
 
-	}
-}
+*/
 
 void RR::AddToRDY(Process* Prc)
 {
