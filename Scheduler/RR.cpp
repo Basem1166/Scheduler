@@ -9,7 +9,7 @@ void RR::ScheduleAlgo()
 		RunningTimeSlice--; //work on running process until time slice ends;
 		RunningProcess->decrmntTimeCounter();
 	}
-	if (RunningProcess && RunningProcess->getCPUTime() - RunningProcess->getTimeCounter() == RunningProcess->getTimesOfIO())
+	if (RunningProcess && RunningProcess->getCPUTime() - RunningProcess->getTimeCounter() == CurrentIO->RequestTime)
 	{
 		pScheduler->AddtoBLK(RunningProcess);
 		RunningProcess = nullptr;
@@ -32,7 +32,7 @@ void RR::ScheduleAlgo()
 
 	if (!RunningProcess && !RDY.isEmpty())
 	{
-		RunningTimeSlice = pScheduler->getTimeSlice();
+		RunningTimeSlice = TimeSlice;
 		RDY.deQueue(RunningProcess);
 		RunningProcess->setState("RUN");
 		RunningProcess->setRT(pScheduler->getTime()); //need to set arrival time in execute
@@ -42,31 +42,8 @@ void RR::ScheduleAlgo()
 		IdleTime++;
 	}
 }
-/*void RR::Simulate() {
-	if (State == "IDLE" && !RDY.isEmpty()) {
-		RDY.deQueue(RunningProcess);
-		State = "BUSY";
-	}
+void RR::Simulate(){}
 
-	if (RunningProcess) {
-		int x = generateRandomNumber();
-		if (x >= 1 && x <= 15) {
-			pScheduler->AddtoBLK(RunningProcess);
-			State = "IDLE";
-			RunningProcess = nullptr;
-		}
-		else if (x >= 20 && x <= 30) {
-			AddToRDY(RunningProcess);
-			State = "IDLE";
-			RunningProcess = nullptr;
-		}
-		else if (x >= 50 && x <= 60) {
-			pScheduler->AddtoTRM(RunningProcess);
-			State = "IDLE";
-			RunningProcess = nullptr;
-		}
-
-*/
 
 void RR::AddToRDY(Process* Prc)
 {
