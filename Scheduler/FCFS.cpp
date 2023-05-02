@@ -81,6 +81,11 @@ void FCFS::setForkProb(int Prob)
 	ForkProbability = Prob;
 }
 
+void FCFS::AddSigKill(SIGKILL s)
+{
+	SigKill.enQueue(s);
+}
+
 void FCFS::PrintRDY()
 {
 	RDY.Print();
@@ -97,3 +102,5 @@ int FCFS::ForkedProcesses;
 int FCFS::KilledProcesses;
 int FCFS::MaxW;
 int FCFS::ForkProbability;//makes more sense to make them a static data member too
+
+Queue<SIGKILL> FCFS::SigKill;

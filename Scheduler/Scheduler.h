@@ -24,7 +24,6 @@ private:
 	Queue<Process*> TRM;
 	Queue<Process*> BLK;
 	Queue<Process*> ORPH;
-	Queue<SIGKILL> sigkill;
 	Processor** ProcessorsList;
 	int ProcessorCount;
 	int Time;
