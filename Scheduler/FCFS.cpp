@@ -10,8 +10,8 @@ FCFS::FCFS(Scheduler* pSch)
 void FCFS::ScheduleAlgo()
 {
 	IORequests* CurrentIO = nullptr; // TO BE ABLE TO PEAK/DEQUEUE FROM THE IO QUEUE
-	int willRemove = pScheduler->SigKill();
-	TerminateProcess(willRemove); //checks for sig kill
+	int pID = pScheduler->SigKill();
+	TerminateProcess(pID); //checks for sig kill
 	if (RunningProcess != nullptr && RunningProcess->getCPUTime() - RunningProcess->getTimeCounter() != CurrentIO->RequestTime)  // assuming TimesOfIO is RequestTime
 	{
 		RunningProcess->decrmntTimeCounter();
