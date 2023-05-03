@@ -221,7 +221,5 @@ public:
 			return NULL;
 		
 		}
-		
-		
 	
 	};

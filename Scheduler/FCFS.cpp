@@ -10,6 +10,8 @@ FCFS::FCFS(Scheduler* pSch)
 void FCFS::ScheduleAlgo()
 {
 	IORequests* CurrentIO = nullptr; // TO BE ABLE TO PEAK/DEQUEUE FROM THE IO QUEUE
+	int willRemove = pScheduler->SigKill();
+	TerminateProcess(willRemove); //checks for sig kill
 	if (RunningProcess != nullptr && RunningProcess->getCPUTime() - RunningProcess->getTimeCounter() != CurrentIO->RequestTime)  // assuming TimesOfIO is RequestTime
 	{
 		RunningProcess->decrmntTimeCounter();
@@ -50,14 +52,20 @@ void FCFS::AddToRDY(Process* Prc)
 
 }
 
-void FCFS::TerminateRandomProcess(int randomnumber)
+void FCFS::TerminateProcess(int pID)
 {
+	if (pID == -1)
+		return;
+	if (pID == RunningProcess->getProcessID()) {
+		pScheduler->AddtoTRM(RunningProcess);
+		RunningProcess = nullptr;
+	}
 	if (RDY.isEmpty())
 		return;
 	Process* Prc;
 	for (int i = 1; i < RDY.getLength()+1; i++) // loop over rdy list 
 	{
-		if (RDY.getEntry(i)->getProcessID()==randomnumber) //check if random number = process ID 
+		if (RDY.getEntry(i)->getProcessID()==pID) //check if random number = process ID 
 		{
 			Prc = RDY.getEntry(i);
 			pScheduler->AddtoTRM(Prc);

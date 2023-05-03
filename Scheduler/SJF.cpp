@@ -58,7 +58,7 @@ void SJF::Simulate()
 	}
 }
 
-void SJF::TerminateRandomProcess(int randomnumber)
+void SJF::TerminateProcess(int randomnumber)
 {
 }
 

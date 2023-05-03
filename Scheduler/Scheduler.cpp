@@ -90,7 +90,15 @@ int Scheduler::getTime() {
 	return Time;
 }
 
-
+int Scheduler::SigKill() {
+	SIGKILL Signal;
+	sigkill.peek(Signal);
+	if (getTime() == Signal.Time) {
+		sigkill.deQueue(Signal);
+		return Signal.pID;
+	}
+	return 0;
+}
 
 void Scheduler::Simulate()
 {
@@ -157,7 +165,7 @@ void Scheduler::Simulate()
 
 			for (int i = NR + NS; i < ProcessorCount; i++)
 			{
-				ProcessorsList[i]->TerminateRandomProcess(TempRandomNumber);
+				ProcessorsList[i]->TerminateProcess(TempRandomNumber);
 			}
 
 
