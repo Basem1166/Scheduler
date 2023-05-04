@@ -90,8 +90,6 @@ int Scheduler::getTime() {
 	return Time;
 }
 
-
-
 void Scheduler::Simulate()
 {
 	Read();
@@ -208,6 +206,18 @@ void Scheduler::InitializeProcessors()
 		P = new FCFS(this);
 		ProcessorsList[ProcessorCount++] = P;
 	}
+}
+
+void Scheduler::AddtoRDY(Process* P) {
+	int min=1000; //minumum count
+	int c;//index which min is at
+	for (int i = 0; i < ProcessorCount; i++) {
+		if (ProcessorsList[i]->getRDYCount() < min) {
+			min = ProcessorsList[i]->getRDYCount(); //set min as the  count
+			c = i;  //set index
+		}
+	}
+	ProcessorsList[c]->AddToRDY(P);
 }
 
 void Scheduler::AddtoTRM(Process* P)
