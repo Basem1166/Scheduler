@@ -84,7 +84,49 @@ void Scheduler::Read()
 
 void Scheduler::Execute() // not used in phase 1
 {
-	
+
+	Process* Prc;
+	int TempRandomNumber;
+
+	while (TRM.getCount() != M)//Temporary condition to test, this is the while for every timestep , the end condition would be in this while.
+	{
+		Time++;//Increments the time 
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+				//Adding the arrived Processes to the processors.
+		while (true) {
+
+			NEW.peek(Prc);
+			if (Prc->getArrivalTime() == Time)//checks to see if the process is now in its arrival time;
+			{
+				//ProcessorsList[ProcessorAddCounter]->AddToRDY(Prc);//Add To the current process
+				NEW.deQueue(Prc);//remove from new list
+				
+				if (NEW.isEmpty())
+					break;
+			}
+			else
+			{
+				break;
+			}
+		}
+		///////////////////////////////////////////////////////////////////////////////////////////////////////\
+			
+
+			
+
+		
+
+
+
+
+		UI UWU;
+		UWU.Interface(Time, ProcessorsList, ProcessorCount, &BLK, &TRM);
+		system("pause");
+		system("cls");
+
+
+	}
 }
 int Scheduler::getTime() {
 	return Time;
