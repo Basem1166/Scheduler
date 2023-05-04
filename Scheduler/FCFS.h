@@ -26,6 +26,7 @@ public:
 
     void PrintRDY();
     int getRDYCount();
+    int getReadyWaitTime(); //Used in the migration from FCFS to RR
 
     static void setMaxW(int maxW);
     static void setForkProb(int Prob);

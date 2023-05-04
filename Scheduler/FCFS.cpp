@@ -27,9 +27,15 @@ void FCFS::ScheduleAlgo()
 		RunningProcess = nullptr;
 
 	}
-	if (!RunningProcess && !RDY.isEmpty())
+	while (!RunningProcess && !RDY.isEmpty())
 	{
 		RDY.Remove(1,RunningProcess);
+		if (RunningProcess->getCPUTime()+ getReadyWaitTime() > MaxW) // check if it should migrate or not
+		{
+			// call migrate function of the scheduler (will probably pass the Running process to it)
+			RunningProcess = nullptr;
+			continue;
+		}
 		RunningProcess->setState("RUN");
 		RunningProcess->setRT(pScheduler->getTime()); //need to set arrival time in execute
 		RunningProcess->getIORequests().peek(CurrentIO);
@@ -89,6 +95,19 @@ void FCFS::PrintRDY()
 int FCFS::getRDYCount()
 {
 	return RDY.getLength();
+}
+
+int FCFS::getReadyWaitTime()
+{
+	Process* P;
+	int count = getRDYCount(), Wait = 0;
+	for (int i = 1; i <= count; i++)
+	{
+		P = RDY.getEntry(i);
+		Wait += P->getCPUTime();
+	}
+	
+	return Wait;
 }
 
 int FCFS::NumberOfProcesses;
