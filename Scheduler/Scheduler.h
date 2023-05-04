@@ -47,7 +47,11 @@ public:
 	void AddtoBLK(Process*);
 	void AddtoORPH(Process*);
 	void CheckBLK();
+
+	void AddtoRDY(Process*);
+
 	int SigKill();
+
 
 	~Scheduler();
 
