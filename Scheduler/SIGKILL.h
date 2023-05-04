@@ -1,6 +1,5 @@
 #pragma once
-class SIGKILL {
-public:
+struct SIGKILL {
     int Time, pID;
 
     // constructor
