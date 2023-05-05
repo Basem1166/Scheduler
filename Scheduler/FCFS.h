@@ -29,6 +29,8 @@ public:
     virtual void addfinishtime(Process* Prc); //function to add the cpu time
     virtual int getfinishtime();
 
+    int getReadyWaitTime();
+
     static void setMaxW(int maxW);
     static void setForkProb(int Prob);
 };

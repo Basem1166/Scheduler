@@ -31,10 +31,18 @@ void RR::ScheduleAlgo()
 		
 	}
 
-	if (!RunningProcess && !RDY.isEmpty())
+	while (!RunningProcess && !RDY.isEmpty())
 	{
 		RunningTimeSlice = TimeSlice;
 		RDY.deQueue(RunningProcess);
+
+		if (RunningProcess->getTimeCounter() < RTF) // check if it should migrate or not
+		{
+			// call migrate function of the scheduler (will probably pass the Running process to it)
+			RunningProcess = nullptr;
+			continue;
+		}
+
 		RunningProcess->setState("RUN");
 		RunningProcess->setRT(pScheduler->getTime()); //need to set arrival time in execute
 		RunningProcess->getIORequests().peek(CurrentIO);
