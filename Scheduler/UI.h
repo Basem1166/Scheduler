@@ -4,7 +4,11 @@
 class UI
 {
 public:
-	void Interface(int TimeStep, Processor** ProcessorList, int ProcessorCount, Queue<Process*>* BLK, Queue<Process*>* TRM);
+	void Interface(int TimeStep, Processor** ProcessorList, int ProcessorCount, Queue<Process*>* BLK, Queue<Process*>* TRM, int mode);
+
+	int Mode();
+
+	void Output();
 
 };
 

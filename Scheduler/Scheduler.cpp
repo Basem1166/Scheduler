@@ -121,7 +121,7 @@ void Scheduler::Execute() // not used in phase 1
 
 
 		UI UWU;
-		UWU.Interface(Time, ProcessorsList, ProcessorCount, &BLK, &TRM);
+		UWU.Interface(Time, ProcessorsList, ProcessorCount, &BLK, &TRM, UWU.Mode());
 		system("pause");
 		system("cls");
 
