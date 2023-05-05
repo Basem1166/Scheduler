@@ -15,6 +15,7 @@ public:
     virtual void AddToRDY(Process* Prc);
     virtual void Simulate();
     virtual void TerminateProcess(int);
+    virtual Process* StealProcess();
     void PrintRDY();
     int getRDYCount();
     virtual void addfinishtime(Process* Prc); //function to add the cpu time

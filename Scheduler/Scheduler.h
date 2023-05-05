@@ -47,7 +47,9 @@ public:
 	void AddtoBLK(Process*);
 	void AddtoORPH(Process*);
 	void CheckBLK();
-
+	void WorkSteal();
+	int getShortestFinishTime();
+	int getLongestFinishTime();
 	void AddtoRDY(Process*);
 
 	int SigKill();

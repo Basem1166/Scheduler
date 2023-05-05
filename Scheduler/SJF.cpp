@@ -62,6 +62,14 @@ void SJF::TerminateProcess(int randomnumber)
 {
 }
 
+Process* SJF::StealProcess()
+{
+	Process* prc;
+	RDY.deQueue(prc);
+	ExpectedFinishTime -= prc->getCPUTime();
+	return prc;
+}
+
 SJF::SJF(Scheduler* scheduler)
 {
 	pScheduler = scheduler;

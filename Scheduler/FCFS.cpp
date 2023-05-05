@@ -79,6 +79,18 @@ void FCFS::TerminateProcess(int pID)
 
 }
 
+Process* FCFS::StealProcess()
+{
+	Process* prc;
+	RDY.Remove(1, prc);
+	ExpectedFinishTime -= prc->getCPUTime();
+	return prc;
+	
+	
+}
+
+
+
 void FCFS::setMaxW(int maxW)
 {
 	MaxW = maxW;
