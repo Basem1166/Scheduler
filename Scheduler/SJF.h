@@ -18,6 +18,7 @@ public:
     virtual Process* StealProcess();
     void PrintRDY();
     int getRDYCount();
+    string getType();
     virtual void addfinishtime(Process* Prc); //function to add the cpu time
     virtual int getfinishtime();
     SJF(Scheduler* scheduler);

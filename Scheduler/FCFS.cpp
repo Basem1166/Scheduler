@@ -148,6 +148,11 @@ int FCFS::getReadyWaitTime()
 	return Wait;
 }
 
+string FCFS::getType()
+{
+	return Type;
+}
+
 int FCFS::NumberOfProcesses;
 int FCFS::NumberOfMaxW;
 int FCFS::ForkedProcesses;

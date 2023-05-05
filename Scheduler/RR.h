@@ -25,6 +25,7 @@ public:
     static void setTimeSlice(int TimeSlice_);
 
     void PrintRDY();
+    string getType();
     int getRDYCount();
     virtual void addfinishtime(Process* Prc); //function to add the cpu time
     virtual int getfinishtime();
