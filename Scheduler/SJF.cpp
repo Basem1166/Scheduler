@@ -58,7 +58,7 @@ void SJF::Simulate()
 	}
 }
 
-void SJF::TerminateRandomProcess(int randomnumber)
+void SJF::TerminateProcess(int randomnumber)
 {
 }
 
@@ -78,3 +78,10 @@ int SJF::getRDYCount()
 	return RDY.getCount();
 }
 
+void SJF::addfinishtime(Process* Prc) {
+	ExpectedFinishTime += (Prc->getCPUTime());
+}
+
+int SJF::getfinishtime() {
+	return ExpectedFinishTime;
+}

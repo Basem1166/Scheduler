@@ -62,7 +62,7 @@ void RR::AddToRDY(Process* Prc)
 	RDY.enQueue(Prc);
 	Prc->setState("RDY"); //to set the state to know which list to move the process to in the scheduler
 }
-void RR::TerminateRandomProcess(int randomnumber)
+void RR::TerminateProcess(int randomnumber)
 {
 }
 
@@ -90,6 +90,14 @@ void RR::PrintRDY()
 int RR::getRDYCount()
 {
 	return RDY.getCount();
+}
+
+void RR::addfinishtime(Process* Prc) {
+	ExpectedFinishTime += (Prc->getCPUTime());
+}
+
+int RR::getfinishtime() {
+	return ExpectedFinishTime;
 }
 
 int RR::MigrationNumber; // changes only from new->rdy

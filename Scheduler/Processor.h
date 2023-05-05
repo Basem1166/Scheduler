@@ -21,8 +21,10 @@ public:
 	virtual void AddToRDY(Process* Prc) = 0;
 	virtual void PrintRDY() = 0;
 	virtual int getRDYCount() = 0;
+	virtual void addfinishtime(Process* Prc) = 0;
+	virtual int getfinishtime() = 0;
 	virtual int generateRandomNumber();
-	virtual void TerminateRandomProcess(int)=0;
+	virtual void TerminateProcess(int)=0;
 	friend ostream& operator<<(ostream& os, const Processor& processor);
 	bool isRunning();
 	void PrintRunning();

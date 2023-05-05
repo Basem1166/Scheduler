@@ -22,11 +22,13 @@ public:
     virtual void ScheduleAlgo();
     virtual void Simulate();
     virtual void AddToRDY(Process* Prc);
-    virtual void TerminateRandomProcess(int);
+    virtual void TerminateProcess(int);
 
     void PrintRDY();
     int getRDYCount();
     int getReadyWaitTime(); //Used in the migration from FCFS to RR
+    virtual void addfinishtime(Process* Prc); //function to add the cpu time
+    virtual int getfinishtime();
 
     static void setMaxW(int maxW);
     static void setForkProb(int Prob);

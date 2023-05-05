@@ -84,12 +84,64 @@ void Scheduler::Read()
 
 void Scheduler::Execute() // not used in phase 1
 {
-	
+
+	Process* Prc;
+	int TempRandomNumber;
+
+	while (TRM.getCount() != M)//Temporary condition to test, this is the while for every timestep , the end condition would be in this while.
+	{
+		Time++;//Increments the time 
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+				//Adding the arrived Processes to the processors.
+		while (true) {
+
+			NEW.peek(Prc);
+			if (Prc->getArrivalTime() == Time)//checks to see if the process is now in its arrival time;
+			{
+				//ProcessorsList[ProcessorAddCounter]->AddToRDY(Prc);//Add To the current process
+				NEW.deQueue(Prc);//remove from new list
+				
+				if (NEW.isEmpty())
+					break;
+			}
+			else
+			{
+				break;
+			}
+		}
+		///////////////////////////////////////////////////////////////////////////////////////////////////////\
+			
+
+			
+
+		
+
+
+
+
+		UI UWU;
+		UWU.Interface(Time, ProcessorsList, ProcessorCount, &BLK, &TRM);
+		system("pause");
+		system("cls");
+
+
+	}
 }
 int Scheduler::getTime() {
 	return Time;
 }
 
+
+int Scheduler::SigKill() {
+	SIGKILL Signal;
+	sigkill.peek(Signal);
+	if (getTime() == Signal.Time) {
+		sigkill.deQueue(Signal);
+		return Signal.pID;
+	}
+	return 0;
+}
 
 
 void Scheduler::Simulate()
@@ -119,7 +171,7 @@ void Scheduler::Simulate()
 			NEW.peek(Prc);
 			if (Prc->getArrivalTime() == Time)//checks to see if the process is now in its arrival time;
 			{
-				ProcessorsList[ProcessorAddCounter]->AddToRDY(Prc);//Add To the current process
+				AddtoRDY(Prc); //Add To the current process
 				NEW.deQueue(Prc);//remove from new list
 				ProcessorAddCounter++;
 				if (ProcessorAddCounter == ProcessorCount)
@@ -157,7 +209,7 @@ void Scheduler::Simulate()
 
 			for (int i = NR + NS; i < ProcessorCount; i++)
 			{
-				ProcessorsList[i]->TerminateRandomProcess(TempRandomNumber);
+				ProcessorsList[i]->TerminateProcess(TempRandomNumber);
 			}
 
 
@@ -208,6 +260,19 @@ void Scheduler::InitializeProcessors()
 		P = new FCFS(this);
 		ProcessorsList[ProcessorCount++] = P;
 	}
+}
+
+void Scheduler::AddtoRDY(Process* P) {
+	int min = 10000; //minumum cputime
+	int c;//index which min is at
+	for (int i = 0; i < ProcessorCount; i++) {
+		if (ProcessorsList[i]->getfinishtime() < min) {
+			min = ProcessorsList[i]->getfinishtime(); //set min as the  count
+			c = i;  //set index
+		}
+	}
+	ProcessorsList[c]->AddToRDY(P);
+	ProcessorsList[c]->addfinishtime(P);
 }
 
 void Scheduler::AddtoTRM(Process* P)
