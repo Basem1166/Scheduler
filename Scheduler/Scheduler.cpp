@@ -99,7 +99,7 @@ void Scheduler::Execute() // not used in phase 1
 			NEW.peek(Prc);
 			if (Prc->getArrivalTime() == Time)//checks to see if the process is now in its arrival time;
 			{
-				//ProcessorsList[ProcessorAddCounter]->AddToRDY(Prc);//Add To the current process
+				AddtoRDY(Prc);
 				NEW.deQueue(Prc);//remove from new list
 				
 				if (NEW.isEmpty())
