@@ -66,6 +66,15 @@ void RR::TerminateProcess(int randomnumber)
 {
 }
 
+Process* RR::StealProcess()
+{
+	Process* prc;
+	RDY.deQueue(prc);
+	ExpectedFinishTime -= prc->getCPUTime();
+	return prc;
+
+}
+
 void RR::setRTF(int RTF_)
 {
 	RTF = RTF_;

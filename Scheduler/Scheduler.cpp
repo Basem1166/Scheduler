@@ -99,7 +99,7 @@ void Scheduler::Execute() // not used in phase 1
 			NEW.peek(Prc);
 			if (Prc->getArrivalTime() == Time)//checks to see if the process is now in its arrival time;
 			{
-				//ProcessorsList[ProcessorAddCounter]->AddToRDY(Prc);//Add To the current process
+				AddtoRDY(Prc);
 				NEW.deQueue(Prc);//remove from new list
 				
 				if (NEW.isEmpty())
@@ -110,7 +110,7 @@ void Scheduler::Execute() // not used in phase 1
 				break;
 			}
 		}
-		///////////////////////////////////////////////////////////////////////////////////////////////////////\
+		
 			
 
 			
@@ -261,8 +261,7 @@ void Scheduler::InitializeProcessors()
 		ProcessorsList[ProcessorCount++] = P;
 	}
 }
-
-void Scheduler::AddtoRDY(Process* P) {
+int Scheduler::getShortestFinishTime() {
 	int min = 10000; //minumum cputime
 	int c;//index which min is at
 	for (int i = 0; i < ProcessorCount; i++) {
@@ -271,6 +270,22 @@ void Scheduler::AddtoRDY(Process* P) {
 			c = i;  //set index
 		}
 	}
+	return c;
+}
+int Scheduler::getLongestFinishTime() {
+	int max = 0; //minumum cputime
+	int c;//index which min is at
+	for (int i = 0; i < ProcessorCount; i++) {
+		if (ProcessorsList[i]->getfinishtime() > max) {
+			max = ProcessorsList[i]->getfinishtime(); //set max as the  count
+			c = i;  //set index
+		}
+	}
+	return c;
+}
+
+void Scheduler::AddtoRDY(Process* P) {
+	int c = getShortestFinishTime();
 	ProcessorsList[c]->AddToRDY(P);
 	ProcessorsList[c]->addfinishtime(P);
 }
@@ -318,6 +333,25 @@ void Scheduler::CheckBLK()
 	
 
 
+
+
+}
+
+void Scheduler::WorkSteal()
+{
+	int shortestIndex = getShortestFinishTime();
+	int longestIndex = getLongestFinishTime();
+	
+	int StealLimit = (ProcessorsList[longestIndex]->getfinishtime() - ProcessorsList[shortestIndex]->getfinishtime()) / ProcessorsList[longestIndex]->getfinishtime();
+
+	while (StealLimit > 0.4)
+	{
+		
+		AddtoRDY(ProcessorsList[longestIndex]->StealProcess());
+		StealLimit = (ProcessorsList[longestIndex]->getfinishtime() - ProcessorsList[shortestIndex]->getfinishtime()) / ProcessorsList[longestIndex]->getfinishtime();
+	}
+	
+	
 
 
 }

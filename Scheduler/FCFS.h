@@ -23,6 +23,8 @@ public:
     virtual void Simulate();
     virtual void AddToRDY(Process* Prc);
     virtual void TerminateProcess(int);
+    virtual Process* StealProcess();
+  
 
     void PrintRDY();
     int getRDYCount();

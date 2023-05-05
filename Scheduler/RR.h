@@ -19,6 +19,7 @@ public:
     virtual void Simulate();
     virtual void AddToRDY(Process* Prc);
     virtual void TerminateProcess(int);
+    virtual Process* StealProcess();
 
     static void setRTF(int RTF_);
     static void setTimeSlice(int TimeSlice_);

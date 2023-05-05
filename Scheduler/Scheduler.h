@@ -48,9 +48,16 @@ public:
 	void AddtoORPH(Process*);
 	void CheckBLK();
 
-	void AddtoRDY(Process*, int mode=0);
+	void WorkSteal();
+	int getShortestFinishTime();
+	int getLongestFinishTime();
+	void AddtoRDY(Process*);
+
+
+
 
 	void Migrate(Process* P, int mode);
+
 
 	int SigKill();
 
