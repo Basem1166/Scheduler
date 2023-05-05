@@ -41,7 +41,7 @@ public:
 	IORequests* getIORequest();
 	void RemoveIORequest();
 	bool checkIORequestDurationTime();
-
+	bool ischild();
 	//Getters
 	int getProcessID();
 	int getArrivalTime();

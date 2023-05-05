@@ -120,6 +120,11 @@ bool Process::checkIORequestDurationTime()
 	return false;
 }
 
+bool Process::ischild()
+{
+	return isChild;
+}
+
 ostream& operator<<(ostream& os, const Process& process)
 {
 	os << process.ProcessID;

@@ -88,9 +88,19 @@ void FCFS::TerminateProcess(int pID)
 Process* FCFS::StealProcess()
 {
 	Process* prc;
-	RDY.Remove(1, prc);
-	ExpectedFinishTime -= prc->getCPUTime();
-	return prc;
+	prc = RDY.getEntry(1);
+	if (prc->ischild())
+	{
+		RDY.Remove(1, prc);
+		ExpectedFinishTime -= prc->getCPUTime();
+		WorkStealingProcesses++;
+		return prc;
+	}
+	else
+	{
+		return nullptr;
+	}
+	
 	
 	
 }
