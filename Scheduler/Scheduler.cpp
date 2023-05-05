@@ -307,17 +307,15 @@ int Scheduler::getLongestFinishTime() {
 	return c;
 }
 
-void Scheduler::AddtoRDY(Process* P) {
-	int c = getShortestFinishTime();
+void Scheduler::AddtoRDY(Process* P, int mode) {
+	int c = getShortestFinishTime(mode);
 	ProcessorsList[c]->AddToRDY(P);
 	ProcessorsList[c]->addfinishtime(P);
 }
 
 void Scheduler::Migrate(Process* P, int mode)
 {
-	int c = getShortestFinishTime(mode);
-	ProcessorsList[c]->AddToRDY(P);
-	ProcessorsList[c]->addfinishtime(P);
+	AddtoRDY(P, mode);
 }
 
 void Scheduler::AddtoTRM(Process* P)

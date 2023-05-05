@@ -51,7 +51,7 @@ public:
 	void WorkSteal();
 	int getShortestFinishTime(int mode =0);
 	int getLongestFinishTime();
-	void AddtoRDY(Process*);
+	void AddtoRDY(Process*, int mode=0);
 
 
 
