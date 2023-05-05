@@ -40,5 +40,6 @@ Processor::Processor()
 ostream& operator<<(ostream& os, const Processor& processor)
 {
 	os << "[ " << processor.Type << " ]";
-	return os;
-}
+	return os;}
+
+int Processor::WorkStealingProcesses=0;

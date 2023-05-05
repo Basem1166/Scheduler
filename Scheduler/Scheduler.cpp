@@ -322,7 +322,7 @@ void Scheduler::CheckBLK()
 	
 	if (prc->checkIORequestDurationTime())
 	{
-		//AddToShortestRDYqueue//**************************************
+		AddtoRDY(prc);
 	}
 	
 	
@@ -335,14 +335,24 @@ void Scheduler::CheckBLK()
 void Scheduler::WorkSteal()
 {
 	int shortestIndex = getShortestFinishTime();
-	int longestIndex = getLongestFinishTime();
+	int longestIndex = getLongestFinishTime();	
 	
 	int StealLimit = (ProcessorsList[longestIndex]->getfinishtime() - ProcessorsList[shortestIndex]->getfinishtime()) / ProcessorsList[longestIndex]->getfinishtime();
 
 	while (StealLimit > 0.4)
 	{
+		Process* prc = ProcessorsList[longestIndex]->StealProcess();
+		if (prc)
+		{
+			AddtoRDY(prc);
+		}
+		else
+		{
+			break;
+		}
 		
-		AddtoRDY(ProcessorsList[longestIndex]->StealProcess());
+		shortestIndex = getShortestFinishTime();
+		longestIndex = getLongestFinishTime();
 		StealLimit = (ProcessorsList[longestIndex]->getfinishtime() - ProcessorsList[shortestIndex]->getfinishtime()) / ProcessorsList[longestIndex]->getfinishtime();
 	}
 	
