@@ -99,6 +99,14 @@ int FCFS::getRDYCount()
 	return RDY.getLength();
 }
 
+void FCFS::addfinishtime(Process* Prc) {
+	ExpectedFinishTime += (Prc->getCPUTime());
+}
+
+int FCFS::getfinishtime() {
+	return ExpectedFinishTime;
+}
+
 int FCFS::NumberOfProcesses;
 int FCFS::NumberOfMaxW;
 int FCFS::ForkedProcesses;

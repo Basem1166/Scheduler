@@ -171,7 +171,7 @@ void Scheduler::Simulate()
 			NEW.peek(Prc);
 			if (Prc->getArrivalTime() == Time)//checks to see if the process is now in its arrival time;
 			{
-				ProcessorsList[ProcessorAddCounter]->AddToRDY(Prc);//Add To the current process
+				AddtoRDY(Prc); //Add To the current process
 				NEW.deQueue(Prc);//remove from new list
 				ProcessorAddCounter++;
 				if (ProcessorAddCounter == ProcessorCount)
@@ -263,15 +263,16 @@ void Scheduler::InitializeProcessors()
 }
 
 void Scheduler::AddtoRDY(Process* P) {
-	int min=1000; //minumum count
+	int min = 10000; //minumum cputime
 	int c;//index which min is at
 	for (int i = 0; i < ProcessorCount; i++) {
-		if (ProcessorsList[i]->getRDYCount() < min) {
-			min = ProcessorsList[i]->getRDYCount(); //set min as the  count
+		if (ProcessorsList[i]->getfinishtime() < min) {
+			min = ProcessorsList[i]->getfinishtime(); //set min as the  count
 			c = i;  //set index
 		}
 	}
 	ProcessorsList[c]->AddToRDY(P);
+	ProcessorsList[c]->addfinishtime(P);
 }
 
 void Scheduler::AddtoTRM(Process* P)

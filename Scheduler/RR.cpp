@@ -84,6 +84,14 @@ int RR::getRDYCount()
 	return RDY.getCount();
 }
 
+void RR::addfinishtime(Process* Prc) {
+	ExpectedFinishTime += (Prc->getCPUTime());
+}
+
+int RR::getfinishtime() {
+	return ExpectedFinishTime;
+}
+
 int RR::MigrationNumber; // changes only from new->rdy
 int RR::NumberOfProcesses;
 int RR::RTF; //makes more sense to make this a static data member too
