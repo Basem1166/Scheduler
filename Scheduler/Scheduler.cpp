@@ -110,9 +110,16 @@ void Scheduler::Execute() // not used in phase 1
 				break;
 			}
 		}
-		///////////////////////////////////////////////////////////////////////////////////////////////////////\
-			
-
+		if (Time%STL==0)
+		{
+			WorkSteal();
+		}
+		
+		UI UWU;
+		UWU.Interface(Time, ProcessorsList, ProcessorCount, &BLK, &TRM);
+		system("pause");
+		system("cls");
+	
 			
 
 		
@@ -120,10 +127,7 @@ void Scheduler::Execute() // not used in phase 1
 
 
 
-		UI UWU;
-		UWU.Interface(Time, ProcessorsList, ProcessorCount, &BLK, &TRM);
-		system("pause");
-		system("cls");
+		
 
 
 	}
@@ -262,17 +266,60 @@ void Scheduler::InitializeProcessors()
 	}
 }
 
-void Scheduler::AddtoRDY(Process* P) {
+
+// if mode = 0 it gets the index of the processor with shortest finish time
+// if mode = 1 it gets the index of the SJF processor with shortest finish time
+// if mode = 2 it gets the index of the RR processor with shortest finish time
+int Scheduler::getShortestFinishTime(int mode)
+{
 	int min = 10000; //minumum cputime
 	int c;//index which min is at
-	for (int i = 0; i < ProcessorCount; i++) {
+	
+	for (int i = 0; i < ProcessorCount; i++)
+	{
+		if (mode == 1)
+		{
+			if (!(ProcessorsList[i]->getType() == "SJF")) //checks if it's a SJF processor
+			{
+				continue;
+			}
+		}
+		else if (mode == 2)
+		{
+			if (!(ProcessorsList[i]->getType() == "RR")) //checks if it's a RR processor
+			{
+				continue;
+			}
+		}
+
 		if (ProcessorsList[i]->getfinishtime() < min) {
 			min = ProcessorsList[i]->getfinishtime(); //set min as the  count
 			c = i;  //set index
 		}
 	}
+	return c;
+}
+int Scheduler::getLongestFinishTime() {
+	int max = -1; //minumum cputime
+	int c;//index which min is at
+	for (int i = 0; i < ProcessorCount; i++) {
+		if (ProcessorsList[i]->getfinishtime() > max) {
+			max = ProcessorsList[i]->getfinishtime(); //set max as the  count
+			c = i;  //set index
+		}
+	}
+	return c;
+}
+
+void Scheduler::AddtoRDY(Process* P, int mode) {
+	int c = getShortestFinishTime(mode);
 	ProcessorsList[c]->AddToRDY(P);
-	ProcessorsList[c]->addfinishtime(P);
+	
+}
+
+void Scheduler::Migrate(Process* P, int mode)
+{
+	AddtoRDY(P, mode);
 }
 
 void Scheduler::AddtoTRM(Process* P)
@@ -307,12 +354,46 @@ void Scheduler::CheckBLK()
 	
 	if (prc->checkIORequestDurationTime())
 	{
-		//AddToShortestRDYqueue//**************************************
+		AddtoRDY(prc);
 	}
 	
 	
 
 
+
+
+}
+
+void Scheduler::WorkSteal()
+{
+	int shortestIndex = getShortestFinishTime();
+	int longestIndex = getLongestFinishTime();	
+	
+	if (ProcessorsList[longestIndex]->getfinishtime() == 0)
+		return;
+		
+		float StealLimit = (float)(ProcessorsList[longestIndex]->getfinishtime() - ProcessorsList[shortestIndex]->getfinishtime()) / ProcessorsList[longestIndex]->getfinishtime();
+		
+ 		while (StealLimit > 0.4)
+		{
+			Process* prc = ProcessorsList[longestIndex]->StealProcess();
+			if (prc)
+			{
+				ProcessorsList[shortestIndex]->AddToRDY(prc);
+			}
+			else
+			{
+				break;
+			}
+
+			
+			if (ProcessorsList[longestIndex]->getfinishtime() == 0)
+				return;
+   			StealLimit = (ProcessorsList[longestIndex]->getfinishtime() - ProcessorsList[shortestIndex]->getfinishtime()) / ProcessorsList[longestIndex]->getfinishtime();
+			
+		}
+	
+	
 
 
 }

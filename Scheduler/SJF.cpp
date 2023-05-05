@@ -28,6 +28,7 @@ void SJF::ScheduleAlgo()
 void SJF::AddToRDY(Process* Prc)
 {
 	RDY.enQueue(Prc, Prc->getCPUTime());
+	addfinishtime(Prc);
 }
 
 void SJF::Simulate()
@@ -62,6 +63,14 @@ void SJF::TerminateProcess(int randomnumber)
 {
 }
 
+Process* SJF::StealProcess()
+{
+	Process* prc;
+	RDY.deQueue(prc);
+	ExpectedFinishTime -= prc->getCPUTime();
+	return prc;
+}
+
 SJF::SJF(Scheduler* scheduler)
 {
 	pScheduler = scheduler;
@@ -76,6 +85,11 @@ void SJF::PrintRDY()
 int SJF::getRDYCount()
 {
 	return RDY.getCount();
+}
+
+string SJF::getType()
+{
+	return Type;
 }
 
 void SJF::addfinishtime(Process* Prc) {

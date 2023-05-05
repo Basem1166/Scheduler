@@ -22,9 +22,11 @@ public:
 	virtual void PrintRDY() = 0;
 	virtual int getRDYCount() = 0;
 	virtual void addfinishtime(Process* Prc) = 0;
+	virtual Process* StealProcess() = 0;
 	virtual int getfinishtime() = 0;
 	virtual int generateRandomNumber();
 	virtual void TerminateProcess(int)=0;
+	virtual string getType() = 0;
 	friend ostream& operator<<(ostream& os, const Processor& processor);
 	bool isRunning();
 	void PrintRunning();
