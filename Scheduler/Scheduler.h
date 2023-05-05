@@ -49,7 +49,7 @@ public:
 	void CheckBLK();
 
 	void WorkSteal();
-	int getShortestFinishTime();
+	int getShortestFinishTime(int mode =0);
 	int getLongestFinishTime();
 	void AddtoRDY(Process*);
 

@@ -261,10 +261,33 @@ void Scheduler::InitializeProcessors()
 		ProcessorsList[ProcessorCount++] = P;
 	}
 }
-int Scheduler::getShortestFinishTime() {
+
+
+// if mode = 0 it gets the index of the processor with shortest finish time
+// if mode = 1 it gets the index of the SJF processor with shortest finish time
+// if mode = 2 it gets the index of the RR processor with shortest finish time
+int Scheduler::getShortestFinishTime(int mode)
+{
 	int min = 10000; //minumum cputime
 	int c;//index which min is at
-	for (int i = 0; i < ProcessorCount; i++) {
+	
+	for (int i = 0; i < ProcessorCount; i++)
+	{
+		if (mode == 1)
+		{
+			if (!(ProcessorsList[i]->getType() == "SJF")) //checks if it's a SJF processor
+			{
+				continue;
+			}
+		}
+		else if (mode == 2)
+		{
+			if (!(ProcessorsList[i]->getType() == "RR")) //checks if it's a RR processor
+			{
+				continue;
+			}
+		}
+
 		if (ProcessorsList[i]->getfinishtime() < min) {
 			min = ProcessorsList[i]->getfinishtime(); //set min as the  count
 			c = i;  //set index
@@ -292,7 +315,9 @@ void Scheduler::AddtoRDY(Process* P) {
 
 void Scheduler::Migrate(Process* P, int mode)
 {
-	AddtoRDY(P, mode);
+	int c = getShortestFinishTime(mode);
+	ProcessorsList[c]->AddToRDY(P);
+	ProcessorsList[c]->addfinishtime(P);
 }
 
 void Scheduler::AddtoTRM(Process* P)

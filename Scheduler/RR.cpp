@@ -96,6 +96,11 @@ void RR::PrintRDY()
 	RDY.Print();
 }
 
+string RR::getType()
+{
+	return Type;
+}
+
 int RR::getRDYCount()
 {
 	return RDY.getCount();

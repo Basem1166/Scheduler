@@ -33,6 +33,8 @@ public:
 
     int getReadyWaitTime();
 
+    string getType();
+
     static void setMaxW(int maxW);
     static void setForkProb(int Prob);
 };
