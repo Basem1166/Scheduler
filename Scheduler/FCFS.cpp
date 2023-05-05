@@ -55,6 +55,8 @@ void FCFS::Simulate() {}
 void FCFS::AddToRDY(Process* Prc)
 {
 	RDY.InsertEnd(Prc); 
+	addfinishtime(Prc);
+	
 
 }
 
@@ -89,7 +91,7 @@ Process* FCFS::StealProcess()
 {
 	Process* prc;
 	prc = RDY.getEntry(1);
-	if (prc->ischild())
+	if (!prc->ischild())
 	{
 		RDY.Remove(1, prc);
 		ExpectedFinishTime -= prc->getCPUTime();

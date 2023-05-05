@@ -110,20 +110,24 @@ void Scheduler::Execute() // not used in phase 1
 				break;
 			}
 		}
+		if (Time%STL==0)
+		{
+			WorkSteal();
+		}
 		
-			
-
-			
-
-		
-
-
-
-
 		UI UWU;
 		UWU.Interface(Time, ProcessorsList, ProcessorCount, &BLK, &TRM);
 		system("pause");
 		system("cls");
+	
+			
+
+		
+
+
+
+
+		
 
 
 	}
@@ -296,7 +300,7 @@ int Scheduler::getShortestFinishTime(int mode)
 	return c;
 }
 int Scheduler::getLongestFinishTime() {
-	int max = 0; //minumum cputime
+	int max = -1; //minumum cputime
 	int c;//index which min is at
 	for (int i = 0; i < ProcessorCount; i++) {
 		if (ProcessorsList[i]->getfinishtime() > max) {
@@ -310,7 +314,7 @@ int Scheduler::getLongestFinishTime() {
 void Scheduler::AddtoRDY(Process* P, int mode) {
 	int c = getShortestFinishTime(mode);
 	ProcessorsList[c]->AddToRDY(P);
-	ProcessorsList[c]->addfinishtime(P);
+	
 }
 
 void Scheduler::Migrate(Process* P, int mode)
@@ -365,24 +369,29 @@ void Scheduler::WorkSteal()
 	int shortestIndex = getShortestFinishTime();
 	int longestIndex = getLongestFinishTime();	
 	
-	int StealLimit = (ProcessorsList[longestIndex]->getfinishtime() - ProcessorsList[shortestIndex]->getfinishtime()) / ProcessorsList[longestIndex]->getfinishtime();
-
-	while (StealLimit > 0.4)
-	{
-		Process* prc = ProcessorsList[longestIndex]->StealProcess();
-		if (prc)
-		{
-			AddtoRDY(prc);
-		}
-		else
-		{
-			break;
-		}
+	if (ProcessorsList[longestIndex]->getfinishtime() == 0)
+		return;
 		
-		shortestIndex = getShortestFinishTime();
-		longestIndex = getLongestFinishTime();
-		StealLimit = (ProcessorsList[longestIndex]->getfinishtime() - ProcessorsList[shortestIndex]->getfinishtime()) / ProcessorsList[longestIndex]->getfinishtime();
-	}
+		float StealLimit = (float)(ProcessorsList[longestIndex]->getfinishtime() - ProcessorsList[shortestIndex]->getfinishtime()) / ProcessorsList[longestIndex]->getfinishtime();
+		
+ 		while (StealLimit > 0.4)
+		{
+			Process* prc = ProcessorsList[longestIndex]->StealProcess();
+			if (prc)
+			{
+				ProcessorsList[shortestIndex]->AddToRDY(prc);
+			}
+			else
+			{
+				break;
+			}
+
+			
+			if (ProcessorsList[longestIndex]->getfinishtime() == 0)
+				return;
+   			StealLimit = (ProcessorsList[longestIndex]->getfinishtime() - ProcessorsList[shortestIndex]->getfinishtime()) / ProcessorsList[longestIndex]->getfinishtime();
+			
+		}
 	
 	
 

@@ -61,6 +61,7 @@ void RR::AddToRDY(Process* Prc)
 {
 	RDY.enQueue(Prc);
 	Prc->setState("RDY"); //to set the state to know which list to move the process to in the scheduler
+	addfinishtime(Prc);
 }
 void RR::TerminateProcess(int randomnumber)
 {

@@ -7,6 +7,7 @@ Process::Process(int at, int pid, int ct, int toi, IORequests ior[])
 	CPUTime = ct;
 	TimesOfIO = toi;
 	TimeCounter = ct;
+	isChild = 0;
 	IORequests* io;//temp variable to enqueue
 	for (int i = 0; i < toi; i++)
 	{

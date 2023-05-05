@@ -28,6 +28,7 @@ void SJF::ScheduleAlgo()
 void SJF::AddToRDY(Process* Prc)
 {
 	RDY.enQueue(Prc, Prc->getCPUTime());
+	addfinishtime(Prc);
 }
 
 void SJF::Simulate()
