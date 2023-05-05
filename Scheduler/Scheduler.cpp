@@ -290,6 +290,11 @@ void Scheduler::AddtoRDY(Process* P) {
 	ProcessorsList[c]->addfinishtime(P);
 }
 
+void Scheduler::Migrate(Process* P, int mode)
+{
+	AddtoRDY(P, mode);
+}
+
 void Scheduler::AddtoTRM(Process* P)
 {
 	TRM.enQueue(P);
