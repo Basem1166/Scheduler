@@ -78,3 +78,10 @@ int SJF::getRDYCount()
 	return RDY.getCount();
 }
 
+void SJF::addfinishtime(Process* Prc) {
+	ExpectedFinishTime += (Prc->getCPUTime());
+}
+
+int SJF::getfinishtime() {
+	return ExpectedFinishTime;
+}

@@ -25,6 +25,8 @@ public:
 
     void PrintRDY();
     int getRDYCount();
+    virtual void addfinishtime(Process* Prc); //function to add the cpu time
+    virtual int getfinishtime();
 
     RR(Scheduler*);
 
