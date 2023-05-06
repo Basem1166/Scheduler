@@ -22,7 +22,7 @@ public:
     virtual void ScheduleAlgo();
     virtual void Simulate();
     virtual void AddToRDY(Process* Prc);
-    virtual void TerminateProcess(int);
+    virtual void TerminateProcess(int, int mode = 0);
     virtual Process* StealProcess();
   
 

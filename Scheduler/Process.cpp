@@ -8,6 +8,8 @@ Process::Process(int at, int pid, int ct, int toi, IORequests ior[])
 	TimesOfIO = toi;
 	TimeCounter = ct;
 	isChild = 0;
+	isParent = 0;
+	Child = nullptr;
 	IORequests* io;//temp variable to enqueue
 	for (int i = 0; i < toi; i++)
 	{
@@ -124,6 +126,22 @@ bool Process::checkIORequestDurationTime()
 bool Process::ischild()
 {
 	return isChild;
+}
+bool Process::isparent() {
+
+	if (Child)
+	{
+		return 0;
+	}
+	else
+	{
+		return 1;
+	}
+}
+
+int Process::getChildID()
+{
+	return Child->ProcessID;
 }
 
 ostream& operator<<(ostream& os, const Process& process)

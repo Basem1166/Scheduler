@@ -43,10 +43,11 @@ public:
 	void Read();
 	void Execute();
 	void InitializeProcessors();
-	void AddtoTRM(Process*);
+	void AddtoTRM(Process*,int mode =0);
 	void AddtoBLK(Process*);
 	void AddtoORPH(Process*);
 	void CheckBLK();
+	void CheckOrphan(Process* P);
 
 	void WorkSteal();
 	int getShortestFinishTime(int mode =0);

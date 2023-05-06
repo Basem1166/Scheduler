@@ -63,7 +63,7 @@ void RR::AddToRDY(Process* Prc)
 	Prc->setState("RDY"); //to set the state to know which list to move the process to in the scheduler
 	addfinishtime(Prc);
 }
-void RR::TerminateProcess(int randomnumber)
+void RR::TerminateProcess(int randomnumber,int mode)
 {
 }
 

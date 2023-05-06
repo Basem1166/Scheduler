@@ -42,6 +42,8 @@ public:
 	void RemoveIORequest();
 	bool checkIORequestDurationTime();
 	bool ischild();
+	bool isparent();
+	int getChildID();
 	//Getters
 	int getProcessID();
 	int getArrivalTime();
