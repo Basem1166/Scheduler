@@ -25,7 +25,7 @@ public:
 	virtual Process* StealProcess() = 0;
 	virtual int getfinishtime() = 0;
 	virtual int generateRandomNumber();
-	virtual void TerminateProcess(int)=0;
+	virtual void TerminateProcess(int,int mode =0)=0;
 	virtual string getType() = 0;
 	friend ostream& operator<<(ostream& os, const Processor& processor);
 	bool isRunning();

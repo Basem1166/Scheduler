@@ -321,12 +321,22 @@ void Scheduler::Migrate(Process* P, int mode)
 {
 	AddtoRDY(P, mode);
 }
-
-void Scheduler::AddtoTRM(Process* P)
+//mode=0 -> normal process
+//mode=1 -> orphan process
+void Scheduler::AddtoTRM(Process* P, int mode)
 {
+	
 	TRM.enQueue(P);
-	P->setState("TRM");
- 
+	if (mode)
+	{
+		P->setState("ORPH");
+	}
+	else
+	{
+		P->setState("TRM");
+	}
+	CheckOrphan(P);
+
 }
 
 void Scheduler::AddtoBLK(Process* P)
@@ -363,7 +373,20 @@ void Scheduler::CheckBLK()
 
 
 }
+void Scheduler::CheckOrphan(Process* prc) {
+	int Pid;
+	if (prc->isparent())
+	{
+		Pid=prc->getChildID();
+		for (int i = NR + NS; i < ProcessorCount; i++)
+		{
+			ProcessorsList[i]->TerminateProcess(Pid,1);
+		}
+	}
+	
 
+
+}
 void Scheduler::WorkSteal()
 {
 	int shortestIndex = getShortestFinishTime();
@@ -389,7 +412,7 @@ void Scheduler::WorkSteal()
 			
 			if (ProcessorsList[longestIndex]->getfinishtime() == 0)
 				return;
-   			StealLimit = (ProcessorsList[longestIndex]->getfinishtime() - ProcessorsList[shortestIndex]->getfinishtime()) / ProcessorsList[longestIndex]->getfinishtime();
+   			StealLimit = (float)(ProcessorsList[longestIndex]->getfinishtime() - ProcessorsList[shortestIndex]->getfinishtime()) / ProcessorsList[longestIndex]->getfinishtime();
 			
 		}
 	

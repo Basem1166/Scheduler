@@ -59,13 +59,14 @@ void FCFS::AddToRDY(Process* Prc)
 	
 
 }
-
-void FCFS::TerminateProcess(int pID)
+//mode = 0 -> Normal Process
+//mode = 1 -> Forked Process
+void FCFS::TerminateProcess(int pID,int mode)
 {
 	if (pID == -1)
 		return;
 	if (pID == RunningProcess->getProcessID()) {
-		pScheduler->AddtoTRM(RunningProcess);
+		pScheduler->AddtoTRM(RunningProcess,mode);
 		RunningProcess = nullptr;
 	}
 	if (RDY.isEmpty())
@@ -76,7 +77,7 @@ void FCFS::TerminateProcess(int pID)
 		if (RDY.getEntry(i)->getProcessID()==pID) //check if random number = process ID 
 		{
 			Prc = RDY.getEntry(i);
-			pScheduler->AddtoTRM(Prc);
+			pScheduler->AddtoTRM(Prc,mode);
   			RDY.Remove(Prc);
 			
 		}

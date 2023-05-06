@@ -18,7 +18,7 @@ public:
     virtual void ScheduleAlgo();
     virtual void Simulate();
     virtual void AddToRDY(Process* Prc);
-    virtual void TerminateProcess(int);
+    virtual void TerminateProcess(int,int);
     virtual Process* StealProcess();
 
     static void setRTF(int RTF_);
