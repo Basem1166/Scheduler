@@ -94,7 +94,7 @@ int UI::Mode()
 			cout << "not an available mode please enter a number from 1-3" << endl;
 		}
 	}
-
+	return mode;
 }
 
 void UI::Output()

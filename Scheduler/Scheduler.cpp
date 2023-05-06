@@ -87,6 +87,9 @@ void Scheduler::Execute() // not used in phase 1
 
 	Process* Prc;
 	int TempRandomNumber;
+	UI UWU; //Creates UI Object
+
+	int mode = UWU.Mode();
 
 	while (TRM.getCount() != M)//Temporary condition to test, this is the while for every timestep , the end condition would be in this while.
 	{
@@ -115,8 +118,7 @@ void Scheduler::Execute() // not used in phase 1
 			WorkSteal();
 		}
 		
-		UI UWU;
-		UWU.Interface(Time, ProcessorsList, ProcessorCount, &BLK, &TRM, UWU.Mode());
+		UWU.Interface(Time, ProcessorsList, ProcessorCount, &BLK, &TRM, mode);
 		system("pause");
 		system("cls");
 	
