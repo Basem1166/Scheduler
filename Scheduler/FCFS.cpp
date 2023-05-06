@@ -34,7 +34,7 @@ void FCFS::ScheduleAlgo()
 		RDY.Remove(1, RunningProcess);
 		if (RunningProcess->getCPUTime() + getReadyWaitTime() > MaxW) // check if it should migrate or not
 		{
-			// call migrate function of the scheduler (will probably pass the Running process to it)
+			pScheduler->Migrate(RunningProcess, 2);// call migrate function of the scheduler
 			RunningProcess = nullptr;
 			continue;
 		}
