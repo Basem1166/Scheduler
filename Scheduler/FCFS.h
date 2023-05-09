@@ -37,5 +37,6 @@ public:
 
     static void setMaxW(int maxW);
     static void setForkProb(int Prob);
+    static int getForkProb();
 };
 

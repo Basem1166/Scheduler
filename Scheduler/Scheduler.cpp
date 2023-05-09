@@ -118,6 +118,8 @@ void Scheduler::Execute() // not used in phase 1
 			WorkSteal();
 		}
 		
+
+		
 		UWU.Interface(Time, ProcessorsList, ProcessorCount, &BLK, &TRM, mode);
 		system("pause");
 		system("cls");
@@ -272,6 +274,7 @@ void Scheduler::InitializeProcessors()
 // if mode = 0 it gets the index of the processor with shortest finish time
 // if mode = 1 it gets the index of the SJF processor with shortest finish time
 // if mode = 2 it gets the index of the RR processor with shortest finish time
+// if mode = 3 it gets the index of the FCFS processor with shortest finish time
 int Scheduler::getShortestFinishTime(int mode)
 {
 	int min = 10000; //minumum cputime
@@ -289,6 +292,13 @@ int Scheduler::getShortestFinishTime(int mode)
 		else if (mode == 2)
 		{
 			if (!(ProcessorsList[i]->getType() == "RR")) //checks if it's a RR processor
+			{
+				continue;
+			}
+		}
+		else if (mode == 3)
+		{
+			if (!(ProcessorsList[i]->getType() == "FCFS")) //checks if it's a FCFS processor
 			{
 				continue;
 			}
@@ -316,6 +326,14 @@ int Scheduler::getLongestFinishTime() {
 void Scheduler::AddtoRDY(Process* P, int mode) {
 	int c = getShortestFinishTime(mode);
 	ProcessorsList[c]->AddToRDY(P);
+	
+}
+void Scheduler::Fork(Process* P) {
+		M++;
+		Process* temp = new Process(Time, M, P->getTimeCounter(), 0, NULL);
+		P->setchild(temp);
+		AddtoRDY(temp, 3);
+
 	
 }
 
