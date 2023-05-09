@@ -2,27 +2,37 @@
 
 void SJF::ScheduleAlgo()
 {
-	//Process* Prc;
-	//RDY.deQueue(Prc);
-	//IORequests *i = Prc->getIORequests();
-	//int Time;
-	//Time = pScheduler->getTime();
-	//int t=0;
-	//while (Time < 1000)//Temporary condition to test, this is the while for every timestep , the end condition would be in this while.
-	//{
-	//	if (Time == i[in].getRequestTime())
-	//	{
-	//		pScheduler->AddtoBLK(Prc);
-	//		t = Time+ i->getDuration();
-	//	}
-	//	if (Time == t) {
-	//		RDY.enQueue(Prc, Prc->getCPUTime() - i->getRequestTime());
-	//		in++;
-	//	}
-	//	Time++;//Increments the time 	
-	//	if (in == Prc->getTimesOfIO())
-	//		in = 0;
-	//}
+	IORequests* CurrentIO = nullptr; // TO BE ABLE TO PEAK/DEQUEUE FROM THE IO QUEUE
+	if (RunningProcess != nullptr && RunningProcess->getCPUTime() - RunningProcess->getTimeCounter() != CurrentIO->RequestTime)  // assuming TimesOfIO is RequestTime
+	{ 
+		RunningProcess->decrmntTimeCounter();
+	}
+	if (RunningProcess != nullptr && RunningProcess->getCPUTime() - RunningProcess->getTimeCounter() == CurrentIO->RequestTime)
+	{
+		pScheduler->AddtoBLK(RunningProcess);
+		RunningProcess = nullptr;
+	}
+	if (RunningProcess && RunningProcess->getTimeCounter() == 0)  //Terminates process if its finishes processing
+	{
+		RunningProcess->setTerminationT(pScheduler->getTime());
+		RunningProcess->setTRT();
+		pScheduler->AddtoTRM(RunningProcess);
+		RunningProcess = nullptr;
+
+	}
+	if (!RunningProcess && !RDY.isEmpty())
+	{
+		RDY.deQueue(RunningProcess);
+		RunningProcess->setState("RUN");
+		RunningProcess->setRT(pScheduler->getTime()); //need to set arrival time in execute
+		RunningProcess->getIORequests().peek(CurrentIO);
+	}
+	if (!RunningProcess) {
+		IdleTime++;
+	}
+	else {
+		BusyTime++;
+	}
 }
 
 void SJF::AddToRDY(Process* Prc)
@@ -33,7 +43,7 @@ void SJF::AddToRDY(Process* Prc)
 
 void SJF::Simulate()
 {
-	if (State == "IDLE" && !RDY.isEmpty()) {
+/**if (State == "IDLE" && !RDY.isEmpty()) {
 
 		RDY.deQueue(RunningProcess);
 		State = "BUSY";
@@ -56,7 +66,7 @@ void SJF::Simulate()
 		pScheduler->AddtoTRM(RunningProcess);
 		State = "IDLE";
 		RunningProcess = nullptr;
-	}
+	}*/
 }
 
 void SJF::TerminateProcess(int randomnumber,int mode)
