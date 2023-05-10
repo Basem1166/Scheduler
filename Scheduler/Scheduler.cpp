@@ -329,11 +329,12 @@ void Scheduler::AddtoRDY(Process* P, int mode) {
 	
 }
 void Scheduler::Fork(Process* P) {
+	if (!P->isparent()) {
 		M++;
 		Process* temp = new Process(Time, M, P->getTimeCounter(), 0, NULL);
 		P->setchild(temp);
 		AddtoRDY(temp, 3);
-
+	}
 	
 }
 
