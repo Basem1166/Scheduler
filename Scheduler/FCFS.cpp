@@ -41,9 +41,11 @@ void FCFS::ScheduleAlgo()
 		RDY.Remove(1, RunningProcess);
 		if (RunningProcess->getCPUTime() + getReadyWaitTime() > MaxW) // check if it should migrate or not
 		{
-			pScheduler->Migrate(RunningProcess, 2);// call migrate function of the scheduler
-			RunningProcess = nullptr;
-			continue;
+			if (pScheduler->Migrate(RunningProcess, 2)) {           // call migrate function of the scheduler
+				
+				RunningProcess = nullptr;
+				continue;
+			}
 		}
 		RunningProcess->setState("RUN");
 		RunningProcess->setRT(pScheduler->getTime()); //need to set arrival time in execute
@@ -103,9 +105,9 @@ void FCFS::TerminateProcess(int pID,int mode)
 
 Process* FCFS::StealProcess()
 {
-	Process* prc;
+	Process* prc = nullptr; 
 	prc = RDY.getEntry(1);
-	if (!prc->ischild() && prc)
+	if (prc && !prc->ischild() )
 	{
 		RDY.Remove(1, prc);
 		ExpectedFinishTime -= prc->getCPUTime();

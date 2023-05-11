@@ -82,10 +82,10 @@ void SJF::TerminateProcess(int randomnumber,int mode)
 
 Process* SJF::StealProcess()
 {
-	Process* prc;
+	Process* prc = nullptr;
 	RDY.deQueue(prc);
 	if(prc)
-	ExpectedFinishTime -= prc->getCPUTime();
+	ExpectedFinishTime -= prc->getTimeCounter();
 	return prc;
 }
 
