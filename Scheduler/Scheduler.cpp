@@ -113,6 +113,14 @@ void Scheduler::Execute() // not used in phase 1
 				break;
 			}
 		}
+
+		for (int i = 0; i < ProcessorCount; i++)
+		{
+			ProcessorsList[i]->ScheduleAlgo();
+		}
+
+		CheckBLK();
+
 		if (Time%STL==0)
 		{
 			WorkSteal();
@@ -121,7 +129,6 @@ void Scheduler::Execute() // not used in phase 1
 
 		
 		UWU.Interface(Time, ProcessorsList, ProcessorCount, &BLK, &TRM, mode);
-		system("pause");
 		system("cls");
 	
 			
@@ -148,7 +155,7 @@ int Scheduler::SigKill() {
 		sigkill.deQueue(Signal);
 		return Signal.pID;
 	}
-	return 0;
+	return -2;
 }
 
 
@@ -324,8 +331,10 @@ int Scheduler::getLongestFinishTime() {
 }
 
 void Scheduler::AddtoRDY(Process* P, int mode) {
+
 	int c = getShortestFinishTime(mode);
-	ProcessorsList[c]->AddToRDY(P);
+		ProcessorsList[c]->AddToRDY(P);
+	
 	
 }
 void Scheduler::Fork(Process* P) {
@@ -385,6 +394,7 @@ void Scheduler::CheckBLK()
 	
 	if (prc->checkIORequestDurationTime())
 	{
+		BLK.deQueue(prc);
 		AddtoRDY(prc);
 	}
 	

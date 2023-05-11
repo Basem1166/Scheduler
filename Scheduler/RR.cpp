@@ -3,16 +3,22 @@
 
 void RR::ScheduleAlgo()
 {
-	IORequests* CurrentIO=nullptr; // TO BE ABLE TO PEAK/DEQUEUE FROM THE IO QUEUE
-	if (RunningProcess!=nullptr && RunningProcess->getCPUTime() - RunningProcess->getTimeCounter() != CurrentIO->RequestTime)  // assuming TimesOfIO is RequestTime
+	IORequests* CurrentIO = nullptr; // TO BE ABLE TO PEAK/DEQUEUE FROM THE IO QUEUE
+	if (RunningProcess) {
+		RunningProcess->getIORequests().peek(CurrentIO);
+	}
+	
+	if (RunningProcess!=nullptr && CurrentIO && RunningProcess->getCPUTime() - RunningProcess->getTimeCounter() == CurrentIO->RequestTime)
+	{
+		pScheduler->AddtoBLK(RunningProcess);
+		ExpectedFinishTime -= RunningProcess->getTimeCounter();
+		RunningProcess = nullptr;
+	}
+	if (RunningProcess != nullptr)  // assuming TimesOfIO is RequestTime
 	{
 		RunningTimeSlice--; //work on running process until time slice ends;
 		RunningProcess->decrmntTimeCounter();
-	}
-	if (RunningProcess!=nullptr && RunningProcess->getCPUTime() - RunningProcess->getTimeCounter() == CurrentIO->RequestTime)
-	{
-		pScheduler->AddtoBLK(RunningProcess);
-		RunningProcess = nullptr;
+		ExpectedFinishTime--;
 	}
 	if (RunningProcess && RunningProcess->getTimeCounter() == 0)  //Terminates process if its finishes processing
 	{
@@ -69,11 +75,14 @@ void RR::TerminateProcess(int randomnumber,int mode)
 
 Process* RR::StealProcess()
 {
-	Process* prc;
+	Process* prc =nullptr;
 	RDY.deQueue(prc);
-	ExpectedFinishTime -= prc->getCPUTime();
+	if (prc)
+	{
+		ExpectedFinishTime -= prc->getCPUTime();
+		
+	}
 	return prc;
-
 }
 
 void RR::setRTF(int RTF_)
@@ -108,7 +117,7 @@ int RR::getRDYCount()
 }
 
 void RR::addfinishtime(Process* Prc) {
-	ExpectedFinishTime += (Prc->getCPUTime());
+	ExpectedFinishTime += (Prc->getTimeCounter());
 }
 
 int RR::getfinishtime() {

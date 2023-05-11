@@ -11,16 +11,22 @@ void FCFS::ScheduleAlgo()
 {
 	int TempRandomNumber;
 	IORequests* CurrentIO = nullptr; // TO BE ABLE TO PEAK/DEQUEUE FROM THE IO QUEUE
+	if (RunningProcess) {
+		RunningProcess->getIORequests().peek(CurrentIO);
+	}
 	int pID = pScheduler->SigKill();
 	TerminateProcess(pID); //checks for sig kill
-	if (RunningProcess != nullptr && RunningProcess->getCPUTime() - RunningProcess->getTimeCounter() != CurrentIO->RequestTime)  // assuming TimesOfIO is RequestTime
-	{
-		RunningProcess->decrmntTimeCounter();
-	}
-	if (RunningProcess != nullptr && RunningProcess->getCPUTime() - RunningProcess->getTimeCounter() == CurrentIO->RequestTime)
+	
+	if (RunningProcess != nullptr && CurrentIO && RunningProcess->getCPUTime() - RunningProcess->getTimeCounter() == CurrentIO->RequestTime)
 	{
 		pScheduler->AddtoBLK(RunningProcess);
+		ExpectedFinishTime -= RunningProcess->getTimeCounter();
 		RunningProcess = nullptr;
+	}
+	if (RunningProcess != nullptr)  // assuming TimesOfIO is RequestTime
+	{
+		RunningProcess->decrmntTimeCounter();
+		ExpectedFinishTime--;
 	}
 	if (RunningProcess && RunningProcess->getTimeCounter() == 0)  //Terminates process if its finishes processing
 	{
@@ -51,8 +57,8 @@ void FCFS::ScheduleAlgo()
 			BusyTime++;
 		}
 	}
-	TempRandomNumber = rand() % 100 + 1; //get a random number between 1 and 100
-	if (TempRandomNumber < FCFS::getForkProb()) {
+	TempRandomNumber = generateRandomNumber(); //get a random number between 1 and 100
+	if (RunningProcess&&TempRandomNumber < FCFS::getForkProb()) {
 		pScheduler->Fork(RunningProcess);
 		}
 	}
@@ -70,9 +76,9 @@ void FCFS::AddToRDY(Process* Prc)
 //mode = 1 -> Forked Process
 void FCFS::TerminateProcess(int pID,int mode)
 {
-	if (pID == -1)
+	if (pID == -2)
 		return;
-	if (pID == RunningProcess->getProcessID()) {
+	if (RunningProcess && pID == RunningProcess->getProcessID()) {
 		pScheduler->AddtoTRM(RunningProcess,mode);
 		RunningProcess = nullptr;
 	}
@@ -99,7 +105,7 @@ Process* FCFS::StealProcess()
 {
 	Process* prc;
 	prc = RDY.getEntry(1);
-	if (!prc->ischild())
+	if (!prc->ischild() && prc)
 	{
 		RDY.Remove(1, prc);
 		ExpectedFinishTime -= prc->getCPUTime();
@@ -141,7 +147,7 @@ int FCFS::getRDYCount()
 }
 
 void FCFS::addfinishtime(Process* Prc) {
-	ExpectedFinishTime += (Prc->getCPUTime());
+	ExpectedFinishTime += (Prc->getTimeCounter());
 }
 
 int FCFS::getfinishtime() {

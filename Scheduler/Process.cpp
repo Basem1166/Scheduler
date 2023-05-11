@@ -94,6 +94,7 @@ void Process::setRT(int Time)
 void Process::decrmntTimeCounter()
 {
 	TimeCounter--;
+	
 }
 
 IORequests* Process::getIORequest()
@@ -126,6 +127,7 @@ bool Process::checkIORequestDurationTime()
 void Process::setchild(Process*P) {
 	Child = P;
 	P->isChild = 1;
+	isParent = 1;
 }
 bool Process::ischild()
 {

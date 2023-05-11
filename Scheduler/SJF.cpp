@@ -3,14 +3,21 @@
 void SJF::ScheduleAlgo()
 {
 	IORequests* CurrentIO = nullptr; // TO BE ABLE TO PEAK/DEQUEUE FROM THE IO QUEUE
-	if (RunningProcess != nullptr && RunningProcess->getCPUTime() - RunningProcess->getTimeCounter() != CurrentIO->RequestTime)  // assuming TimesOfIO is RequestTime
-	{ 
-		RunningProcess->decrmntTimeCounter();
+	if (RunningProcess) {
+		RunningProcess->getIORequests().peek(CurrentIO);
 	}
-	if (RunningProcess != nullptr && RunningProcess->getCPUTime() - RunningProcess->getTimeCounter() == CurrentIO->RequestTime)
+	
+	if (RunningProcess != nullptr && CurrentIO && RunningProcess->getCPUTime() - RunningProcess->getTimeCounter() == CurrentIO->RequestTime)
 	{
 		pScheduler->AddtoBLK(RunningProcess);
+		ExpectedFinishTime -= RunningProcess->getTimeCounter();
 		RunningProcess = nullptr;
+	}
+	if (RunningProcess != nullptr)  // assuming TimesOfIO is RequestTime
+	{
+		RunningProcess->decrmntTimeCounter();
+		ExpectedFinishTime--;
+
 	}
 	if (RunningProcess && RunningProcess->getTimeCounter() == 0)  //Terminates process if its finishes processing
 	{
@@ -77,6 +84,7 @@ Process* SJF::StealProcess()
 {
 	Process* prc;
 	RDY.deQueue(prc);
+	if(prc)
 	ExpectedFinishTime -= prc->getCPUTime();
 	return prc;
 }
@@ -103,7 +111,7 @@ string SJF::getType()
 }
 
 void SJF::addfinishtime(Process* Prc) {
-	ExpectedFinishTime += (Prc->getCPUTime());
+	ExpectedFinishTime += (Prc->getTimeCounter());
 }
 
 int SJF::getfinishtime() {
