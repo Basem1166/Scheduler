@@ -38,7 +38,7 @@ void Scheduler::Read()
 	}
 	else
 	{
-		fin >> NF >> NS >> NR >> TimeSliceOfRR >> RTF >> MaxW >> STL >> ForkProbability >> M; // Inputs the necessary data from the input file to the variables
+		fin >> NF >> NS >> NR >> NE >> TimeSliceOfRR >> RTF >> MaxW >> STL >> ForkProbability >> M; // Inputs the necessary data from the input file to the variables
 
 		RR::setRTF(RTF);
 		RR::setTimeSlice(TimeSliceOfRR);
@@ -276,6 +276,11 @@ void Scheduler::InitializeProcessors()
 	for (int i = 0; i < NF; i++)
 	{
 		P = new FCFS(this);
+		ProcessorsList[ProcessorCount++] = P;
+	}
+	for (int i = 0; i < NE; i++)
+	{
+		P = new EDF(this);
 		ProcessorsList[ProcessorCount++] = P;
 	}
 }

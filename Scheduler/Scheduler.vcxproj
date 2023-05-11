@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EDF.h" />
     <ClInclude Include="FCFS.h" />
     <ClInclude Include="IORequests.h" />
     <ClInclude Include="List.h" />
@@ -37,6 +38,7 @@
     <ClInclude Include="UI.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="EDF.cpp" />
     <ClCompile Include="FCFS.cpp" />
     <ClCompile Include="IORequests.cpp" />
     <ClCompile Include="main.cpp" />

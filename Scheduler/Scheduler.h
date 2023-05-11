@@ -10,6 +10,7 @@
 #include "RR.h"
 #include "SJF.h"
 #include "FCFS.h"
+#include "EDF.h"
 
 #include "SIGKILL.h"
 
@@ -30,6 +31,7 @@ private:
 	int Time;
 	int NF;
 	int NS;
+	int NE;
 	int M;
 	int NR;
 	int STL;
