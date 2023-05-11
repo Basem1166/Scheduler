@@ -21,7 +21,7 @@ private:
 	bool isChild;
 	bool isParent;
 	Process* Child;
-
+	int Deadline;
 	
 	//////////////////////////////////////////////////
 	Queue<IORequests*> IoRequests;// could be queue?
@@ -55,7 +55,7 @@ public:
 	Queue<IORequests*> getIORequests();
 
 	friend ostream& operator<<(ostream& os, const Process& process);
-
+	int getDeadline();
 
 
 };

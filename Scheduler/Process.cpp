@@ -55,6 +55,11 @@ Queue<IORequests*> Process::getIORequests()
 	return IoRequests;
 }
 
+int Process::getDeadline()
+{
+	return Deadline;
+}
+
 
 void Process::setArrivalTime(int Time)
 {
