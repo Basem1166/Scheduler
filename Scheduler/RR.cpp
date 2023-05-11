@@ -44,9 +44,10 @@ void RR::ScheduleAlgo()
 
 		if (RunningProcess->getTimeCounter() < RTF) // check if it should migrate or not
 		{
-			pScheduler->Migrate(RunningProcess, 1);// call migrate function of the scheduler
-			RunningProcess = nullptr;
-			continue;
+			if (pScheduler->Migrate(RunningProcess, 1)) {// call migrate function of the scheduler
+				RunningProcess = nullptr;
+				continue;
+			}
 		}
 
 		RunningProcess->setState("RUN");

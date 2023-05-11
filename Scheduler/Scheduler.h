@@ -57,7 +57,7 @@ public:
 	void Fork(Process*);
 
 
-	void Migrate(Process* P, int mode);
+	bool Migrate(Process* P, int mode);
 
 
 	int SigKill();

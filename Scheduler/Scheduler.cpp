@@ -84,7 +84,10 @@ void Scheduler::Read()
 
 void Scheduler::Execute() // not used in phase 1
 {
-
+	if (ProcessorCount==0)
+	{
+		return;
+	}
 	Process* Prc;
 	int TempRandomNumber;
 	UI UWU; //Creates UI Object
@@ -316,7 +319,7 @@ int Scheduler::getShortestFinishTime(int mode)
 			c = i;  //set index
 		}
 	}
-	return c;
+	 	return c;
 }
 int Scheduler::getLongestFinishTime() {
 	int max = -1; //minumum cputime
@@ -347,9 +350,18 @@ void Scheduler::Fork(Process* P) {
 	
 }
 
-void Scheduler::Migrate(Process* P, int mode)
+bool Scheduler::Migrate(Process* P, int mode)
 {
+	if (mode==1 && NS==0)
+	{
+		return 0;
+	}
+	if (mode==2 && NR==0)
+	{
+		return 0;
+	}
 	AddtoRDY(P, mode);
+	return 1;
 }
 //mode=0 -> normal process
 //mode=1 -> orphan process
