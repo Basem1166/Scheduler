@@ -54,7 +54,7 @@ public:
 	int getLongestFinishTime();
 	void AddtoRDY(Process*, int mode=0);
 
-
+	void Fork(Process*);
 
 
 	void Migrate(Process* P, int mode);

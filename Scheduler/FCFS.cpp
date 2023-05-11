@@ -9,6 +9,7 @@ FCFS::FCFS(Scheduler* pSch)
 
 void FCFS::ScheduleAlgo()
 {
+	int TempRandomNumber;
 	IORequests* CurrentIO = nullptr; // TO BE ABLE TO PEAK/DEQUEUE FROM THE IO QUEUE
 	int pID = pScheduler->SigKill();
 	TerminateProcess(pID); //checks for sig kill
@@ -41,14 +42,20 @@ void FCFS::ScheduleAlgo()
 		RunningProcess->setState("RUN");
 		RunningProcess->setRT(pScheduler->getTime()); //need to set arrival time in execute
 		RunningProcess->getIORequests().peek(CurrentIO);
+
+
+		if (!RunningProcess) {
+			IdleTime++;
+		}
+		else {
+			BusyTime++;
+		}
 	}
-	if (!RunningProcess) {
-		IdleTime++;
+	TempRandomNumber = rand() % 100 + 1; //get a random number between 1 and 100
+	if (TempRandomNumber < FCFS::getForkProb()) {
+		pScheduler->Fork(RunningProcess);
+		}
 	}
-	else {
-		BusyTime++;
-	}
-}
 
 void FCFS::Simulate() {}
 
@@ -118,6 +125,9 @@ void FCFS::setMaxW(int maxW)
 void FCFS::setForkProb(int Prob)
 {
 	ForkProbability = Prob;
+}
+int FCFS::getForkProb() {
+	return ForkProbability;
 }
 
 void FCFS::PrintRDY()

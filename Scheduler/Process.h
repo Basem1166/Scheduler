@@ -41,6 +41,7 @@ public:
 	IORequests* getIORequest();
 	void RemoveIORequest();
 	bool checkIORequestDurationTime();
+	void setchild(Process*);
 	bool ischild();
 	bool isparent();
 	int getChildID();

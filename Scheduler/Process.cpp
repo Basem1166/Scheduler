@@ -123,6 +123,10 @@ bool Process::checkIORequestDurationTime()
 	return false;
 }
 
+void Process::setchild(Process*P) {
+	Child = P;
+	P->isChild = 1;
+}
 bool Process::ischild()
 {
 	return isChild;
@@ -131,11 +135,11 @@ bool Process::isparent() {
 
 	if (Child)
 	{
-		return 0;
+		return 1;
 	}
 	else
 	{
-		return 1;
+		return 0;
 	}
 }
 
