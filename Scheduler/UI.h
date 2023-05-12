@@ -8,7 +8,6 @@ public:
 
 	int Mode();
 
-	void Output();
 
 };
 

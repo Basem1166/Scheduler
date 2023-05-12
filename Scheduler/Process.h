@@ -25,6 +25,7 @@ private:
 	
 	//////////////////////////////////////////////////
 	Queue<IORequests*> IoRequests;// could be queue?
+	Queue<IORequests*> UsedIoRequests;
 	string State;
 	string Type;
 public:
@@ -35,8 +36,10 @@ public:
 	void setCPUTime(int);
 	void setTerminationT(int);
 	void setTRT();
-	void setWT(int);
+	void setWT();
+	int getWT();
 	void setRT(int);
+	int getRT();
 	void decrmntTimeCounter();
 	IORequests* getIORequest();
 	void RemoveIORequest();
@@ -49,6 +52,7 @@ public:
 	int getProcessID();
 	int getArrivalTime();
 	int getCPUTime();
+	int getIO_D();
 	int getTimesOfIO();
 	int getTerminationTime();
 	int getTimeCounter(); //The timesteps remaining of running process

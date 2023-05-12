@@ -31,7 +31,7 @@ void FCFS::ScheduleAlgo()
 	if (RunningProcess && RunningProcess->getTimeCounter() == 0)  //Terminates process if its finishes processing
 	{
 		RunningProcess->setTerminationT(pScheduler->getTime());
-		RunningProcess->setTRT();
+		//RunningProcess->setTRT();
 
 		if (pScheduler->getTime() < RunningProcess->getDeadline())
 		{

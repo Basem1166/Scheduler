@@ -46,6 +46,18 @@ int Process::getCPUTime()
 	return CPUTime;
 }
 
+int Process::getIO_D()
+{
+	IORequests* temp;
+	int sum = 0;
+	while (UsedIoRequests.deQueue(temp))
+	{
+		sum += temp->Duration;
+	}
+		
+	return sum;
+}
+
 int Process::getTimesOfIO()
 {
 	return TimesOfIO;
@@ -84,17 +96,27 @@ void Process::setTerminationT(int Time)
 
 void Process::setTRT()
 {
-	TerminationTime = TerminationTime - ArrivalTime;
+	TurnAroundDuration = TerminationTime - ArrivalTime;
 }
 
-void Process::setWT(int Time)
+void Process::setWT()
 {
 	WaitingTime = TurnAroundDuration - CPUTime;
 }
 
+int Process::getWT()
+{
+	return WaitingTime;
+}
+
 void Process::setRT(int Time)
 {
-	ResponseTime = ArrivalTime - Time;
+	ResponseTime = Time - ArrivalTime;
+}
+
+int Process::getRT()
+{
+	return ResponseTime;
 }
 
 void Process::decrmntTimeCounter()
@@ -114,6 +136,7 @@ void Process::RemoveIORequest()
 {
 	IORequests* iorptr;
 	IoRequests.deQueue(iorptr);
+	UsedIoRequests.enQueue(iorptr);
 	TimesOfIO--;
 }
 
