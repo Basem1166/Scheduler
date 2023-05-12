@@ -56,6 +56,7 @@ public:
 
 	friend ostream& operator<<(ostream& os, const Process& process);
 	int getDeadline();
+	
 
 
 };
