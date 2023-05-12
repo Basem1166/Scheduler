@@ -14,12 +14,7 @@ void RR::ScheduleAlgo()
 		ExpectedFinishTime -= RunningProcess->getTimeCounter();
 		RunningProcess = nullptr;
 	}
-	if (RunningProcess != nullptr)  // assuming TimesOfIO is RequestTime
-	{
-		RunningTimeSlice--; //work on running process until time slice ends;
-		RunningProcess->decrmntTimeCounter();
-		ExpectedFinishTime--;
-	}
+	
 	if (RunningProcess && RunningProcess->getTimeCounter() == 0)  //Terminates process if its finishes processing
 	{
 		RunningProcess->setTerminationT(pScheduler->getTime());
@@ -33,6 +28,12 @@ void RR::ScheduleAlgo()
 		pScheduler->AddtoTRM(RunningProcess);
 		RunningProcess = nullptr;
 		
+	}
+	if (RunningProcess != nullptr)  // assuming TimesOfIO is RequestTime
+	{
+		RunningTimeSlice--; //work on running process until time slice ends;
+		RunningProcess->decrmntTimeCounter();
+		ExpectedFinishTime--;
 	}
 
 	if (RunningTimeSlice == 0 && RunningProcess) //requeue process after timeslice ends
