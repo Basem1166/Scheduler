@@ -28,7 +28,7 @@ private:
 	string State;
 	string Type;
 public:
-	Process(int at, int pid, int ct, int toi, IORequests ior[]);
+	Process(int at, int pid, int ct,int deadline, int toi, IORequests ior[]);
 	//Setters
 	void setState(string);
 	void setArrivalTime(int);

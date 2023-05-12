@@ -5,8 +5,8 @@ Scheduler::Scheduler()
 	Read();
 	Time = 0;
 	ProcessorCount = 0;
-	ProcessorsList = new Processor * [NF + NR + NS];
-	for (int i = 0; i < NF + NR + NS; i++) {
+	ProcessorsList = new Processor * [NF + NR + NS+ NE];
+	for (int i = 0; i < NF + NR + NS + NE; i++) {
 		ProcessorsList[i] = nullptr;
 	}
 	InitializeProcessors();
@@ -21,6 +21,7 @@ void Scheduler::Read()
 	int AT;
 	int pID;
 	int CT;
+	int Deadline;
 	int N;
 	int IO_R;
 	int IO_D;
@@ -47,7 +48,7 @@ void Scheduler::Read()
 
 		for (int i = 0; i < M; i++)
 		{
-			fin >> AT >> pID >> CT >> N;
+			fin >> AT >> pID >> CT>> Deadline >> N;
 
 			IORequests*ior = new IORequests[N]; //there might be a memory leak in the future here (need to delete it somehow after using it)
 
@@ -62,7 +63,7 @@ void Scheduler::Read()
 				}
 
 			}
-			Process* temp = new Process(AT, pID, CT, N, ior); //creates a new process after reading each line
+			Process* temp = new Process(AT, pID, CT, Deadline, N, ior); //creates a new process after reading each line
 			NEW.enQueue(temp); //Stores each new process inside the scheduler's NEW Queue
 			
 		}
@@ -348,7 +349,7 @@ void Scheduler::AddtoRDY(Process* P, int mode) {
 void Scheduler::Fork(Process* P) {
 	if (!P->isparent()) {
 		M++;
-		Process* temp = new Process(Time, M, P->getTimeCounter(), 0, NULL);
+		Process* temp = new Process(Time, M, P->getTimeCounter(), P->getDeadline(), 0, NULL);
 		P->setchild(temp);
 		AddtoRDY(temp, 3);
 	}

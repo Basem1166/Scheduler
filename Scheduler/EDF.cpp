@@ -1,4 +1,4 @@
-#include "SJF.h"
+#include "EDF.h"
 
 void EDF::ScheduleAlgo()
 {
@@ -23,6 +23,12 @@ void EDF::ScheduleAlgo()
 	{
 		RunningProcess->setTerminationT(pScheduler->getTime());
 		RunningProcess->setTRT();
+
+		if (pScheduler->getTime() < RunningProcess->getDeadline())
+		{
+			BeforeDeadline++;
+		}
+
 		pScheduler->AddtoTRM(RunningProcess);
 		RunningProcess = nullptr;
 
@@ -100,7 +106,7 @@ Process* EDF::StealProcess()
 EDF::EDF(Scheduler* scheduler)
 {
 	pScheduler = scheduler;
-	Type = "SJF";
+	Type = "EDF";
 }
 
 void EDF::PrintRDY()

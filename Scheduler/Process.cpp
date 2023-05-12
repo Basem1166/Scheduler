@@ -1,10 +1,11 @@
 #include "Process.h"
 
-Process::Process(int at, int pid, int ct, int toi, IORequests ior[])
+Process::Process(int at, int pid, int ct,int deadline, int toi, IORequests ior[])
 {
 	ArrivalTime = at;
 	ProcessID = pid;
 	CPUTime = ct;
+	Deadline = deadline;
 	TimesOfIO = toi;
 	TimeCounter = ct;
 	isChild = 0;
