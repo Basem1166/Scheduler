@@ -30,7 +30,7 @@ void Scheduler::Read()
 	int RTF, MaxW, ForkProbability, TimeSliceOfRR;
 	
 
-	ifstream fin("Input.txt", ios::in); //Creates an fstream object and opens the input file\
+	ifstream fin("Input.txt", ios::in); //Creates an fstream object and opens the input file
 
 	if (!fin.is_open()) //checks if the file didn't open properly
 	{
@@ -381,6 +381,7 @@ void Scheduler::AddtoTRM(Process* P, int mode)
 	if (mode)
 	{
 		P->setState("ORPH");
+		P->setTerminationT(Time);
 	}
 	else
 	{
@@ -472,6 +473,71 @@ void Scheduler::WorkSteal()
 
 
 }
+
+
+void Scheduler::OutPut()
+{
+	ofstream fout("Output.txt", ios::out); //Creates an fstream object and opens the output file
+	Process* temp;
+	int idk = 0;
+	if (fout.is_open())
+	{
+		int TotalWT = 0, TotalRT = 0, TotalTRT = 0;
+		fout << "TT\tPID\tCT\tDL\tIO_D\t\tWT\tRT\tTRT"<<endl;
+
+		while (TRM.deQueue(temp))
+		{
+			temp->setTRT();
+			temp->setWT();
+			TotalTRT += (temp->getTerminationTime() - temp->getArrivalTime()); //termination time
+			TotalWT += temp->getWT();
+			TotalRT += temp->getRT();
+			fout << temp->getTerminationTime() << "\t" << temp->getProcessID() << "\t" << temp->getCPUTime() << "\t" << temp->getDeadline() << "\t" << temp->getIO_D();
+			fout   << "\t\t" << temp->getWT() << "\t" << temp->getRT() << "\t" << temp->getTerminationTime()- temp->getArrivalTime() << endl;
+		}
+
+		fout << endl << "Processes: " << M << endl;
+		fout << "Avg WT = " << TotalWT / M << ",\t" << "Avg RT = " << TotalRT / M << ",\t" << "Avg TRT = " << TotalTRT / M << endl;
+		fout << "Migration %:\t RTF = " << idk << "%, \t MaxW = " << idk << "%" << endl;
+		fout << "Work Steal %: " << idk << "%" << endl;
+		fout << "Forked Process %: " << idk << "%" << endl;
+		fout << "Killed Process %: " << idk << "%" << endl << endl;
+
+		fout << "Processors: " << NF + NR + NS + NE << " [ " << NR << " RR, " << NS << " SJF, " << NF << " FCFS, " << NE << " EDF ]" << endl;
+
+		fout << "Processors Load" << endl;
+		for (int i = 0; i < NF + NR + NS + NE; i++)
+		{
+			if (i == NF + NR + NS + NE - 1)
+			{
+				fout << "P" << i + 1 << " = " << idk << "%\n";
+			}
+			else
+			{
+				fout << "P" << i + 1 << " = " << idk << "%,\t";
+			}
+			
+		}
+
+		fout <<endl<< "Processors Utiliz" << endl;
+		for (int i = 0; i < NF + NR + NS + NE; i++)
+		{
+			if (i == NF + NR + NS + NE - 1)
+			{
+				fout << "P" << i + 1 << " = " << idk << "%\n";
+			}
+			else
+			{
+				fout << "P" << i + 1 << " = " << idk << "%,\t";
+			}
+
+		}
+		fout << "Avg utilization = " << idk << "%";
+
+	}
+}
+
+
 
 Scheduler::~Scheduler()
 {

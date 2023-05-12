@@ -97,7 +97,4 @@ int UI::Mode()
 	return mode;
 }
 
-void UI::Output()
-{
 
-}

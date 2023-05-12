@@ -13,19 +13,20 @@ void SJF::ScheduleAlgo()
 		ExpectedFinishTime -= RunningProcess->getTimeCounter();
 		RunningProcess = nullptr;
 	}
+	
+	if (RunningProcess && RunningProcess->getTimeCounter() == 0)  //Terminates process if its finishes processing
+	{
+		RunningProcess->setTerminationT(pScheduler->getTime());
+		//RunningProcess->setTRT();
+
+		pScheduler->AddtoTRM(RunningProcess);
+		RunningProcess = nullptr;
+
+	}
 	if (RunningProcess != nullptr)  // assuming TimesOfIO is RequestTime
 	{
 		RunningProcess->decrmntTimeCounter();
 		ExpectedFinishTime--;
-
-	}
-	if (RunningProcess && RunningProcess->getTimeCounter() == 0)  //Terminates process if its finishes processing
-	{
-		RunningProcess->setTerminationT(pScheduler->getTime());
-		RunningProcess->setTRT();
-
-		pScheduler->AddtoTRM(RunningProcess);
-		RunningProcess = nullptr;
 
 	}
 	if (!RunningProcess && !RDY.isEmpty())

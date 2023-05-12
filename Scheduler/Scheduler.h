@@ -43,6 +43,7 @@ public:
 	int getTime();
 	void Simulate();
 	void Read();
+	void OutPut();
 	void Execute();
 	void InitializeProcessors();
 	void AddtoTRM(Process*,int mode =0);
