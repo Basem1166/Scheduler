@@ -125,4 +125,3 @@ void EDF::addfinishtime(Process* Prc) {
 int EDF::getfinishtime() {
 	return ExpectedFinishTime;
 }
-int EDF::DeadlineCount=0;

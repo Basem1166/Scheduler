@@ -10,7 +10,6 @@ private:
     pQueue <Process*> RDY;
     int in = 0;
     Scheduler* pScheduler;
-    static int DeadlineCount;
 public:
     void ScheduleAlgo();
     virtual void AddToRDY(Process* Prc);
