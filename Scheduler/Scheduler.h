@@ -35,7 +35,7 @@ private:
 	int M;
 	int NR;
 	int STL;
-	
+	int BeforeDLCount;
 
 public:
 

@@ -19,11 +19,6 @@ void SJF::ScheduleAlgo()
 		RunningProcess->setTerminationT(pScheduler->getTime());
 		//RunningProcess->setTRT();
 
-		if (pScheduler->getTime() < RunningProcess->getDeadline())
-		{
-			BeforeDeadline++;
-		}
-
 		pScheduler->AddtoTRM(RunningProcess);
 		RunningProcess = nullptr;
 

@@ -18,12 +18,8 @@ void RR::ScheduleAlgo()
 	if (RunningProcess && RunningProcess->getTimeCounter() == 0)  //Terminates process if its finishes processing
 	{
 		RunningProcess->setTerminationT(pScheduler->getTime());
-		//RunningProcess->setTRT();
 
-		if (pScheduler->getTime() < RunningProcess->getDeadline())
-		{
-			BeforeDeadline++;
-		}
+		//RunningProcess->setTRT();
 
 		pScheduler->AddtoTRM(RunningProcess);
 		RunningProcess = nullptr;

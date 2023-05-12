@@ -11,7 +11,7 @@ Scheduler::Scheduler()
 	}
 	InitializeProcessors();
 	srand(time(NULL)); // seed the random number generator with the current time
-
+	BeforeDLCount = 0;
 
 }
 
@@ -373,7 +373,10 @@ bool Scheduler::Migrate(Process* P, int mode)
 //mode=1 -> orphan process
 void Scheduler::AddtoTRM(Process* P, int mode)
 {
-	
+	if (getTime() < P->getDeadline())
+	{
+		BeforeDLCount++;
+	}
 	TRM.enQueue(P);
 	if (mode)
 	{
