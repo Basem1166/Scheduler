@@ -21,14 +21,14 @@ private:
 	bool isChild;
 	bool isParent;
 	Process* Child;
-
+	int Deadline;
 	
 	//////////////////////////////////////////////////
 	Queue<IORequests*> IoRequests;// could be queue?
 	string State;
 	string Type;
 public:
-	Process(int at, int pid, int ct, int toi, IORequests ior[]);
+	Process(int at, int pid, int ct,int deadline, int toi, IORequests ior[]);
 	//Setters
 	void setState(string);
 	void setArrivalTime(int);
@@ -55,7 +55,7 @@ public:
 	Queue<IORequests*> getIORequests();
 
 	friend ostream& operator<<(ostream& os, const Process& process);
-
+	int getDeadline();
 
 
 };

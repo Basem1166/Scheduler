@@ -13,6 +13,7 @@ protected:
 	int ExpectedFinishTime;
 	int IdleTime=0; // total idle time of processor
 	int BusyTime=0;
+	static int BeforeDeadline;
 	
 public:
 	virtual void ScheduleAlgo() = 0;

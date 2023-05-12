@@ -43,3 +43,4 @@ ostream& operator<<(ostream& os, const Processor& processor)
 	return os;}
 
 int Processor::WorkStealingProcesses=0;
+int Processor::BeforeDeadline = 0;
