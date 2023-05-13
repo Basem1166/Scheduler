@@ -2,11 +2,12 @@
 
 void EDF::ScheduleAlgo()
 {
+	OverHeat();
 	if (State == "STOP")
 	{
 		return;
 	}
-	OverHeat();
+	
 	IORequests* CurrentIO = nullptr; // TO BE ABLE TO PEAK/DEQUEUE FROM THE IO QUEUE
 	if (RunningProcess) {
 		RunningProcess->getIORequests().peek(CurrentIO);

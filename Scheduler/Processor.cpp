@@ -12,6 +12,12 @@ int Processor::generateRandomNumber()
 
 	return rand() % 100 + 1; // generate a random number between 1 and 100
 }
+int Processor::generateRandomNumber1000()
+{
+
+
+	return rand() % 1000 + 1; // generate a random number between 1 and 100
+}
 
 
 bool Processor::isRunning()
@@ -51,14 +57,25 @@ void Processor::setOverHeatTime(int overheattime)
 
 void Processor::OverHeat() {
 
-	int randomNumber = generateRandomNumber();
-	if (randomNumber==69)
+	if (State=="STOP")
 	{
-		State = "STOP";
-		ExpectedFinishTime = 0;
-		EmptyProcessor();
+		OverHeatCounter--;
+		if (OverHeatCounter==0)
+		{
+			State = "IDLE";
+		}
 	}
 
+	if (State != "STOP") {
+		int randomNumber = generateRandomNumber1000();
+		if (randomNumber < 5 )
+		{
+			State = "STOP";
+			ExpectedFinishTime = 0;
+			EmptyProcessor();
+		}
+		OverHeatCounter = OverHeatTime;
+	}
 	
 
 }

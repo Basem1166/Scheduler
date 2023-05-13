@@ -8,6 +8,7 @@ class Processor
 protected:
 	static int WorkStealingProcesses;
 	static int OverHeatTime;
+	int OverHeatCounter;
 	Process* RunningProcess = nullptr;
 	string State;
 	string Type;
@@ -33,7 +34,7 @@ public:
 	static void setOverHeatTime(int OverHeatTime);
 	friend ostream& operator<<(ostream& os, const Processor& processor);
 	void OverHeat();
-	
+	int generateRandomNumber1000();
 	bool isRunning();
 	void PrintRunning();
 	Processor();

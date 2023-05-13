@@ -9,12 +9,12 @@ FCFS::FCFS(Scheduler* pSch)
 
 void FCFS::ScheduleAlgo()
 {
-
+	OverHeat();
 	if (State == "STOP")
 	{
 		return;
 	} 
-	OverHeat();
+	
 
 	int TempRandomNumber;
 	IORequests* CurrentIO = nullptr; // TO BE ABLE TO PEAK/DEQUEUE FROM THE IO QUEUE
