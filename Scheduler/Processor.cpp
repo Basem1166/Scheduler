@@ -44,4 +44,24 @@ ostream& operator<<(ostream& os, const Processor& processor)
 	os << "[ " << processor.Type << " ]";
 	return os;}
 
+void Processor::setOverHeatTime(int overheattime)
+{
+	OverHeatTime = overheattime;
+}
+
+void Processor::OverHeat() {
+
+	int randomNumber = generateRandomNumber();
+	if (randomNumber==69)
+	{
+		State = "STOP";
+		ExpectedFinishTime = 0;
+		EmptyProcessor();
+	}
+
+	
+
+}
+
 int Processor::WorkStealingProcesses=0;
+int Processor::OverHeatTime;
