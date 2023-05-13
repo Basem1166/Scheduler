@@ -107,7 +107,7 @@ void Process::setWT()
 	if (ProcessID == 5) {
 		int x=0;
 	}
-	WaitingTime = TurnAroundDuration - CPUTime;
+	WaitingTime = TurnAroundDuration - CPUTime + TimeCounter;
 }
 
 int Process::getWT()
@@ -150,8 +150,8 @@ bool Process::checkIORequestDurationTime()
 {
 	IORequests* iorptr;
 	IoRequests.peek(iorptr);
-	iorptr->Duration--;
-	if (iorptr->Duration==0)
+	iorptr->FinishedTime--;
+	if (iorptr->FinishedTime==0)
 	{
 		RemoveIORequest();
 		return true;
