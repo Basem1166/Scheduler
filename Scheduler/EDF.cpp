@@ -2,6 +2,12 @@
 
 void EDF::ScheduleAlgo()
 {
+	OverHeat();
+	if (State == "STOP")
+	{
+		return;
+	}
+	
 	IORequests* CurrentIO = nullptr; // TO BE ABLE TO PEAK/DEQUEUE FROM THE IO QUEUE
 	if (RunningProcess) {
 		RunningProcess->getIORequests().peek(CurrentIO);
@@ -97,6 +103,27 @@ Process* EDF::StealProcess()
 	if (prc)
 		ExpectedFinishTime -= prc->getTimeCounter();
 	return prc;
+}
+void EDF::EmptyProcessor() {
+	if (RunningProcess)
+	{
+		pScheduler->AddtoRDY(RunningProcess);
+		RunningProcess = nullptr;
+	}
+	
+
+	Process* prc;
+	while (!RDY.isEmpty())
+	{
+		RDY.deQueue(prc);
+		pScheduler->AddtoRDY(prc);
+	}
+
+};
+string EDF::getState() {
+
+	return State;
+
 }
 
 EDF::EDF(Scheduler* scheduler)

@@ -3,6 +3,14 @@
 
 void RR::ScheduleAlgo()
 {
+
+	OverHeat();
+	if (State == "STOP")
+	{
+		return;
+	}
+	
+
 	IORequests* CurrentIO = nullptr; // TO BE ABLE TO PEAK/DEQUEUE FROM THE IO QUEUE
 	if (RunningProcess) {
 		RunningProcess->getIORequests().peek(CurrentIO);
@@ -93,6 +101,25 @@ void RR::setRTF(int RTF_)
 {
 	RTF = RTF_;
 }
+void RR::EmptyProcessor() {
+	if (RunningProcess) {
+		pScheduler->AddtoRDY(RunningProcess);
+		RunningProcess = nullptr;
+	}
+	Process* prc;
+	while (!RDY.isEmpty())
+	{
+		RDY.deQueue(prc);
+		pScheduler->AddtoRDY(prc);
+	}
+
+};
+string RR::getState() {
+
+	return State;
+
+}
+
 
 void RR::setTimeSlice(int TimeSlice_)
 {

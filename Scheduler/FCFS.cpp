@@ -9,6 +9,13 @@ FCFS::FCFS(Scheduler* pSch)
 
 void FCFS::ScheduleAlgo()
 {
+	OverHeat();
+	if (State == "STOP")
+	{
+		return;
+	} 
+	
+
 	int TempRandomNumber;
 	IORequests* CurrentIO = nullptr; // TO BE ABLE TO PEAK/DEQUEUE FROM THE IO QUEUE
 	if (RunningProcess) {
@@ -134,6 +141,29 @@ Process* FCFS::StealProcess()
 void FCFS::setMaxW(int maxW)
 {
 	MaxW = maxW;
+}
+void FCFS::EmptyProcessor() {
+
+	if (RunningProcess) {
+		pScheduler->AddtoRDY(RunningProcess);
+		RunningProcess = nullptr;
+	}
+	Process* prc;
+	while (!RDY.isEmpty())
+	{
+		RDY.Remove(1, prc);
+		if (prc->ischild())
+		{
+			pScheduler->AddtoRDY(prc,3);
+		}
+		pScheduler->AddtoRDY(prc);
+	}
+
+}
+string FCFS::getState() {
+
+	return State;
+
 }
 
 void FCFS::setForkProb(int Prob)

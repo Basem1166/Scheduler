@@ -1,7 +1,19 @@
 #include "SJF.h"
 
 void SJF::ScheduleAlgo()
+
+{
+
+	OverHeat();
+	if (State == "STOP")
+	{
+		return;
+	}
+	
+
+
    {
+
 	IORequests* CurrentIO = nullptr; // TO BE ABLE TO PEAK/DEQUEUE FROM THE IO QUEUE
 	if (RunningProcess) {
 		RunningProcess->getIORequests().peek(CurrentIO);
@@ -80,6 +92,25 @@ void SJF::Simulate()
 void SJF::TerminateProcess(int randomnumber,int mode)
 {
 }
+void SJF::EmptyProcessor() {
+	if (RunningProcess) {
+		pScheduler->AddtoRDY(RunningProcess);
+		RunningProcess = nullptr;
+	}
+	Process* prc;
+	while (!RDY.isEmpty())
+	{
+		RDY.deQueue(prc);
+		pScheduler->AddtoRDY(prc);
+	}
+
+ };
+string SJF::getState() {
+
+	return State;
+
+}
+
 
 Process* SJF::StealProcess()
 {
