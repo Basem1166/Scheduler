@@ -381,13 +381,13 @@ void Scheduler::AddtoTRM(Process* P, int mode)
 	if (mode)
 	{
 		P->setState("ORPH");
-		P->setTerminationT(Time);
 	}
 	else
 	{
 		P->setState("TRM");
 	}
 	CheckOrphan(P);
+	P->setTerminationT(Time);
 
 }
 

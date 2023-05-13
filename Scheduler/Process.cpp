@@ -104,6 +104,9 @@ void Process::setTRT()
 
 void Process::setWT()
 {
+	if (ProcessID == 5) {
+		int x=0;
+	}
 	WaitingTime = TurnAroundDuration - CPUTime;
 }
 
