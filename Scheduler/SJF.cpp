@@ -1,6 +1,7 @@
 #include "SJF.h"
 
 void SJF::ScheduleAlgo()
+
 {
 
 	OverHeat();
@@ -9,6 +10,9 @@ void SJF::ScheduleAlgo()
 		return;
 	}
 	
+
+
+   {
 
 	IORequests* CurrentIO = nullptr; // TO BE ABLE TO PEAK/DEQUEUE FROM THE IO QUEUE
 	if (RunningProcess) {
@@ -21,7 +25,12 @@ void SJF::ScheduleAlgo()
 		ExpectedFinishTime -= RunningProcess->getTimeCounter();
 		RunningProcess = nullptr;
 	}
-	
+	if (RunningProcess != nullptr)  // assuming TimesOfIO is RequestTime
+	{
+		RunningProcess->decrmntTimeCounter();
+		ExpectedFinishTime--;
+
+	}
 	if (RunningProcess && RunningProcess->getTimeCounter() == 0)  //Terminates process if its finishes processing
 	{
 		//RunningProcess->setTRT();
@@ -30,12 +39,7 @@ void SJF::ScheduleAlgo()
 		RunningProcess = nullptr;
 
 	}
-	if (RunningProcess != nullptr)  // assuming TimesOfIO is RequestTime
-	{
-		RunningProcess->decrmntTimeCounter();
-		ExpectedFinishTime--;
-
-	}
+	
 	if (!RunningProcess && !RDY.isEmpty())
 	{
 		RDY.deQueue(RunningProcess);

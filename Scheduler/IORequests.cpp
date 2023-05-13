@@ -5,6 +5,7 @@ IORequests::IORequests(int RT, int DT)
 {
 	RequestTime = RT;
 	Duration = DT;
+	FinishedTime = Duration;
 }
 
 
