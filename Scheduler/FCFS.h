@@ -10,6 +10,7 @@ private:
     static int NumberOfMaxW;
     static int ForkedProcesses;
     static int KilledProcesses;
+    static int MigrationNumber;
 
     static int MaxW; 
     static int ForkProbability;//makes more sense to make them a static data member too
@@ -38,5 +39,7 @@ public:
     static void setMaxW(int maxW);
     static void setForkProb(int Prob);
     static int getForkProb();
+    static void IncrementMigrationNumber();
+    static int getMigrationNumber();
 };
 

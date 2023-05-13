@@ -3,6 +3,7 @@
 Scheduler::Scheduler()
 {
 	Read();
+	OriginalProcessesCount = M;
 	Time = 0;
 	ProcessorCount = 0;
 	ProcessorsList = new Processor * [NF + NR + NS+ NE];
@@ -12,6 +13,7 @@ Scheduler::Scheduler()
 	InitializeProcessors();
 	srand(time(NULL)); // seed the random number generator with the current time
 	BeforeDLCount = 0;
+	StolenProcesses = 0;
 
 }
 
@@ -360,14 +362,14 @@ bool Scheduler::Migrate(Process* P, int mode)
 {
 	if (mode==1 && NS==0)
 	{
-		return 0;
+		return false;
 	}
 	if (mode==2 && NR==0)
 	{
-		return 0;
+		return false;
 	}
 	AddtoRDY(P, mode);
-	return 1;
+	return true;
 }
 //mode=0 -> normal process
 //mode=1 -> orphan process
@@ -456,6 +458,7 @@ void Scheduler::WorkSteal()
 			if (prc)
 			{
 				ProcessorsList[shortestIndex]->AddToRDY(prc);
+				StolenProcesses++;
 			}
 			else
 			{
@@ -475,6 +478,8 @@ void Scheduler::WorkSteal()
 }
 
 
+
+
 void Scheduler::OutPut()
 {
 	ofstream fout("Output.txt", ios::out); //Creates an fstream object and opens the output file
@@ -483,6 +488,13 @@ void Scheduler::OutPut()
 	if (fout.is_open())
 	{
 		int TotalWT = 0, TotalRT = 0, TotalTRT = 0;
+		float RTFPercenage = (static_cast<float>(RR::getMigrationNumber()) / M) * 100;
+		float MaxWPercentage = (static_cast<float>(FCFS::getMigrationNumber()) / M) * 100;
+		float StolenPercentage = (static_cast<float>(StolenProcesses) / M) * 100;
+
+		float ForkedProcesses = M - OriginalProcessesCount;
+		float ForkedPercentage = (ForkedProcesses / M) * 100;
+
 		fout << "TT\tPID\tCT\tDL\tIO_D\t\tWT\tRT\tTRT"<<endl;
 
 		while (TRM.deQueue(temp))
@@ -498,9 +510,9 @@ void Scheduler::OutPut()
 
 		fout << endl << "Processes: " << M << endl;
 		fout << "Avg WT = " << TotalWT / M << ",\t" << "Avg RT = " << TotalRT / M << ",\t" << "Avg TRT = " << TotalTRT / M << endl;
-		fout << "Migration %:\t RTF = " << idk << "%, \t MaxW = " << idk << "%" << endl;
-		fout << "Work Steal %: " << idk << "%" << endl;
-		fout << "Forked Process %: " << idk << "%" << endl;
+		fout << "Migration %:\t RTF = " << RTFPercenage << "%, \t MaxW = " << MaxWPercentage << "%" << endl;
+		fout << "Work Steal %: " << StolenPercentage << "%" << endl;
+		fout << "Forked Process %: " << ForkedPercentage << "%" << endl;
 		fout << "Killed Process %: " << idk << "%" << endl << endl;
 
 		fout << "Processors: " << NF + NR + NS + NE << " [ " << NR << " RR, " << NS << " SJF, " << NF << " FCFS, " << NE << " EDF ]" << endl;

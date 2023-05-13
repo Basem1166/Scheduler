@@ -23,6 +23,8 @@ public:
 
     static void setRTF(int RTF_);
     static void setTimeSlice(int TimeSlice_);
+    static void IncrementMigrationNumber();
+    static int getMigrationNumber();
 
     void PrintRDY();
     string getType();

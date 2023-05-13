@@ -47,6 +47,7 @@ void RR::ScheduleAlgo()
 		if (RunningProcess->getTimeCounter() < RTF) // check if it should migrate or not
 		{
 			if (pScheduler->Migrate(RunningProcess, 1)) {// call migrate function of the scheduler
+				MigrationNumber++;
 				RunningProcess = nullptr;
 				continue;
 			}
@@ -98,6 +99,16 @@ void RR::setTimeSlice(int TimeSlice_)
 	TimeSlice = TimeSlice_;
 }
 
+void RR::IncrementMigrationNumber()
+{
+	MigrationNumber++;
+}
+
+int RR::getMigrationNumber()
+{
+	return MigrationNumber;
+}
+
 RR::RR(Scheduler* scheduler)
 {
 	pScheduler = scheduler;
@@ -127,7 +138,7 @@ int RR::getfinishtime() {
 	return ExpectedFinishTime;
 }
 
-int RR::MigrationNumber; // changes only from new->rdy
+int RR::MigrationNumber = 0; // changes only from new->rdy
 int RR::NumberOfProcesses;
 int RR::RTF; //makes more sense to make this a static data member too
 int RR::TimeSlice;

@@ -28,6 +28,7 @@ private:
 	Queue<SIGKILL> sigkill;
 	Processor** ProcessorsList;
 	int ProcessorCount;
+	int OriginalProcessesCount;
 	int Time;
 	int NF;
 	int NS;
@@ -36,6 +37,7 @@ private:
 	int NR;
 	int STL;
 	int BeforeDLCount;
+	int StolenProcesses;
 
 public:
 

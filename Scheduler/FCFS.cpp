@@ -44,7 +44,7 @@ void FCFS::ScheduleAlgo()
 		if (RunningProcess->getCPUTime() + getReadyWaitTime() > MaxW) // check if it should migrate or not
 		{
 			if (pScheduler->Migrate(RunningProcess, 2)) {           // call migrate function of the scheduler
-				
+				MigrationNumber++;
 				RunningProcess = nullptr;
 				continue;
 			}
@@ -140,6 +140,16 @@ int FCFS::getForkProb() {
 	return ForkProbability;
 }
 
+void FCFS::IncrementMigrationNumber()
+{
+	MigrationNumber++;
+}
+
+int FCFS::getMigrationNumber()
+{
+	return MigrationNumber;
+}
+
 void FCFS::PrintRDY()
 {
 	RDY.Print();
@@ -176,9 +186,10 @@ string FCFS::getType()
 	return Type;
 }
 
-int FCFS::NumberOfProcesses;
+int FCFS::NumberOfProcesses = 0;
+int FCFS::MigrationNumber = 0;
 int FCFS::NumberOfMaxW;
-int FCFS::ForkedProcesses;
-int FCFS::KilledProcesses;
+int FCFS::ForkedProcesses = 0;
+int FCFS::KilledProcesses = 0;
 int FCFS::MaxW;
 int FCFS::ForkProbability;//makes more sense to make them a static data member too
