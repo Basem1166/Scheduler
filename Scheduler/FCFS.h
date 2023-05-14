@@ -43,5 +43,6 @@ public:
     static int getForkProb();
     static void IncrementMigrationNumber();
     static int getMigrationNumber();
+    static int getKilledProcessesNumber();
 };
 

@@ -95,8 +95,10 @@ void Scheduler::Execute() // not used in phase 1
 	Process* Prc;
 	int TempRandomNumber;
 	UI UWU; //Creates UI Object
+	
 
 	int mode = UWU.Mode();
+	bool first = true;
 
 	while (TRM.getCount() != M)//Temporary condition to test, this is the while for every timestep , the end condition would be in this while.
 	{
@@ -134,9 +136,17 @@ void Scheduler::Execute() // not used in phase 1
 		}
 		
 
+		if (mode == 3 && first)
+		{
+			UWU.Interface(Time, ProcessorsList, ProcessorCount, &BLK, &TRM, mode);
+			first = false;
+		}
+		else if(mode != 3)
+		{
+			UWU.Interface(Time, ProcessorsList, ProcessorCount, &BLK, &TRM, mode);
+			system("cls");
+		}
 		
-		UWU.Interface(Time, ProcessorsList, ProcessorCount, &BLK, &TRM, mode);
-		system("cls");
 	
 			
 
@@ -493,6 +503,7 @@ void Scheduler::OutPut()
 {
 	ofstream fout("Output.txt", ios::out); //Creates an fstream object and opens the output file
 	Process* temp;
+	UI UWU; //Creates UI Object
 	int idk = 0;
 	if (fout.is_open())
 	{
@@ -503,6 +514,8 @@ void Scheduler::OutPut()
 
 		float ForkedProcesses = M - OriginalProcessesCount;
 		float ForkedPercentage = (ForkedProcesses / M) * 100;
+
+		float KilledPercentage = (static_cast<float>(FCFS::getKilledProcessesNumber()) / M) * 100;
 
 		fout << "TT\tPID\tCT\tDL\tIO_D\t\tWT\tRT\tTRT"<<endl;
 
@@ -522,7 +535,7 @@ void Scheduler::OutPut()
 		fout << "Migration %:\t RTF = " << RTFPercenage << "%, \t MaxW = " << MaxWPercentage << "%" << endl;
 		fout << "Work Steal %: " << StolenPercentage << "%" << endl;
 		fout << "Forked Process %: " << ForkedPercentage << "%" << endl;
-		fout << "Killed Process %: " << idk << "%" << endl << endl;
+		fout << "Killed Process %: " << KilledPercentage << "%" << endl << endl;
 
 		fout << "Processors: " << NF + NR + NS + NE << " [ " << NR << " RR, " << NS << " SJF, " << NF << " FCFS, " << NE << " EDF ]" << endl;
 
@@ -556,6 +569,7 @@ void Scheduler::OutPut()
 		fout << "Avg utilization = " << idk << "%";
 
 	}
+	UWU.OutputFinished();
 }
 
 

@@ -77,8 +77,10 @@ void UI::Interface(int TimeStep, Processor** ProcessorList, int ProcessorCount, 
 	}
 	else
 	{
+	
 		system("cls");
-		cout << "Silent Mode,,,,,,	Simulation Starts....." << endl << "Simulation Ends, Output File Created" << endl;
+		cout << "Silent Mode,,,,,,	Simulation Starts....." << endl;
+		
 	}
 	
 
@@ -99,6 +101,13 @@ int UI::Mode()
 		}
 	}
 	return mode;
+}
+
+
+
+void UI::OutputFinished()
+{
+	cout << "Simulation Ends, Output File Created" << endl;
 }
 
 

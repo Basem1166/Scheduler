@@ -3,8 +3,12 @@
 
 class UI
 {
+
+	
 public:
 	void Interface(int TimeStep, Processor** ProcessorList, int ProcessorCount, Queue<Process*>* BLK, Queue<Process*>* TRM, int mode=0);
+	void OutputFinished();
+	
 
 	int Mode();
 

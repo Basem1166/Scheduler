@@ -95,6 +95,7 @@ void FCFS::TerminateProcess(int pID,int mode)
 		return;
 	if (RunningProcess && pID == RunningProcess->getProcessID()) {
 		pScheduler->AddtoTRM(RunningProcess,mode);
+		KilledProcesses++;
 		RunningProcess = nullptr;
 	}
 	if (RDY.isEmpty())
@@ -218,6 +219,11 @@ int FCFS::getReadyWaitTime()
 string FCFS::getType()
 {
 	return Type;
+}
+
+int FCFS::getKilledProcessesNumber()
+{
+	return KilledProcesses;
 }
 
 int FCFS::NumberOfProcesses = 0;
