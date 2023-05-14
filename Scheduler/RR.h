@@ -20,11 +20,12 @@ public:
     virtual void AddToRDY(Process* Prc);
     virtual void TerminateProcess(int,int);
     virtual Process* StealProcess();
-
+    virtual void EmptyProcessor();
     static void setRTF(int RTF_);
     static void setTimeSlice(int TimeSlice_);
     static void IncrementMigrationNumber();
     static int getMigrationNumber();
+    virtual string getState();
 
     void PrintRDY();
     string getType();

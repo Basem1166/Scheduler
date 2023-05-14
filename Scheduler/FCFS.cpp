@@ -9,13 +9,19 @@ FCFS::FCFS(Scheduler* pSch)
 
 void FCFS::ScheduleAlgo()
 {
+	OverHeat();
+	if (State == "STOP")
+	{
+		return;
+	} 
+	
+
 	int TempRandomNumber;
 	IORequests* CurrentIO = nullptr; // TO BE ABLE TO PEAK/DEQUEUE FROM THE IO QUEUE
 	if (RunningProcess) {
 		RunningProcess->getIORequests().peek(CurrentIO);
 	}
-	int pID = pScheduler->SigKill();
-	TerminateProcess(pID); //checks for sig kill
+	
 	
 	if (RunningProcess != nullptr && CurrentIO && RunningProcess->getCPUTime() - RunningProcess->getTimeCounter() == CurrentIO->RequestTime)
 	{
@@ -23,7 +29,11 @@ void FCFS::ScheduleAlgo()
 		ExpectedFinishTime -= RunningProcess->getTimeCounter();
 		RunningProcess = nullptr;
 	}
-	
+	if (RunningProcess != nullptr)  // assuming TimesOfIO is RequestTime
+	{
+		RunningProcess->decrmntTimeCounter();
+		ExpectedFinishTime--;
+	}
 	if (RunningProcess && RunningProcess->getTimeCounter() == 0)  //Terminates process if its finishes processing
 	{
 		//RunningProcess->setTRT();
@@ -33,11 +43,10 @@ void FCFS::ScheduleAlgo()
 		RunningProcess = nullptr;
 
 	}
-	if (RunningProcess != nullptr)  // assuming TimesOfIO is RequestTime
-	{
-		RunningProcess->decrmntTimeCounter();
-		ExpectedFinishTime--;
-	}
+
+	int pID = pScheduler->SigKill();
+	TerminateProcess(pID); //checks for sig kill  
+
 	while (!RunningProcess && !RDY.isEmpty())
 	{
 		RDY.Remove(1, RunningProcess);
@@ -60,7 +69,9 @@ void FCFS::ScheduleAlgo()
 		else {
 			BusyTime++;
 		}
+
 	}
+	
 	TempRandomNumber = generateRandomNumber(); //get a random number between 1 and 100
 	if (RunningProcess&&TempRandomNumber < FCFS::getForkProb()) {
 		pScheduler->Fork(RunningProcess);
@@ -130,6 +141,29 @@ Process* FCFS::StealProcess()
 void FCFS::setMaxW(int maxW)
 {
 	MaxW = maxW;
+}
+void FCFS::EmptyProcessor() {
+
+	if (RunningProcess) {
+		pScheduler->AddtoRDY(RunningProcess);
+		RunningProcess = nullptr;
+	}
+	Process* prc;
+	while (!RDY.isEmpty())
+	{
+		RDY.Remove(1, prc);
+		if (prc->ischild())
+		{
+			pScheduler->AddtoRDY(prc,3);
+		}
+		pScheduler->AddtoRDY(prc);
+	}
+
+}
+string FCFS::getState() {
+
+	return State;
+
 }
 
 void FCFS::setForkProb(int Prob)

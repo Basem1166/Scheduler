@@ -1,5 +1,5 @@
 #include "UI.h"
-#include <windows.h>
+#include <windows.h>   
 
 void UI::Interface(int TimeStep, Processor** ProcessorList, int ProcessorCount, Queue<Process*>* BLK, Queue<Process*>* TRM, int mode)
 {
@@ -17,6 +17,10 @@ void UI::Interface(int TimeStep, Processor** ProcessorList, int ProcessorCount, 
 			RDYCount = ProcessorList[i]->getRDYCount(); // the count of processes inside the RDY queue of each processor
 			cout << "Processor " << i + 1 << " " << *ProcessorList[i] << " : " << RDYCount << " RDY: ";
 			ProcessorList[i]->PrintRDY();
+			if (ProcessorList[i]->getState()=="STOP")
+			{
+				cout << "OVERHEATED!!!"; 
+			}
 			cout << endl;
 
 		}

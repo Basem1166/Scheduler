@@ -2,6 +2,12 @@
 
 void EDF::ScheduleAlgo()
 {
+	OverHeat();
+	if (State == "STOP")
+	{
+		return;
+	}
+	
 	IORequests* CurrentIO = nullptr; // TO BE ABLE TO PEAK/DEQUEUE FROM THE IO QUEUE
 	if (RunningProcess) {
 		RunningProcess->getIORequests().peek(CurrentIO);
@@ -13,7 +19,12 @@ void EDF::ScheduleAlgo()
 		ExpectedFinishTime -= RunningProcess->getTimeCounter();
 		RunningProcess = nullptr;
 	}
-	
+	if (RunningProcess != nullptr)  // assuming TimesOfIO is RequestTime
+	{
+		RunningProcess->decrmntTimeCounter();
+		ExpectedFinishTime--;
+
+	} 
 	if (RunningProcess && RunningProcess->getTimeCounter() == 0)  //Terminates process if its finishes processing
 	{
 		//RunningProcess->setTRT();
@@ -23,12 +34,7 @@ void EDF::ScheduleAlgo()
 		RunningProcess = nullptr;
 
 	}
-	if (RunningProcess != nullptr)  // assuming TimesOfIO is RequestTime
-	{
-		RunningProcess->decrmntTimeCounter();
-		ExpectedFinishTime--;
-
-	}
+	
 	if (!RunningProcess && !RDY.isEmpty())
 	{
 		RDY.deQueue(RunningProcess);
@@ -97,6 +103,27 @@ Process* EDF::StealProcess()
 	if (prc)
 		ExpectedFinishTime -= prc->getTimeCounter();
 	return prc;
+}
+void EDF::EmptyProcessor() {
+	if (RunningProcess)
+	{
+		pScheduler->AddtoRDY(RunningProcess);
+		RunningProcess = nullptr;
+	}
+	
+
+	Process* prc;
+	while (!RDY.isEmpty())
+	{
+		RDY.deQueue(prc);
+		pScheduler->AddtoRDY(prc);
+	}
+
+};
+string EDF::getState() {
+
+	return State;
+
 }
 
 EDF::EDF(Scheduler* scheduler)

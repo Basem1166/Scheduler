@@ -15,6 +15,8 @@ public:
     virtual void AddToRDY(Process* Prc);
     virtual void Simulate();
     virtual void TerminateProcess(int, int);
+    virtual string getState();
+    virtual void EmptyProcessor();
     virtual Process* StealProcess();
     void PrintRDY();
     int getRDYCount();

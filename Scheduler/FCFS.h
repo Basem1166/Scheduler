@@ -24,7 +24,9 @@ public:
     virtual void Simulate();
     virtual void AddToRDY(Process* Prc);
     virtual void TerminateProcess(int, int mode = 0);
+    virtual void EmptyProcessor();
     virtual Process* StealProcess();
+    virtual string getState();
   
 
     void PrintRDY();

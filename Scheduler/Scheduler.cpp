@@ -29,7 +29,7 @@ void Scheduler::Read()
 	int IO_D;
 	char temp = ' '; // character used to temporarily store the brackets and commas+
 
-	int RTF, MaxW, ForkProbability, TimeSliceOfRR;
+	int RTF, MaxW, ForkProbability, TimeSliceOfRR,OverHeatTime;
 	
 
 	ifstream fin("Input.txt", ios::in); //Creates an fstream object and opens the input file
@@ -41,12 +41,13 @@ void Scheduler::Read()
 	}
 	else
 	{
-		fin >> NF >> NS >> NR >> NE >> TimeSliceOfRR >> RTF >> MaxW >> STL >> ForkProbability >> M; // Inputs the necessary data from the input file to the variables
+		fin >> NF >> NS >> NR >> NE >> TimeSliceOfRR >> RTF >> MaxW >> STL >> ForkProbability >>OverHeatTime>> M; // Inputs the necessary data from the input file to the variables
 
 		RR::setRTF(RTF);
 		RR::setTimeSlice(TimeSliceOfRR);
 		FCFS::setMaxW(MaxW);
 		FCFS::setForkProb(ForkProbability); //Sets Static members necessary
+		Processor::setOverHeatTime(OverHeatTime);
 
 		for (int i = 0; i < M; i++)
 		{
@@ -300,6 +301,10 @@ int Scheduler::getShortestFinishTime(int mode)
 	
 	for (int i = 0; i < ProcessorCount; i++)
 	{
+		if (ProcessorsList[i]->getState()=="STOP")
+		{
+			continue;
+		}
 		if (mode == 1)
 		{
 			if (!(ProcessorsList[i]->getType() == "SJF")) //checks if it's a SJF processor
@@ -333,6 +338,10 @@ int Scheduler::getLongestFinishTime() {
 	int max = -1; //minumum cputime
 	int c;//index which min is at
 	for (int i = 0; i < ProcessorCount; i++) {
+		if (ProcessorsList[i]->getState() == "STOP")
+		{
+			continue;
+		}
 		if (ProcessorsList[i]->getfinishtime() > max) {
 			max = ProcessorsList[i]->getfinishtime(); //set max as the  count
 			c = i;  //set index
