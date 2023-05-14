@@ -38,7 +38,6 @@ void FCFS::ScheduleAlgo()
 	{
 		//RunningProcess->setTRT();
 
-
 		pScheduler->AddtoTRM(RunningProcess);
 		RunningProcess = nullptr;
 

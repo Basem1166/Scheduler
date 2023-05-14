@@ -57,6 +57,7 @@ public:
 	void WorkSteal();
 	int getShortestFinishTime(int mode =0);
 	int getLongestFinishTime();
+	int getTotalBusyTime();
 	void AddtoRDY(Process*, int mode=0);
 
 	void Fork(Process*);

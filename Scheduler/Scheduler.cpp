@@ -507,7 +507,7 @@ void Scheduler::OutPut()
 	int idk = 0;
 	if (fout.is_open())
 	{
-		int TotalWT = 0, TotalRT = 0, TotalTRT = 0;
+		int TotalWT = 0, TotalRT = 0, TotalTRT = 0, TotalBusyTime = getTotalBusyTime();
 		float RTFPercenage = (static_cast<float>(RR::getMigrationNumber()) / M) * 100;
 		float MaxWPercentage = (static_cast<float>(FCFS::getMigrationNumber()) / M) * 100;
 		float StolenPercentage = (static_cast<float>(StolenProcesses) / M) * 100;
@@ -542,34 +542,50 @@ void Scheduler::OutPut()
 		fout << "Processors Load" << endl;
 		for (int i = 0; i < NF + NR + NS + NE; i++)
 		{
+			float LoadPercentage = (static_cast<float>(ProcessorsList[i]->getBusyTime()) / TotalBusyTime) * 100;
 			if (i == NF + NR + NS + NE - 1)
 			{
-				fout << "P" << i + 1 << " = " << idk << "%\n";
+				fout << "P" << i + 1 << " = " << LoadPercentage << "%\n";
 			}
 			else
 			{
-				fout << "P" << i + 1 << " = " << idk << "%,\t";
+				fout << "P" << i + 1 << " = " << LoadPercentage << "%,\t";
 			}
 			
 		}
 
 		fout <<endl<< "Processors Utiliz" << endl;
+		float TotalUtil = 0;
 		for (int i = 0; i < NF + NR + NS + NE; i++)
 		{
+
+			float UtilPercentage = (static_cast<float>(ProcessorsList[i]->getBusyTime()) / Time) * 100;
+			TotalUtil += UtilPercentage;
 			if (i == NF + NR + NS + NE - 1)
 			{
-				fout << "P" << i + 1 << " = " << idk << "%\n";
+				fout << "P" << i + 1 << " = " << UtilPercentage << "%\n";
 			}
 			else
 			{
-				fout << "P" << i + 1 << " = " << idk << "%,\t";
+				fout << "P" << i + 1 << " = " << UtilPercentage << "%,\t";
 			}
 
 		}
-		fout << "Avg utilization = " << idk << "%";
+		float AvgUtil = TotalUtil / (NF + NR + NS + NE);
+		fout << "Avg utilization = " << AvgUtil << "%";
 
 	}
 	UWU.OutputFinished();
+}
+
+int Scheduler::getTotalBusyTime()
+{
+	int Total = 0;
+	for (int i = 0; i < NF + NR + NS + NE; i++)
+	{
+		Total += ProcessorsList[i]->getBusyTime();
+	}
+	return Total;
 }
 
 

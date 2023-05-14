@@ -80,5 +80,11 @@ void Processor::OverHeat() {
 
 }
 
+
+int Processor::getBusyTime()
+{
+	return BusyTime;
+}
+
 int Processor::WorkStealingProcesses=0;
 int Processor::OverHeatTime;

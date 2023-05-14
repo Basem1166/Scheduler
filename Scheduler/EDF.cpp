@@ -29,7 +29,6 @@ void EDF::ScheduleAlgo()
 	{
 		//RunningProcess->setTRT();
 
-
 		pScheduler->AddtoTRM(RunningProcess);
 		RunningProcess = nullptr;
 

@@ -37,6 +37,7 @@ public:
 	int generateRandomNumber1000();
 	bool isRunning();
 	void PrintRunning();
+	int getBusyTime();
 	Processor();
 };
 

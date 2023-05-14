@@ -79,7 +79,85 @@ void UI::Interface(int TimeStep, Processor** ProcessorList, int ProcessorCount, 
 	{
 	
 		system("cls");
-		cout << "Silent Mode,,,,,,	Simulation Starts....." << endl;
+
+		cout << "S";
+		Sleep(50);
+		cout << "i";
+		Sleep(50);
+		cout << "l";
+		Sleep(50);
+		cout << "e";
+		Sleep(50);
+		cout << "n";
+		Sleep(50);
+		cout << "t";
+
+		cout << " ";
+		Sleep(100);
+
+		cout << "M";
+		Sleep(50);
+		cout << "o";
+		Sleep(50);
+		cout << "d";
+		Sleep(50);
+		cout << "e";
+		Sleep(50);
+
+		for (size_t i = 0; i < 5; i++)
+		{
+			cout << ",";
+			Sleep(250);
+		}
+		
+
+		cout << "S";
+		Sleep(50);
+		cout << "i";
+		Sleep(50);
+		cout << "m";
+		Sleep(50);
+		cout << "u";
+		Sleep(50);
+		cout << "l";
+		Sleep(50);
+		cout << "a";
+		Sleep(50);
+		cout << "t";
+		Sleep(50);
+		cout << "i";
+		Sleep(50);
+		cout << "o";
+		Sleep(50);
+		cout << "n";
+		Sleep(50);
+
+		cout << " ";
+		Sleep(100);
+
+		cout << "S";
+		Sleep(50);
+		cout << "t";
+		Sleep(50);
+		cout << "a";
+		Sleep(50);
+		cout << "r";
+		Sleep(50);
+		cout << "t";
+		Sleep(50);
+		cout << "s";
+		Sleep(50);
+
+
+
+		for (size_t i = 0; i < 5; i++)
+		{
+			cout << ".";
+			Sleep(250);
+		}
+		Sleep(300);
+		cout << endl;
+
 		
 	}
 	
