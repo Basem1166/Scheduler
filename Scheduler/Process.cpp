@@ -96,17 +96,13 @@ void Process::setTerminationT(int Time)
 
 void Process::setTRT()
 {
-	if(ProcessID == 11){
-		int x = 0;
-	}
+	
 	TurnAroundDuration = TerminationTime - ArrivalTime;
 }
 
 void Process::setWT()
 {
-	if (ProcessID == 5) {
-		int x=0;
-	}
+	
 	WaitingTime = TurnAroundDuration - CPUTime + TimeCounter;
 }
 

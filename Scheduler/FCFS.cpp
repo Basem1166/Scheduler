@@ -5,6 +5,7 @@ FCFS::FCFS(Scheduler* pSch)
 {
 	pScheduler = pSch;
 	Type = "FCFS";
+	ExpectedFinishTime = 0;
 }
 
 void FCFS::ScheduleAlgo(int Time)
@@ -29,7 +30,7 @@ void FCFS::ScheduleAlgo(int Time)
 		ExpectedFinishTime -= RunningProcess->getTimeCounter();
 		RunningProcess = nullptr;
 	}
-	if (RunningProcess != nullptr)  // assuming TimesOfIO is RequestTime
+	if (RunningProcess != nullptr && RunningProcess->getTimeCounter() != 0)  // assuming TimesOfIO is RequestTime
 	{
 		RunningProcess->decrmntTimeCounter();
 		ExpectedFinishTime--;
