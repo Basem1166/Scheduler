@@ -515,6 +515,9 @@ void Scheduler::OutPut()
 
 		float KilledPercentage = (static_cast<float>(FCFS::getKilledProcessesNumber()) / M) * 100;
 
+		float BeforeDeadlinePercentage = (static_cast<float>(BeforeDLCount) / M) * 100;
+
+
 		fout << "TT\tPID\tCT\tDL\tIO_D\t\tWT\tRT\tTRT"<<endl;
 
 		while (TRM.deQueue(temp))
@@ -534,6 +537,8 @@ void Scheduler::OutPut()
 		fout << "Work Steal %: " << StolenPercentage << "%" << endl;
 		fout << "Forked Process %: " << ForkedPercentage << "%" << endl;
 		fout << "Killed Process %: " << KilledPercentage << "%" << endl << endl;
+
+		fout << "Before Expected Deadline%: " << BeforeDeadlinePercentage << "%" << endl << endl;
 
 		fout << "Processors: " << NF + NR + NS + NE << " [ " << NR << " RR, " << NS << " SJF, " << NF << " FCFS, " << NE << " EDF ]" << endl;
 
