@@ -1,6 +1,6 @@
 #include "EDF.h"
 
-void EDF::ScheduleAlgo()
+void EDF::ScheduleAlgo(int Time)
 {
 	OverHeat();
 	if (State == "STOP")
@@ -38,7 +38,7 @@ void EDF::ScheduleAlgo()
 	{
 		RDY.deQueue(RunningProcess);
 		RunningProcess->setState("RUN");
-		RunningProcess->setRT(pScheduler->getTime()); //need to set arrival time in execute
+		RunningProcess->setRT(Time); //need to set arrival time in execute
 		RunningProcess->getIORequests().peek(CurrentIO);
 	}
 	if (!RunningProcess) {

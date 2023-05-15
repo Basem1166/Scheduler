@@ -42,7 +42,6 @@ private:
 public:
 
 	Scheduler();
-	int getTime();
 	void Simulate();
 	void Read();
 	void OutPut();
