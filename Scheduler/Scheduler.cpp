@@ -125,7 +125,7 @@ void Scheduler::Execute() // not used in phase 1
 
 		for (int i = 0; i < ProcessorCount; i++)
 		{
-			ProcessorsList[i]->ScheduleAlgo();
+			ProcessorsList[i]->ScheduleAlgo(Time);
 		}
 
 		CheckBLK();
@@ -160,15 +160,13 @@ void Scheduler::Execute() // not used in phase 1
 
 	}
 }
-int Scheduler::getTime() {
-	return Time;
-}
+
 
 
 int Scheduler::SigKill() {
 	SIGKILL Signal;
 	sigkill.peek(Signal);
-	if (getTime() == Signal.Time) {
+	if (Time == Signal.Time) {
 		sigkill.deQueue(Signal);
 		return Signal.pID;
 	}
@@ -394,7 +392,7 @@ bool Scheduler::Migrate(Process* P, int mode)
 //mode=1 -> orphan process
 void Scheduler::AddtoTRM(Process* P, int mode)
 {
-	if (getTime() < P->getDeadline())
+	if (Time < P->getDeadline())
 	{
 		BeforeDLCount++;
 	}
