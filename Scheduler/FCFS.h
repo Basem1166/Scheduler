@@ -20,7 +20,7 @@ private:
       
 public:
     FCFS(Scheduler* pSch);
-    virtual void ScheduleAlgo(int);
+    virtual void ScheduleAlgo();
     virtual void Simulate();
     virtual void AddToRDY(Process* Prc);
     virtual void TerminateProcess(int, int mode = 0);

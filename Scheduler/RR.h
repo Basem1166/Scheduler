@@ -15,7 +15,7 @@ class RR :
     Queue<Process*> RDY;
     Scheduler* pScheduler;
 public:
-    virtual void ScheduleAlgo(int);
+    virtual void ScheduleAlgo();
     virtual void Simulate();
     virtual void AddToRDY(Process* Prc);
     virtual void TerminateProcess(int,int);

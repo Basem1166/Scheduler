@@ -17,7 +17,7 @@ protected:
 	int BusyTime=0;
 	
 public:
-	virtual void ScheduleAlgo(int) = 0;
+	virtual void ScheduleAlgo() = 0;
 	virtual void Simulate() = 0;
 	virtual void setState(string state);
 	virtual void AddToRDY(Process* Prc) = 0;

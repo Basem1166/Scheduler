@@ -1,7 +1,7 @@
 #pragma once
 #include "RR.h"
 
-void RR::ScheduleAlgo(int Time)
+void RR::ScheduleAlgo()
 {
 
 	OverHeat();
@@ -62,7 +62,7 @@ void RR::ScheduleAlgo(int Time)
 		}
 
 		RunningProcess->setState("RUN");
-		RunningProcess->setRT(Time); //need to set arrival time in execute
+		RunningProcess->setRT(pScheduler->getTime()); //need to set arrival time in execute
 		RunningProcess->getIORequests().peek(CurrentIO);
 	}
 	if (!RunningProcess) {

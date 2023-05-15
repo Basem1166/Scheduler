@@ -11,7 +11,7 @@ private:
     int in = 0;
     Scheduler* pScheduler;
 public:
-    void ScheduleAlgo(int);
+    void ScheduleAlgo();
     virtual void AddToRDY(Process* Prc);
     virtual void Simulate();
     virtual void TerminateProcess(int, int);
