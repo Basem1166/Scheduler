@@ -5,6 +5,7 @@ FCFS::FCFS(Scheduler* pSch)
 {
 	pScheduler = pSch;
 	Type = "FCFS";
+	ExpectedFinishTime = 0;
 }
 
 void FCFS::ScheduleAlgo(int Time)
