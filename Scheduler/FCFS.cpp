@@ -7,7 +7,7 @@ FCFS::FCFS(Scheduler* pSch)
 	Type = "FCFS";
 }
 
-void FCFS::ScheduleAlgo()
+void FCFS::ScheduleAlgo(int Time)
 {
 	OverHeat();
 	if (State == "STOP")
@@ -58,7 +58,7 @@ void FCFS::ScheduleAlgo()
 			}
 		}
 		RunningProcess->setState("RUN");
-		RunningProcess->setRT(pScheduler->getTime()); //need to set arrival time in execute
+		RunningProcess->setRT(Time); //need to set arrival time in execute
 		RunningProcess->getIORequests().peek(CurrentIO);
 
 

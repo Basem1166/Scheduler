@@ -125,7 +125,7 @@ void Scheduler::Execute() // not used in phase 1
 
 		for (int i = 0; i < ProcessorCount; i++)
 		{
-			ProcessorsList[i]->ScheduleAlgo();
+			ProcessorsList[i]->ScheduleAlgo(Time);
 		}
 
 		CheckBLK();
