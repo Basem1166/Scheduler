@@ -87,5 +87,10 @@ int Processor::getBusyTime()
 	return BusyTime;
 }
 
+int Processor::getIdleTime()
+{
+	return BusyTime;
+}
+
 int Processor::WorkStealingProcesses=0;
 int Processor::OverHeatTime;

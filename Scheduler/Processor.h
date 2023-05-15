@@ -38,6 +38,7 @@ public:
 	bool isRunning();
 	void PrintRunning();
 	int getBusyTime();
+	int getIdleTime();
 	Processor();
 };
 

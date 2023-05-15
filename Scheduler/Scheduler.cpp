@@ -557,7 +557,7 @@ void Scheduler::OutPut()
 		for (int i = 0; i < NF + NR + NS + NE; i++)
 		{
 
-			float UtilPercentage = (static_cast<float>(ProcessorsList[i]->getBusyTime()) / Time) * 100;
+			float UtilPercentage = (static_cast<float>(ProcessorsList[i]->getBusyTime()) / (ProcessorsList[i]->getBusyTime()+ ProcessorsList[i]->getIdleTime())) * 100;
 			TotalUtil += UtilPercentage;
 			if (i == NF + NR + NS + NE - 1)
 			{
