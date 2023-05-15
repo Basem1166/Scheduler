@@ -32,7 +32,7 @@ void RR::ScheduleAlgo(int Time)
 		RunningProcess = nullptr;
 		
 	}
-	if (RunningProcess != nullptr)  // assuming TimesOfIO is RequestTime
+	if (RunningProcess != nullptr && RunningProcess->getTimeCounter() != 0)  // assuming TimesOfIO is RequestTime
 	{
 		RunningTimeSlice--; //work on running process until time slice ends;
 		RunningProcess->decrmntTimeCounter();

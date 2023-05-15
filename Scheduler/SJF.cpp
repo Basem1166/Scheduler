@@ -20,7 +20,7 @@ void SJF::ScheduleAlgo(int Time)
 		ExpectedFinishTime -= RunningProcess->getTimeCounter();
 		RunningProcess = nullptr;
 	}
-	if (RunningProcess != nullptr)  // assuming TimesOfIO is RequestTime
+	if (RunningProcess != nullptr && RunningProcess->getTimeCounter()!=0  )  // assuming TimesOfIO is RequestTime
 	{
 		RunningProcess->decrmntTimeCounter();
 		ExpectedFinishTime--;
