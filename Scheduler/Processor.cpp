@@ -63,6 +63,7 @@ void Processor::OverHeat() {
 		if (OverHeatCounter==0)
 		{
 			State = "IDLE";
+			return;
 		}
 	}
 
