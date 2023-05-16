@@ -568,7 +568,7 @@ void Scheduler::OutPut()
 		fout << "Migration %:\t RTF = " << RTFPercenage << "%, \t MaxW = " << MaxWPercentage << "%" << endl;
 		fout << "Work Steal %: " << StolenPercentage << "%" << endl;
 		fout << "Forked Process %: " << ForkedPercentage << "%" << endl;
-		fout << "Killed Process %: " << KilledPercentage << "%" << endl << endl;
+		fout << "Killed Process %: " << KilledPercentage << "%" << endl;
 
 		fout << "Before Expected Deadline%: " << BeforeDeadlinePercentage << "%" << endl << endl;
 
