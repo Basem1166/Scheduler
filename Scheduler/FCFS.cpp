@@ -155,10 +155,6 @@ void FCFS::EmptyProcessor() {
 	while (!RDY.isEmpty())
 	{
 		RDY.Remove(1, prc);
-		if (prc->ischild())
-		{
-			pScheduler->AddtoRDY(prc,3);
-		}
 		pScheduler->AddtoRDY(prc);
 	}
 
