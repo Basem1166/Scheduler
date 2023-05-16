@@ -89,7 +89,7 @@ int Processor::getBusyTime()
 
 int Processor::getIdleTime()
 {
-	return BusyTime;
+	return IdleTime;
 }
 
 int Processor::WorkStealingProcesses=0;
