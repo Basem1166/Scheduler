@@ -98,6 +98,7 @@ void Scheduler::Execute() // not used in phase 1
 	
 
 	int mode = UWU.Mode();
+	system("cls");
 	bool first = true;
 
 	while (TRM.getCount() != M)//Temporary condition to test, this is the while for every timestep , the end condition would be in this while.
