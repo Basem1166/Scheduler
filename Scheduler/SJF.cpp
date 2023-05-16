@@ -52,7 +52,7 @@ void SJF::ScheduleAlgo(int Time)
 
 void SJF::AddToRDY(Process* Prc)
 {
-	RDY.enQueue(Prc, Prc->getCPUTime());
+	RDY.enQueue(Prc, Prc->getTimeCounter());
 	addfinishtime(Prc);
 }
 

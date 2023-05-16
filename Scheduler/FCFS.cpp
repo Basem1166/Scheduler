@@ -54,6 +54,7 @@ void FCFS::ScheduleAlgo(int Time)
 		{
 			if (pScheduler->Migrate(RunningProcess, 2)) {           // call migrate function of the scheduler
 				MigrationNumber++;
+				ExpectedFinishTime -= RunningProcess->getTimeCounter();
 				RunningProcess = nullptr;
 				continue;
 			}
@@ -96,6 +97,7 @@ void FCFS::TerminateProcess(int pID,int mode)
 	if (RunningProcess && pID == RunningProcess->getProcessID()) {
 		pScheduler->AddtoTRM(RunningProcess,mode);
 		KilledProcesses++;
+		ExpectedFinishTime -= RunningProcess->getTimeCounter();
 		RunningProcess = nullptr;
 	}
 	if (RDY.isEmpty())
@@ -108,6 +110,7 @@ void FCFS::TerminateProcess(int pID,int mode)
 			
 			Prc = RDY.getEntry(i);
 			pScheduler->AddtoTRM(Prc,mode);
+			ExpectedFinishTime -= Prc->getTimeCounter();
   			RDY.Remove(Prc);
 			KilledProcesses++;
 			
@@ -126,7 +129,7 @@ Process* FCFS::StealProcess()
 	if (prc && !prc->ischild() )
 	{
 		RDY.Remove(1, prc);
-		ExpectedFinishTime -= prc->getCPUTime();
+		ExpectedFinishTime -= prc->getTimeCounter();
 		WorkStealingProcesses++;
 		return prc;
 	}

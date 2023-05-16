@@ -306,9 +306,9 @@ void Scheduler::InitializeProcessors()
 // if mode = 3 it gets the index of the FCFS processor with shortest finish time
 int Scheduler::getShortestFinishTime(int mode)
 {
-	int min = 10000; //minumum cputime
-	int c;//index which min is at
 	
+	int min = INT_MAX; //minumum cputime
+	int c;//index which min is at
 	for (int i = 0; i < ProcessorCount; i++)
 	{
 
@@ -335,11 +335,13 @@ int Scheduler::getShortestFinishTime(int mode)
 		}
 
 		if (ProcessorsList[i]->getfinishtime() < min) {
+			
 			min = ProcessorsList[i]->getfinishtime(); //set min as the  count
 			c = i;  //set index
 		}
 	}
-	 	return c;
+	
+	 return c;
 }
 int Scheduler::getLongestFinishTime() {
 	int max = -1; //minumum cputime

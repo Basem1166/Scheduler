@@ -41,8 +41,8 @@ void RR::ScheduleAlgo(int Time)
 
 	if (RunningTimeSlice == 0 && RunningProcess) //requeue process after timeslice ends
 	{
+		ExpectedFinishTime -= RunningProcess->getTimeCounter();
 		AddToRDY(RunningProcess);
-		 
 		RunningProcess = nullptr;
 		
 	}
@@ -56,6 +56,7 @@ void RR::ScheduleAlgo(int Time)
 		{
 			if (pScheduler->Migrate(RunningProcess, 1)) {// call migrate function of the scheduler
 				MigrationNumber++;
+				ExpectedFinishTime -= RunningProcess->getTimeCounter();
 				RunningProcess = nullptr;
 				continue;
 			}
@@ -91,7 +92,7 @@ Process* RR::StealProcess()
 	RDY.deQueue(prc);
 	if (prc)
 	{
-		ExpectedFinishTime -= prc->getCPUTime();
+		ExpectedFinishTime -= prc->getTimeCounter();
 		
 	}
 	return prc;
@@ -158,7 +159,7 @@ int RR::getRDYCount()
 }
 
 void RR::addfinishtime(Process* Prc) {
-	ExpectedFinishTime += (Prc->getTimeCounter());
+	ExpectedFinishTime += Prc->getTimeCounter();
 }
 
 int RR::getfinishtime() {
