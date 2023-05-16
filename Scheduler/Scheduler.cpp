@@ -159,7 +159,8 @@ void Scheduler::Execute() // not used in phase 1
 
 
 	}
-}
+	OutPut();
+}   
 
 
 
@@ -377,6 +378,7 @@ void Scheduler::Fork(Process* P) {
 
 bool Scheduler::Migrate(Process* P, int mode)
 {
+	int count = 0;
 	if (mode==1 && NS==0)
 	{
 		return false;
@@ -385,6 +387,35 @@ bool Scheduler::Migrate(Process* P, int mode)
 	{
 		return false;
 	}
+	if (mode==1)
+	{
+		for (int i = 0; i < ProcessorCount; i++)
+		{
+			if (ProcessorsList[ProcessorCount]->getState() == "STOP" && ProcessorsList[ProcessorCount]->getType() == "SJF")
+			{
+				count++;
+			}
+		}
+		if (count == NS)
+		{
+			return false;
+		}
+	}
+	if (mode == 2)
+	{
+		for (int i = 0; i < ProcessorCount; i++)
+		{
+			if (ProcessorsList[ProcessorCount]->getState() == "STOP" && ProcessorsList[ProcessorCount]->getType() == "RR")
+			{
+				count++;
+			}
+		}
+		if (count == NR)
+		{
+			return false;
+		}
+	}
+	
 	AddtoRDY(P, mode);
 	return true;
 }

@@ -67,7 +67,7 @@ void Processor::OverHeat() {
 		}
 	}
 
-	if (State != "STOP") {
+	if (State != "STOP") {   
 		int randomNumber = generateRandomNumber1000();
 		if (randomNumber == 420 )
 		{
