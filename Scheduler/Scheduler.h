@@ -49,7 +49,6 @@ public:
 	void InitializeProcessors();
 	void AddtoTRM(Process*,int mode =0);
 	void AddtoBLK(Process*);
-	void AddtoORPH(Process*);
 	void CheckBLK();
 	void CheckOrphan(Process* P);
 
