@@ -43,9 +43,12 @@ void FCFS::ScheduleAlgo(int Time)
 		RunningProcess = nullptr;
 
 	}
-
 	int pID = pScheduler->SigKill();
-	TerminateProcess(pID); //checks for sig kill  
+	while(pID!=-2){
+		TerminateProcess(pID); //checks for sig kill  
+		pID = pScheduler->SigKill();
+	}
+	
 
 	while (!RunningProcess && !RDY.isEmpty())
 	{
