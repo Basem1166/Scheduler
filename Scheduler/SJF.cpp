@@ -14,13 +14,13 @@ void SJF::ScheduleAlgo(int Time)
 		RunningProcess->getIORequests().peek(CurrentIO);
 	}
 	
-	if (RunningProcess != nullptr && CurrentIO && RunningProcess->getCPUTime() - RunningProcess->getTimeCounter() == CurrentIO->RequestTime)
+	if (RunningProcess != nullptr && CurrentIO && RunningProcess->getCPUTime() - RunningProcess->getTimeCounter() == CurrentIO->RequestTime)//checks if it ran for the IO_R to add it to BLK list
 	{
 		pScheduler->AddtoBLK(RunningProcess);
 		ExpectedFinishTime -= RunningProcess->getTimeCounter();
 		RunningProcess = nullptr;
 	}
-	if (RunningProcess != nullptr && RunningProcess->getTimeCounter()!=0  )  // assuming TimesOfIO is RequestTime
+	if (RunningProcess != nullptr && RunningProcess->getTimeCounter()!=0  )   //Decrements the remaining time for process if it didnt finish its cpu time
 	{
 		RunningProcess->decrmntTimeCounter();
 		ExpectedFinishTime--;
@@ -28,14 +28,13 @@ void SJF::ScheduleAlgo(int Time)
 	}
 	if (RunningProcess && RunningProcess->getTimeCounter() == 0)  //Terminates process if its finishes processing
 	{
-		//RunningProcess->setTRT();
 
 		pScheduler->AddtoTRM(RunningProcess);
 		RunningProcess = nullptr;
 
 	}
 	
-	if (!RunningProcess && !RDY.isEmpty())
+	if (!RunningProcess && !RDY.isEmpty()) //Adds new Process to RUN
 	{
 		RDY.deQueue(RunningProcess);
 		RunningProcess->setState("RUN");
@@ -43,10 +42,10 @@ void SJF::ScheduleAlgo(int Time)
 		RunningProcess->getIORequests().peek(CurrentIO);
 	}
 	if (!RunningProcess) {
-		IdleTime++;
+		IdleTime++; //Adds Idle time if there is no running process in the end of the algo
 	}
 	else {
-		BusyTime++;
+		BusyTime++; //Adds Busy time if a process is currently running in the end of the algo
 	}
 }
 
@@ -57,32 +56,7 @@ void SJF::AddToRDY(Process* Prc)
 }
 
 void SJF::Simulate()
-{
-/**if (State == "IDLE" && !RDY.isEmpty()) {
-
-		RDY.deQueue(RunningProcess);
-		State = "BUSY";
-	}
-
-	if (!RunningProcess)
-		return;
-	int x = generateRandomNumber();
-	if (x >= 1 && x <= 15) {
-		pScheduler->AddtoBLK(RunningProcess);
-		State = "IDLE";
-		RunningProcess = nullptr;
-	}
-	else if (x >= 20 && x <= 30) {
-		AddToRDY(RunningProcess);
-		State = "IDLE";
-		RunningProcess = nullptr;
-	}
-	else if (x >= 50 && x <= 60) {
-		pScheduler->AddtoTRM(RunningProcess);
-		State = "IDLE";
-		RunningProcess = nullptr;
-	}*/
-}
+{}
 
 void SJF::TerminateProcess(int randomnumber,int mode)
 {
@@ -99,7 +73,8 @@ void SJF::EmptyProcessor() {
 		pScheduler->AddtoRDY(prc);
 	}
 
- };
+ }
+//Generic setter,getter and print functions
 string SJF::getState() {
 
 	return State;
