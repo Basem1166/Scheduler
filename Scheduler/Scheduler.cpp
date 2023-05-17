@@ -567,6 +567,7 @@ void Scheduler::OutPut()
 			TotalRT += temp->getRT();
 			fout << temp->getTerminationTime() << "\t" << temp->getProcessID() << "\t" << temp->getCPUTime() << "\t" << temp->getDeadline() << "\t" << temp->getIO_D();
 			fout   << "\t\t" << temp->getWT() << "\t" << temp->getRT() << "\t" << temp->getTerminationTime()- temp->getArrivalTime() << endl;
+			delete temp;
 		}
 
 		fout << endl << "Processes: " << M << endl;
@@ -638,6 +639,8 @@ Scheduler::~Scheduler()
 		delete ProcessorsList[i];
 	}
 	delete[] ProcessorsList;
+
+
 }
 
 
