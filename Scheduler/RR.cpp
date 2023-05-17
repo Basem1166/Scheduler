@@ -16,7 +16,7 @@ void RR::ScheduleAlgo(int Time)
 		RunningProcess->getIORequests().peek(CurrentIO);
 	}
 	
-	if (RunningProcess!=nullptr && CurrentIO && RunningProcess->getCPUTime() - RunningProcess->getTimeCounter() == CurrentIO->RequestTime)
+	if (RunningProcess!=nullptr && CurrentIO && RunningProcess->getCPUTime() - RunningProcess->getTimeCounter() == CurrentIO->RequestTime) //checks if it ran for the IO_R to add it to BLK list
 	{
 		pScheduler->AddtoBLK(RunningProcess);
 		ExpectedFinishTime -= RunningProcess->getTimeCounter();
@@ -26,13 +26,13 @@ void RR::ScheduleAlgo(int Time)
 	if (RunningProcess && RunningProcess->getTimeCounter() == 0)  //Terminates process if its finishes processing
 	{
 
-		//RunningProcess->setTRT();
+
 
 		pScheduler->AddtoTRM(RunningProcess);
 		RunningProcess = nullptr;
 		
 	}
-	if (RunningProcess != nullptr && RunningProcess->getTimeCounter() != 0)  // assuming TimesOfIO is RequestTime
+	if (RunningProcess != nullptr && RunningProcess->getTimeCounter() != 0)   //Decrements the remaining time & timeslice for process if it didnt finish its cpu time
 	{
 		RunningTimeSlice--; //work on running process until time slice ends;
 		RunningProcess->decrmntTimeCounter();
@@ -47,7 +47,7 @@ void RR::ScheduleAlgo(int Time)
 		
 	}
 
-	while (!RunningProcess && !RDY.isEmpty())
+	while (!RunningProcess && !RDY.isEmpty()) //Adds new Process to RUN
 	{
 		RunningTimeSlice = TimeSlice;
 		RDY.deQueue(RunningProcess);
@@ -114,7 +114,8 @@ void RR::EmptyProcessor() {
 		pScheduler->AddtoRDY(prc);
 	}
 
-};
+}
+//generic setter, getter and print functions 
 string RR::getState() {
 
 	return State;
