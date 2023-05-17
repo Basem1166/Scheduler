@@ -12,8 +12,8 @@ Scheduler::Scheduler()
 	}
 	InitializeProcessors(); // create the specified processors from input file 
 	srand(time(NULL)); // seed the random number generator with the current time
-	BeforeDLCount = 0; 
-	StolenProcesses = 0;
+	BeforeDLCount = 0; // counter of processes that will finish before their Deadline
+	StolenProcesses = 0; // Counter of Stolen processes
 
 }
 
@@ -387,24 +387,24 @@ void Scheduler::Fork(Process* P) {
 bool Scheduler::Migrate(Process* P, int mode)
 {
 	int count = 0;
-	if (mode==1 && NS==0)
+	if (mode==1 && NS==0) //checks if mode = 1 and there is no SJF processors so it returns false since there will be no migration.
 	{
 		return false;
 	}
-	if (mode==2 && NR==0)
+	if (mode==2 && NR==0) //checks if mode = 2 and there is no RR processors so it returns false since there will be no migration.
 	{
 		return false;
 	}
-	if (mode==1)
+	if (mode==1) //if there are available SJF processors
 	{
 		for (int i = 0; i < ProcessorCount; i++)
 		{
-			if (ProcessorsList[i]->getState() == "STOP" && ProcessorsList[i]->getType() == "SJF")
+			if (ProcessorsList[i]->getState() == "STOP" && ProcessorsList[i]->getType() == "SJF") //checks if the processor is overheated or not
 			{
 				count++;
 			}
 		}
-		if (count == NS)
+		if (count == NS) //Returns false and doesn't migrate if it is
 		{
 			return false;
 		}
@@ -413,19 +413,19 @@ bool Scheduler::Migrate(Process* P, int mode)
 	{
 		for (int i = 0; i < ProcessorCount; i++)
 		{
-			if (ProcessorsList[i]->getState() == "STOP" && ProcessorsList[i]->getType() == "RR")
+			if (ProcessorsList[i]->getState() == "STOP" && ProcessorsList[i]->getType() == "RR") //checks if the processor is overheated or not
 			{
 				count++;
 			}
 		}
-		if (count == NR)
+		if (count == NR) //Returns false and doesn't migrate if it is
 		{
 			return false;
 		}
 	}
 	
-	AddtoRDY(P, mode);
-	return true;
+	AddtoRDY(P, mode); //Adds it to the shortes ready of the wanted processor type
+	return true; //return true migration was successful
 }
 //mode=0 -> normal process
 //mode=1 -> orphan process
@@ -545,16 +545,17 @@ void Scheduler::OutPut()
 	if (fout.is_open())
 	{
 		int TotalWT = 0, TotalRT = 0, TotalTRT = 0, TotalBusyTime = getTotalBusyTime();
-		float RTFPercenage = (static_cast<float>(RR::getMigrationNumber()) / M) * 100;
-		float MaxWPercentage = (static_cast<float>(FCFS::getMigrationNumber()) / M) * 100;
-		float StolenPercentage = (static_cast<float>(StolenProcesses) / M) * 100;
 
-		float ForkedProcesses = M - OriginalProcessesCount;
-		float ForkedPercentage = (ForkedProcesses / M) * 100;
+		float RTFPercenage = (static_cast<float>(RR::getMigrationNumber()) / M) * 100; // Calculates RTF Percenage
+		float MaxWPercentage = (static_cast<float>(FCFS::getMigrationNumber()) / M) * 100; // Calculates MaxW Percentage
+		float StolenPercentage = (static_cast<float>(StolenProcesses) / M) * 100; // Calculates Stolen Percentage
 
-		float KilledPercentage = (static_cast<float>(FCFS::getKilledProcessesNumber()) / M) * 100;
+		float ForkedProcesses = M - OriginalProcessesCount; // Calculates Forked Processes
+		float ForkedPercentage = (ForkedProcesses / M) * 100; // Calculates Forked Percentage
 
-		float BeforeDeadlinePercentage = (static_cast<float>(BeforeDLCount) / M) * 100;
+		float KilledPercentage = (static_cast<float>(FCFS::getKilledProcessesNumber()) / M) * 100; // Calculates Killed Percentage
+
+		float BeforeDeadlinePercentage = (static_cast<float>(BeforeDLCount) / M) * 100; // Calculates Killed Percentage
 
 
 		fout << "TT\tPID\tCT\tDL\tIO_D\t\tWT\tRT\tTRT"<<endl;
