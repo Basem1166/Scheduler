@@ -374,11 +374,11 @@ void Scheduler::AddtoRDY(Process* P, int mode) {
 	
 }
 void Scheduler::Fork(Process* P) {
-	if (!P->isparent()) {
-		M++;
-		Process* temp = new Process(Time, M, P->getTimeCounter(), P->getDeadline(), 0, NULL);
-		P->setchild(temp);
-		AddtoRDY(temp, 3);
+	if (!P->isparent()) { //check if process is not a parent
+		M++; //increase count of total processes
+		Process* temp = new Process(Time, M, P->getTimeCounter(), P->getDeadline(), 0, NULL); //create a new process 
+		P->setchild(temp); //sets the new process as the child of the process
+		AddtoRDY(temp, 3); //add the process to the rdy list of FCFS	
 	}
 	
 }
