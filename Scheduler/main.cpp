@@ -10,11 +10,7 @@ int main()
 	Scheduler Schedule;
 	
 	Schedule.Execute();
-	Schedule.OutPut();
 	
 
-
-
-	system("pause");
 	return 0;
 }

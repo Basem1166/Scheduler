@@ -98,6 +98,7 @@ void Scheduler::Execute() // not used in phase 1
 	
 
 	int mode = UWU.Mode();
+	system("cls");
 	bool first = true;
 
 	while (TRM.getCount() != M)//Temporary condition to test, this is the while for every timestep , the end condition would be in this while.
@@ -159,7 +160,8 @@ void Scheduler::Execute() // not used in phase 1
 
 
 	}
-}
+	OutPut();
+}   
 
 
 
@@ -304,15 +306,16 @@ void Scheduler::InitializeProcessors()
 // if mode = 3 it gets the index of the FCFS processor with shortest finish time
 int Scheduler::getShortestFinishTime(int mode)
 {
-	int min = 10000; //minumum cputime
-	int c;//index which min is at
 	
+	int min = INT_MAX; //minumum cputime
+	int c = -1;//index which min is at
 	for (int i = 0; i < ProcessorCount; i++)
 	{
 		if (ProcessorsList[i]->getState()=="STOP")
 		{
 			continue;
 		}
+
 		if (mode == 1)
 		{
 			if (!(ProcessorsList[i]->getType() == "SJF")) //checks if it's a SJF processor
@@ -336,15 +339,17 @@ int Scheduler::getShortestFinishTime(int mode)
 		}
 
 		if (ProcessorsList[i]->getfinishtime() < min) {
+			
 			min = ProcessorsList[i]->getfinishtime(); //set min as the  count
 			c = i;  //set index
 		}
 	}
-	 	return c;
+	
+	 return c;
 }
 int Scheduler::getLongestFinishTime() {
 	int max = -1; //minumum cputime
-	int c;//index which min is at
+	int c ;//index which min is at
 	for (int i = 0; i < ProcessorCount; i++) {
 		if (ProcessorsList[i]->getState() == "STOP")
 		{
@@ -359,9 +364,12 @@ int Scheduler::getLongestFinishTime() {
 }
 
 void Scheduler::AddtoRDY(Process* P, int mode) {
-
 	int c = getShortestFinishTime(mode);
-		ProcessorsList[c]->AddToRDY(P);
+	if (c == -1) {
+		AddtoTRM(P);
+		return;
+	}
+	ProcessorsList[c]->AddToRDY(P);
 	
 	
 }
@@ -377,6 +385,7 @@ void Scheduler::Fork(Process* P) {
 
 bool Scheduler::Migrate(Process* P, int mode)
 {
+	int count = 0;
 	if (mode==1 && NS==0)
 	{
 		return false;
@@ -385,6 +394,35 @@ bool Scheduler::Migrate(Process* P, int mode)
 	{
 		return false;
 	}
+	if (mode==1)
+	{
+		for (int i = 0; i < ProcessorCount; i++)
+		{
+			if (ProcessorsList[i]->getState() == "STOP" && ProcessorsList[i]->getType() == "SJF")
+			{
+				count++;
+			}
+		}
+		if (count == NS)
+		{
+			return false;
+		}
+	}
+	if (mode == 2)
+	{
+		for (int i = 0; i < ProcessorCount; i++)
+		{
+			if (ProcessorsList[i]->getState() == "STOP" && ProcessorsList[i]->getType() == "RR")
+			{
+				count++;
+			}
+		}
+		if (count == NR)
+		{
+			return false;
+		}
+	}
+	
 	AddtoRDY(P, mode);
 	return true;
 }
@@ -461,7 +499,10 @@ void Scheduler::CheckOrphan(Process* prc) {
 }
 void Scheduler::WorkSteal()
 {
+	
 	int shortestIndex = getShortestFinishTime();
+	if (shortestIndex == -1)
+		return;   
 	int longestIndex = getLongestFinishTime();	
 	
 	if (ProcessorsList[longestIndex]->getfinishtime() == 0)

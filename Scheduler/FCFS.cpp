@@ -43,17 +43,21 @@ void FCFS::ScheduleAlgo(int Time)
 		RunningProcess = nullptr;
 
 	}
-
 	int pID = pScheduler->SigKill();
-	TerminateProcess(pID); //checks for sig kill  
+	while(pID!=-2){
+		TerminateProcess(pID); //checks for sig kill  
+		pID = pScheduler->SigKill();
+	}
+	
 
 	while (!RunningProcess && !RDY.isEmpty())
 	{
 		RDY.Remove(1, RunningProcess);
-		if (RunningProcess->getCPUTime() + getReadyWaitTime() > MaxW) // check if it should migrate or not
+		if (Time - RunningProcess-> getArrivalTime() > MaxW) // check if it should migrate or not
 		{
 			if (pScheduler->Migrate(RunningProcess, 2)) {           // call migrate function of the scheduler
 				MigrationNumber++;
+				ExpectedFinishTime -= RunningProcess->getTimeCounter();
 				RunningProcess = nullptr;
 				continue;
 			}
@@ -62,20 +66,20 @@ void FCFS::ScheduleAlgo(int Time)
 		RunningProcess->setRT(Time); //need to set arrival time in execute
 		RunningProcess->getIORequests().peek(CurrentIO);
 
-
-		if (!RunningProcess) {
-			IdleTime++;
-		}
-		else {
-			BusyTime++;
-		}
-
 	}
+
+
 	
 	TempRandomNumber = generateRandomNumber(); //get a random number between 1 and 100
 	if (RunningProcess&&TempRandomNumber < FCFS::getForkProb()) {
 		pScheduler->Fork(RunningProcess);
 		}
+	if (!RunningProcess) {
+		IdleTime++;
+	}
+	else {
+		BusyTime++;
+	}
 	}
 
 void FCFS::Simulate() {}
@@ -96,6 +100,7 @@ void FCFS::TerminateProcess(int pID,int mode)
 	if (RunningProcess && pID == RunningProcess->getProcessID()) {
 		pScheduler->AddtoTRM(RunningProcess,mode);
 		KilledProcesses++;
+		ExpectedFinishTime -= RunningProcess->getTimeCounter();
 		RunningProcess = nullptr;
 	}
 	if (RDY.isEmpty())
@@ -105,9 +110,12 @@ void FCFS::TerminateProcess(int pID,int mode)
 	{
 		if (RDY.getEntry(i)->getProcessID()==pID) //check if random number = process ID 
 		{
+			
 			Prc = RDY.getEntry(i);
 			pScheduler->AddtoTRM(Prc,mode);
+			ExpectedFinishTime -= Prc->getTimeCounter();
   			RDY.Remove(Prc);
+			KilledProcesses++;
 			
 		}
 	}
@@ -124,7 +132,7 @@ Process* FCFS::StealProcess()
 	if (prc && !prc->ischild() )
 	{
 		RDY.Remove(1, prc);
-		ExpectedFinishTime -= prc->getCPUTime();
+		ExpectedFinishTime -= prc->getTimeCounter();
 		WorkStealingProcesses++;
 		return prc;
 	}
@@ -153,10 +161,6 @@ void FCFS::EmptyProcessor() {
 	while (!RDY.isEmpty())
 	{
 		RDY.Remove(1, prc);
-		if (prc->ischild())
-		{
-			pScheduler->AddtoRDY(prc,3);
-		}
 		pScheduler->AddtoRDY(prc);
 	}
 
@@ -179,6 +183,7 @@ void FCFS::IncrementMigrationNumber()
 {
 	MigrationNumber++;
 }
+
 
 int FCFS::getMigrationNumber()
 {
@@ -203,18 +208,6 @@ int FCFS::getfinishtime() {
 	return ExpectedFinishTime;
 }
 
-int FCFS::getReadyWaitTime()
-{
-	Process* P;
-	int count = getRDYCount(), Wait = 0;
-	for (int i = 1; i <= count; i++)
-	{
-		P = RDY.getEntry(i);
-		Wait += P->getCPUTime();
-	}
-
-	return Wait;
-}
 
 string FCFS::getType()
 {

@@ -67,7 +67,7 @@ void Processor::OverHeat() {
 		}
 	}
 
-	if (State != "STOP") {
+	if (State != "STOP") {   
 		int randomNumber = generateRandomNumber1000();
 		if (randomNumber == 420 )
 		{
@@ -89,7 +89,7 @@ int Processor::getBusyTime()
 
 int Processor::getIdleTime()
 {
-	return BusyTime;
+	return IdleTime;
 }
 
 int Processor::WorkStealingProcesses=0;
