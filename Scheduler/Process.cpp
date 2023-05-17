@@ -10,6 +10,7 @@ Process::Process(int at, int pid, int ct,int deadline, int toi, IORequests ior[]
 	TimeCounter = ct;
 	isChild = 0;
 	isParent = 0;
+	ResponseTime = 0;
 	Child = nullptr;
 	IORequests* io;//temp variable to enqueue
 	for (int i = 0; i < toi; i++)
