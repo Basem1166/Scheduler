@@ -2,17 +2,17 @@
 
 Scheduler::Scheduler()
 {
-	Read();
-	OriginalProcessesCount = M;
+	Read(); //Read input file 
+	OriginalProcessesCount = M; 
 	Time = 0;
 	ProcessorCount = 0;
-	ProcessorsList = new Processor * [NF + NR + NS+ NE];
+	ProcessorsList = new Processor * [NF + NR + NS+ NE]; // declare processor list 
 	for (int i = 0; i < NF + NR + NS + NE; i++) {
 		ProcessorsList[i] = nullptr;
 	}
-	InitializeProcessors();
+	InitializeProcessors(); // create the specified processors from input file 
 	srand(time(NULL)); // seed the random number generator with the current time
-	BeforeDLCount = 0;
+	BeforeDLCount = 0; 
 	StolenProcesses = 0;
 
 }
@@ -88,7 +88,7 @@ void Scheduler::Read()
 
 void Scheduler::Execute() // not used in phase 1
 {
-	if (ProcessorCount==0)
+	if (ProcessorCount==0) // if no processors 
 	{
 		return;
 	}
@@ -124,20 +124,20 @@ void Scheduler::Execute() // not used in phase 1
 			}
 		}
 
-		for (int i = 0; i < ProcessorCount; i++)
+		for (int i = 0; i < ProcessorCount; i++) // Schedule Algo for all processors 
 		{
 			ProcessorsList[i]->ScheduleAlgo(Time);
 		}
 
-		CheckBLK();
+		CheckBLK(); //Check the BLK list to handle IOs 
 
-		if (Time%STL==0)
+		if (Time%STL==0) //Check to see if its a multiple of STL
 		{
-			WorkSteal();
+			WorkSteal(); // call the WorkSteal Function 
 		}
 		
 
-		if (mode == 3 && first)
+		if (mode == 3 && first) 
 		{
 			UWU.Interface(Time, ProcessorsList, ProcessorCount, &BLK, &TRM, mode);
 			first = false;
@@ -160,7 +160,7 @@ void Scheduler::Execute() // not used in phase 1
 
 
 	}
-	OutPut();
+	OutPut(); // call the output function 
 }   
 
 
@@ -275,7 +275,7 @@ void Scheduler::Simulate()
 void Scheduler::InitializeProcessors()
 {
 	Processor* P;
-	for (int i = 0; i < NR; i++)
+	for (int i = 0; i < NR; i++) // Initialize all processors using the numbers from the input file 
 	{
 	    P = new RR(this);
 		ProcessorsList[ProcessorCount] = P;
@@ -311,7 +311,7 @@ int Scheduler::getShortestFinishTime(int mode)
 	int c = -1;//index which min is at
 	for (int i = 0; i < ProcessorCount; i++)
 	{
-		if (ProcessorsList[i]->getState()=="STOP")
+		if (ProcessorsList[i]->getState()=="STOP") // if overheated continue 
 		{
 			continue;
 		}
@@ -351,7 +351,7 @@ int Scheduler::getLongestFinishTime() {
 	int max = -1; //minumum cputime
 	int c ;//index which min is at
 	for (int i = 0; i < ProcessorCount; i++) {
-		if (ProcessorsList[i]->getState() == "STOP")
+		if (ProcessorsList[i]->getState() == "STOP")//if overheated continue
 		{
 			continue;
 		}
@@ -364,12 +364,12 @@ int Scheduler::getLongestFinishTime() {
 }
 
 void Scheduler::AddtoRDY(Process* P, int mode) {
-	int c = getShortestFinishTime(mode);
+	int c = getShortestFinishTime(mode); // gets index of shortest processor
 	if (c == -1) {
-		AddtoTRM(P);
+		AddtoTRM(P); // if no processor to add to -> processor is overheated -> add to TRM 
 		return;
 	}
-	ProcessorsList[c]->AddToRDY(P);
+	ProcessorsList[c]->AddToRDY(P); // add to rdy of shortest expectedfinishtime
 	
 	
 }
@@ -430,51 +430,47 @@ bool Scheduler::Migrate(Process* P, int mode)
 //mode=1 -> orphan process
 void Scheduler::AddtoTRM(Process* P, int mode)
 {
-	if (Time < P->getDeadline())
+	if (Time < P->getDeadline()) 
 	{
-		BeforeDLCount++;
+		BeforeDLCount++; // if terminate time less than expected finish time add the stastic
 	}
-	TRM.enQueue(P);
+	TRM.enQueue(P); // add to TRM queue
 	if (mode)
 	{
-		P->setState("ORPH");
+		P->setState("ORPH"); // set state to orphan
 	}
 	else
 	{
-		P->setState("TRM");
+		P->setState("TRM"); // set state to TRM
 	}
-	CheckOrphan(P);
-	P->setTerminationT(Time);
+	CheckOrphan(P); // checks if the process had any children 
+	P->setTerminationT(Time); // sets the termination time of the process 
 
 }
 
 void Scheduler::AddtoBLK(Process* P)
 {
-	BLK.enQueue(P);
-	P->setState("BLK");
+	BLK.enQueue(P); // enqueue the BLK 
+	P->setState("BLK"); // sets state to BLK
 }
 
-void Scheduler::AddtoORPH(Process* P)
-{
-	ORPH.enQueue(P);
-	P->setState("ORPH");
-}
+
 
 void Scheduler::CheckBLK()
 {
 	Process* prc;
-	BLK.peek(prc);
+	BLK.peek(prc); // peeks the front of BLK
 
 	if (BLK.isEmpty())
 	{
-		return;
+		return; // checks if BLK is empty 
 	}
 
 	
-	if (prc->checkIORequestDurationTime())
+	if (prc->checkIORequestDurationTime()) // returns 1 if IODuration passed , 0 otherwise 
 	{
-		BLK.deQueue(prc);
-		AddtoRDY(prc);
+		BLK.deQueue(prc); //Remove from BLK	
+		AddtoRDY(prc);   // Add to Shortest RDY
 	}
 	
 	
@@ -483,14 +479,15 @@ void Scheduler::CheckBLK()
 
 
 }
-void Scheduler::CheckOrphan(Process* prc) {
+void Scheduler::CheckOrphan(Process* prc) // checks to see if the process is a parent so that it terminates children
+{
 	int Pid;
-	if (prc->isparent())
+	if (prc->isparent()) //checks if parent 
 	{
-		Pid=prc->getChildID();
+		Pid=prc->getChildID(); // gets the ID of Child 
 		for (int i = NR + NS; i < ProcessorCount; i++)
 		{
-			ProcessorsList[i]->TerminateProcess(Pid,1);
+			ProcessorsList[i]->TerminateProcess(Pid,1); //Kills the child if found 
 		}
 	}
 	
@@ -500,34 +497,34 @@ void Scheduler::CheckOrphan(Process* prc) {
 void Scheduler::WorkSteal()
 {
 	
-	int shortestIndex = getShortestFinishTime();
+	int shortestIndex = getShortestFinishTime(); //get index of shortest Processor
 	if (shortestIndex == -1)
-		return;   
-	int longestIndex = getLongestFinishTime();	
+		return;       // if =-1 means all are  overheated and does no workstealing 
+	int longestIndex = getLongestFinishTime();	 // get index of longest Processor
 	
-	if (ProcessorsList[longestIndex]->getfinishtime() == 0)
+	if (ProcessorsList[longestIndex]->getfinishtime() == 0) // if longest has no processes, does no work stealing 
 		return;
-		
+		// calculate steal limit
 		float StealLimit = (float)(ProcessorsList[longestIndex]->getfinishtime() - ProcessorsList[shortestIndex]->getfinishtime()) / ProcessorsList[longestIndex]->getfinishtime();
 		
  		while (StealLimit > 0.4)
 		{
-			Process* prc = ProcessorsList[longestIndex]->StealProcess();
+			Process* prc = ProcessorsList[longestIndex]->StealProcess(); //tell the longest Processor to dequeue a process and returns it 
 			if (prc)
 			{
-				ProcessorsList[shortestIndex]->AddToRDY(prc);
-				StolenProcesses++;
+				ProcessorsList[shortestIndex]->AddToRDY(prc); //adds to shortest RDY 
+				StolenProcesses++; //adds to statistics
 			}
 			else
 			{
-				break;
+				break; // if no process found in RDY
 			}
 
 			
-			if (ProcessorsList[longestIndex]->getfinishtime() == 0)
+			if (ProcessorsList[longestIndex]->getfinishtime() == 0) // if longest has no more processes 
 				return;
    			StealLimit = (float)(ProcessorsList[longestIndex]->getfinishtime() - ProcessorsList[shortestIndex]->getfinishtime()) / ProcessorsList[longestIndex]->getfinishtime();
-			
+			//recalculates the steal limit 
 		}
 	
 	
@@ -635,7 +632,8 @@ int Scheduler::getTotalBusyTime()
 
 
 Scheduler::~Scheduler()
-{
+{ 
+	//deletes all dynamically allocated memory
 	for (int i = 0; i < ProcessorCount; i++) {
 		delete ProcessorsList[i];
 	}
