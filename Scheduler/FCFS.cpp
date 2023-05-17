@@ -130,13 +130,13 @@ void FCFS::TerminateProcess(int pID,int mode)
 
 }
 
-Process* FCFS::StealProcess()
+Process* FCFS::StealProcess() // returns the process to be stolen 
 {
 	Process* prc = nullptr; 
-	prc = RDY.getEntry(1);
-	if (prc && !prc->ischild() )
+	prc = RDY.getEntry(1); // peeks the RDY
+	if (prc && !prc->ischild() ) // checks if it exists and not a child 
 	{
-		RDY.Remove(1, prc);
+		RDY.Remove(1, prc); 
 		ExpectedFinishTime -= prc->getTimeCounter();
 		WorkStealingProcesses++;
 		return prc;
