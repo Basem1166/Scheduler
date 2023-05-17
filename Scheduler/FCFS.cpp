@@ -62,7 +62,11 @@ void FCFS::ScheduleAlgo(int Time)
 			}
 		}
 		RunningProcess->setState("RUN");
-		RunningProcess->setRT(Time); 
+		if (RunningProcess->getRTCheck()) // to set RT first time it enters the RUN
+		{
+			RunningProcess->setRT(Time); //sets the Response time
+			RunningProcess->setRTCheck(false);
+		}
 		RunningProcess->getIORequests().peek(CurrentIO);
 
 	}

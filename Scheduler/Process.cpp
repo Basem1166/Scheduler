@@ -11,6 +11,7 @@ Process::Process(int at, int pid, int ct,int deadline, int toi, IORequests ior[]
 	isChild = 0;
 	isParent = 0;
 	Child = nullptr;
+	RTCheck = true;
 	IORequests* io;//temp variable to enqueue
 	for (int i = 0; i < toi; i++)
 	{
@@ -126,12 +127,19 @@ void Process::decrmntTimeCounter()
 	TimeCounter--;
 	
 }
+void Process::setRTCheck(bool T) {
+	RTCheck = T;
+}
 
 IORequests* Process::getIORequest()
 {
 	IORequests* iorptr;
 	IoRequests.peek(iorptr);
 	return iorptr;
+}
+
+bool Process::getRTCheck() {
+	return RTCheck;
 }
 
 void Process::RemoveIORequest()

@@ -38,7 +38,11 @@ void EDF::ScheduleAlgo(int Time)
 	{
 		RDY.deQueue(RunningProcess);
 		RunningProcess->setState("RUN");
-		RunningProcess->setRT(Time); //sets the Response time
+		if (RunningProcess->getRTCheck())// to set RT first time it enters the RUN
+		{
+			RunningProcess->setRT(Time); //sets the Response time
+			RunningProcess->setRTCheck(false);
+		}
 		RunningProcess->getIORequests().peek(CurrentIO);
 	}
 	if (!RunningProcess) {
