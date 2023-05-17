@@ -75,8 +75,8 @@ void FCFS::ScheduleAlgo(int Time)
 
 	
 	TempRandomNumber = generateRandomNumber(); //get a random number between 1 and 100
-	if (RunningProcess&&TempRandomNumber < FCFS::getForkProb()) {
-		pScheduler->Fork(RunningProcess);
+	if (RunningProcess&&TempRandomNumber < FCFS::getForkProb()) {  //checks if the random number is lower than the fork probability 
+		pScheduler->Fork(RunningProcess); // initiates Forking
 		}
 	if (!RunningProcess)
 	{
