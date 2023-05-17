@@ -22,7 +22,7 @@ private:
 	bool isParent;
 	Process* Child;
 	int Deadline;
-	
+	bool RTCheck;
 	//////////////////////////////////////////////////
 	Queue<IORequests*> IoRequests;// could be queue?
 	Queue<IORequests*> UsedIoRequests;
@@ -32,6 +32,7 @@ public:
 	Process(int at, int pid, int ct,int deadline, int toi, IORequests ior[]);
 	//Setters
 	void setState(string);
+	void setRTCheck(bool);
 	void setArrivalTime(int);
 	void setCPUTime(int);
 	void setTerminationT(int);
@@ -50,6 +51,7 @@ public:
 	int getChildID();
 	//Getters
 	int getProcessID();
+	bool getRTCheck();
 	int getArrivalTime();
 	int getCPUTime();
 	int getIO_D();
