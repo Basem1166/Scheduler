@@ -308,9 +308,13 @@ int Scheduler::getShortestFinishTime(int mode)
 {
 	
 	int min = INT_MAX; //minumum cputime
-	int c;//index which min is at
+	int c = -1;//index which min is at
 	for (int i = 0; i < ProcessorCount; i++)
 	{
+		if (ProcessorsList[i]->getState()=="STOP")
+		{
+			continue;
+		}
 
 		if (mode == 1)
 		{
@@ -345,7 +349,7 @@ int Scheduler::getShortestFinishTime(int mode)
 }
 int Scheduler::getLongestFinishTime() {
 	int max = -1; //minumum cputime
-	int c;//index which min is at
+	int c ;//index which min is at
 	for (int i = 0; i < ProcessorCount; i++) {
 		if (ProcessorsList[i]->getState() == "STOP")
 		{
@@ -360,9 +364,12 @@ int Scheduler::getLongestFinishTime() {
 }
 
 void Scheduler::AddtoRDY(Process* P, int mode) {
-
 	int c = getShortestFinishTime(mode);
-		ProcessorsList[c]->AddToRDY(P);
+	if (c == -1) {
+		AddtoTRM(P);
+		return;
+	}
+	ProcessorsList[c]->AddToRDY(P);
 	
 	
 }
@@ -492,7 +499,10 @@ void Scheduler::CheckOrphan(Process* prc) {
 }
 void Scheduler::WorkSteal()
 {
+	
 	int shortestIndex = getShortestFinishTime();
+	if (shortestIndex == -1)
+		return;   
 	int longestIndex = getLongestFinishTime();	
 	
 	if (ProcessorsList[longestIndex]->getfinishtime() == 0)

@@ -181,6 +181,7 @@ void FCFS::IncrementMigrationNumber()
 	MigrationNumber++;
 }
 
+
 int FCFS::getMigrationNumber()
 {
 	return MigrationNumber;
