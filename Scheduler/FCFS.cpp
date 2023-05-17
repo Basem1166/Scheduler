@@ -43,7 +43,8 @@ void FCFS::ScheduleAlgo(int Time)
 
 	}
 	int pID = pScheduler->SigKill();
-	while(pID!=-2){
+	while(pID!=-2) // to allow signal killing of 2 different processes at the same time
+	{
 		TerminateProcess(pID); //checks for sig kill  
 		pID = pScheduler->SigKill();
 	}

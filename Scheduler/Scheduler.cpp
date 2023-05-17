@@ -3,7 +3,7 @@
 Scheduler::Scheduler()
 {
 	Read(); //Read input file 
-	OriginalProcessesCount = M; 
+	OriginalProcessesCount = M; //Number of processes before foking
 	Time = 0;
 	ProcessorCount = 0;
 	ProcessorsList = new Processor * [NF + NR + NS+ NE]; // declare processor list 
