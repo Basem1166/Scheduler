@@ -41,7 +41,7 @@ void UI::Interface(int TimeStep, Processor** ProcessorList, int ProcessorCount, 
 			}
 		}
 
-		cout << RUNCount << " RUN: ";
+		cout << RUNCount << " RUN: "; //Running Count
 		bool first = true;
 		for (int i = 0; i < ProcessorCount; i++)
 		{
@@ -49,7 +49,7 @@ void UI::Interface(int TimeStep, Processor** ProcessorList, int ProcessorCount, 
 			{
 				if (first) {
 					ProcessorList[i]->PrintRunning();
-					cout << "(P" << i + 1 << ")";
+					cout << "(P" << i + 1 << ")"; //Prints processor number
 					first = false;
 					continue;
 				}
@@ -66,21 +66,21 @@ void UI::Interface(int TimeStep, Processor** ProcessorList, int ProcessorCount, 
 		TRM->Print();
 		cout << endl;
 
-		if (mode == 1)
+		if (mode == 1) //mode 1 is interactive mode so you have to press for the next timestep
 		{
 			system("pause");
 		}
-		else if (mode == 2)
+		else if (mode == 2) //mode 2 is step by step mode so it will wait one second to display the next time step
 		{
 			Sleep(1000);
 		}
 	}
-	else
+	else // mode 3 is the silent mode
 	{
 	
 		system("cls");
 
-		cout << "S";
+		cout << "S"; 
 		Sleep(50);
 		cout << "i";
 		Sleep(50);
@@ -164,7 +164,7 @@ void UI::Interface(int TimeStep, Processor** ProcessorList, int ProcessorCount, 
 
 }
 
-int UI::Mode()
+int UI::Mode() //this function gets called at the beggining to let the user choose the mode they like
 {
 	int mode = 0;
 
@@ -183,7 +183,7 @@ int UI::Mode()
 
 
 
-void UI::OutputFinished()
+void UI::OutputFinished() //gets called after the output file is created
 {
 	cout << "Simulation Ends, Output File Created" << endl;
 }
