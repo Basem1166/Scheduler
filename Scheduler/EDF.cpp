@@ -10,10 +10,10 @@ void EDF::ScheduleAlgo(int Time)
 	
 	IORequests* CurrentIO = nullptr; // TO BE ABLE TO PEAK/DEQUEUE FROM THE IO QUEUE
 	if (RunningProcess) {
-		RunningProcess->getIORequests().peek(CurrentIO);
+		RunningProcess->getIORequests().peek(CurrentIO); //get the first IO in the queue
 	}
 
-	if (RunningProcess != nullptr && CurrentIO && RunningProcess->getCPUTime() - RunningProcess->getTimeCounter() == CurrentIO->RequestTime)
+	if (RunningProcess != nullptr && CurrentIO && RunningProcess->getCPUTime() - RunningProcess->getTimeCounter() == CurrentIO->RequestTime)//checks if it ran for the IO_R to add it to BLK list
 	{
 		pScheduler->AddtoBLK(RunningProcess);
 		ExpectedFinishTime -= RunningProcess->getTimeCounter();
@@ -22,74 +22,50 @@ void EDF::ScheduleAlgo(int Time)
 	
 	if (RunningProcess && RunningProcess->getTimeCounter() == 0)  //Terminates process if its finishes processing
 	{
-		//RunningProcess->setTRT();
-
+	
 		pScheduler->AddtoTRM(RunningProcess);
 		RunningProcess = nullptr;
 
 	}
-	if (RunningProcess != nullptr && RunningProcess->getTimeCounter() != 0)  // assuming TimesOfIO is RequestTime
+	if (RunningProcess != nullptr && RunningProcess->getTimeCounter() != 0)  //Decrements the remaining time for process if it didnt finish its cpu time
 	{
 		RunningProcess->decrmntTimeCounter();
 		ExpectedFinishTime--;
 
 	}
 	
-	if (!RunningProcess && !RDY.isEmpty())
+	if (!RunningProcess && !RDY.isEmpty())//Adds new Process to RUN
 	{
 		RDY.deQueue(RunningProcess);
 		RunningProcess->setState("RUN");
-		RunningProcess->setRT(Time); //need to set arrival time in execute
+		RunningProcess->setRT(Time); //sets the Response time
 		RunningProcess->getIORequests().peek(CurrentIO);
 	}
 	if (!RunningProcess) {
-		IdleTime++;
+		IdleTime++; //Adds Idle time if there is no running process in the end of the algo
 	}
 	else {
-		BusyTime++;
+		BusyTime++; //Adds Busy time if a process is currently running in the end of the algo
 	}
 }
 
 void EDF::AddToRDY(Process* Prc)
 {
-	if (RunningProcess&&Prc->getDeadline() < RunningProcess->getDeadline()) {
-		RDY.enQueue(RunningProcess, RunningProcess->getDeadline());
+	if (RunningProcess&&Prc->getDeadline() < RunningProcess->getDeadline()) //Checks if deadline of new process is smaller than running process
+	{
+		RDY.enQueue(RunningProcess, RunningProcess->getDeadline());//new process is queued into run and the old one is requeued to the rdy
 		RunningProcess = Prc;
 		addfinishtime(Prc);
 	}
 	else {
 
-		RDY.enQueue(Prc, Prc->getDeadline());
+		RDY.enQueue(Prc, Prc->getDeadline()); // else proceed to enqueue normally
 		addfinishtime(Prc);
 	}
 }
 
 void EDF::Simulate()
 {
-	/**if (State == "IDLE" && !RDY.isEmpty()) {
-
-			RDY.deQueue(RunningProcess);
-			State = "BUSY";
-		}
-
-		if (!RunningProcess)
-			return;
-		int x = generateRandomNumber();
-		if (x >= 1 && x <= 15) {
-			pScheduler->AddtoBLK(RunningProcess);
-			State = "IDLE";
-			RunningProcess = nullptr;
-		}
-		else if (x >= 20 && x <= 30) {
-			AddToRDY(RunningProcess);
-			State = "IDLE";
-			RunningProcess = nullptr;
-		}
-		else if (x >= 50 && x <= 60) {
-			pScheduler->AddtoTRM(RunningProcess);
-			State = "IDLE";
-			RunningProcess = nullptr;
-		}*/
 }
 
 void EDF::TerminateProcess(int randomnumber, int mode)
@@ -104,7 +80,8 @@ Process* EDF::StealProcess()
 		ExpectedFinishTime -= prc->getTimeCounter();
 	return prc;
 }
-void EDF::EmptyProcessor() {
+void EDF::EmptyProcessor()
+{
 	if (RunningProcess)
 	{
 		pScheduler->AddtoRDY(RunningProcess);
@@ -119,14 +96,16 @@ void EDF::EmptyProcessor() {
 		pScheduler->AddtoRDY(prc);
 	}
 
-};
-string EDF::getState() {
+}
+//generic setter, getter and print functions 
+string EDF::getState()
+{
 
 	return State;
 
 }
 
-EDF::EDF(Scheduler* scheduler)
+EDF::EDF(Scheduler* scheduler) // constructor that sets the scheduler pointer and processor type
 {
 	pScheduler = scheduler;
 	Type = "EDF";
@@ -147,7 +126,8 @@ string EDF::getType()
 	return Type;
 }
 
-void EDF::addfinishtime(Process* Prc) {
+void EDF::addfinishtime(Process* Prc) // Changes expected finish time of the processor
+{
 	ExpectedFinishTime += (Prc->getTimeCounter());
 }
 

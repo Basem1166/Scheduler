@@ -24,20 +24,19 @@ void FCFS::ScheduleAlgo(int Time)
 	}
 	
 	
-	if (RunningProcess != nullptr && CurrentIO && RunningProcess->getCPUTime() - RunningProcess->getTimeCounter() == CurrentIO->RequestTime)
+	if (RunningProcess != nullptr && CurrentIO && RunningProcess->getCPUTime() - RunningProcess->getTimeCounter() == CurrentIO->RequestTime) //checks if it ran for the IO_R to add it to BLK list
 	{
 		pScheduler->AddtoBLK(RunningProcess);
 		ExpectedFinishTime -= RunningProcess->getTimeCounter();
 		RunningProcess = nullptr;
 	}
-	if (RunningProcess != nullptr && RunningProcess->getTimeCounter() != 0)  // assuming TimesOfIO is RequestTime
+	if (RunningProcess != nullptr && RunningProcess->getTimeCounter() != 0)   //Decrements the remaining time for process if it didnt finish its cpu time
 	{
 		RunningProcess->decrmntTimeCounter();
 		ExpectedFinishTime--;
 	}
-	if (RunningProcess && RunningProcess->getTimeCounter() == 0)  //Terminates process if its finishes processing
+	if (RunningProcess && RunningProcess->getTimeCounter() == 0)  //Terminates process if its finishes its cpu time
 	{
-		//RunningProcess->setTRT();
 
 		pScheduler->AddtoTRM(RunningProcess);
 		RunningProcess = nullptr;
@@ -63,7 +62,7 @@ void FCFS::ScheduleAlgo(int Time)
 			}
 		}
 		RunningProcess->setState("RUN");
-		RunningProcess->setRT(Time); //need to set arrival time in execute
+		RunningProcess->setRT(Time); 
 		RunningProcess->getIORequests().peek(CurrentIO);
 
 	}
@@ -74,11 +73,12 @@ void FCFS::ScheduleAlgo(int Time)
 	if (RunningProcess&&TempRandomNumber < FCFS::getForkProb()) {
 		pScheduler->Fork(RunningProcess);
 		}
-	if (!RunningProcess) {
-		IdleTime++;
+	if (!RunningProcess)
+	{
+		IdleTime++; //Adds Idle time if there is no running process in the end of the algo
 	}
 	else {
-		BusyTime++;
+		BusyTime++; //Adds Busy time if a process is currently running in the end of the algo
 	}
 	}
 
@@ -145,7 +145,7 @@ Process* FCFS::StealProcess()
 	
 }
 
-
+//generic setter, getter and print functions 
 
 void FCFS::setMaxW(int maxW)
 {
@@ -218,7 +218,7 @@ int FCFS::getKilledProcessesNumber()
 {
 	return KilledProcesses;
 }
-
+//Static data members for all FCFS Processors
 int FCFS::NumberOfProcesses = 0;
 int FCFS::MigrationNumber = 0;
 int FCFS::NumberOfMaxW;
