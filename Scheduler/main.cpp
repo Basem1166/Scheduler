@@ -10,7 +10,7 @@ int main()
 	Scheduler Schedule;
 	
 	Schedule.Execute();
-	
+	// :)
 
 	return 0;
 }
